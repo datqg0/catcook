@@ -1,0 +1,16 @@
+[Unit]
+Description=Cozy Midnight Diner 24/7 Interactive Stream Service
+After=network.target
+
+[Service]
+Type=simple
+User=ubuntu
+WorkingDirectory=/home/ubuntu/interactive-stream
+ExecStart=/bin/bash /home/ubuntu/interactive-stream/stream/start_stream_linux.sh
+Restart=always
+RestartSec=10
+StandardOutput=append:/home/ubuntu/interactive-stream/logs/stream.log
+StandardError=append:/home/ubuntu/interactive-stream/logs/stream_error.log
+
+[Install]
+WantedBy=multi-user.target

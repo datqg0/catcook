@@ -1,0 +1,25 @@
+{
+  "stream": {
+    "title": "Cozy Midnight Diner 24/7",
+    "canvas_width": 720,
+    "canvas_height": 1280,
+    "fps": 30,
+    "video_bitrate": "3500k",
+    "audio_bitrate": "128k",
+    "stream_key": "YOUR_YOUTUBE_STREAM_KEY_HERE"
+  },
+  "game": {
+    "diner_name": "Cozy Midnight Diner",
+    "initial_level": 27,
+    "idle_timeout_seconds": 4.0,
+    "simulate_viewers": true,
+    "simulation_interval_min": 12.0,
+    "simulation_interval_max": 28.0,
+    "music_volume": 0.55,
+    "sfx_volume": 0.70
+  },
+  "display": {
+    "window_scale": 0.75,
+    "resizable": true
+  }
+}
