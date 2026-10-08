@@ -117,7 +117,7 @@ class IceChillSparkle:
 
 
 class RainDrop:
-    def __init__(self, x_min=360, x_max=680, y_min=195, y_max=480):
+    def __init__(self, x_min=200, x_max=640, y_min=180, y_max=460):
         self.x_min = x_min
         self.x_max = x_max
         self.y_min = y_min
@@ -260,27 +260,23 @@ class ParticleManager:
             self.confetti.append(ConfettiPiece())
 
     def update(self, dt, current_cook_type=None, counter_dish_pos=None):
-        # Regular ambient steam from kitchen pot
+        # Regular ambient steam from kitchen pot and counter bowl
         self.steam_timer += dt
         if self.steam_timer > 0.12:
             self.steam_timer = 0.0
-            self.spawn_steam(520, 620)  # Copper pot on stove
+            # Soup pot on the left stove
+            self.spawn_steam(230, 530, size_range=(4, 9), color=(245, 235, 220))
+            self.broth_bubbles.append(BrothBubble(230, 595))
+            # Hot bowl on the wooden tray
+            self.spawn_steam(480, 620, size_range=(3, 7), color=(250, 245, 240))
 
-            # Custom cooking particle by dish type from chef's pan
+            # Custom cooking particle by dish type
             if current_cook_type in ["sizzle", "pan_toss", "deepfry"]:
-                self.spawn_steam(235, 520, size_range=(3, 7))
-                for _ in range(random.randint(1, 3)):
-                    self.sizzle_sparks.append(SizzleSpark(235, 520))
-            elif current_cook_type in ["simmer"]:
-                self.spawn_steam(280, 655, size_range=(4, 9), color=(245, 235, 220))
-                self.broth_bubbles.append(BrothBubble(280, 665))
-            elif current_cook_type in ["steam_basket"]:
-                self.spawn_steam(280, 640, size_range=(6, 12), color=(250, 250, 250))
+                for _ in range(random.randint(1, 2)):
+                    self.sizzle_sparks.append(SizzleSpark(230, 560))
             elif current_cook_type in ["drink_shake"]:
                 if random.random() < 0.6:
-                    self.ice_sparkles.append(IceChillSparkle(280, 650))
-            else:
-                self.spawn_steam(280, 655)
+                    self.ice_sparkles.append(IceChillSparkle(230, 560))
 
         # Gentle aroma steam from served counter dish
         if counter_dish_pos:

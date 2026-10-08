@@ -20,7 +20,7 @@ class CommandDispatcher:
         cmd = parts[0].lower()
         args = parts[1].strip() if len(parts) > 1 else ""
 
-        if cmd in ["!cook", "!order"]:
+        if cmd in ["!cook", "!order", "!nau"]:
             self.state.add_order(user, args)
         elif cmd in ["!yum", "!cheer", "!love", "!khen"]:
             self.state.cheer(user)
