@@ -50,6 +50,16 @@ class GameState:
         # Pre-seed initial state for demonstration
         self._seed_initial_demo()
 
+    @property
+    def is_serving(self):
+        """
+        True only during the 3.8s presentation window immediately after cooking finishes.
+        While cooking is in progress, is_serving is False, keeping the counter tray empty.
+        """
+        return self.last_served_dish is not None and (
+            (getattr(self, "elapsed_total", 0.0) - getattr(self, "serve_timestamp", -999.0)) < 3.8
+        )
+
     def _seed_initial_demo(self):
         # Initial dish
         self.start_cooking("ramen", "@Sarah")
@@ -225,7 +235,7 @@ class GameState:
         self.last_served_dish = dish
         self.serve_timestamp = getattr(self, "elapsed_total", 0.0)
         self.add_exp(dish["xp"])
-        self.add_chat("Chef", f"🍲 Served hot {dish['name']} for {dish['user']}!", COLOR_TEXT_GOLD)
+        self.add_chat("Chef", f"Served hot {dish['name']} for {dish['user']}!", COLOR_TEXT_GOLD)
         
         # Reward coins to the ordering user in leaderboard
         user = dish["user"]

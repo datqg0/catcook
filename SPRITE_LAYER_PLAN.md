@@ -51,7 +51,7 @@ graph TD
 
 | Danh Mục Món | Các Món Ăn Cụ Thể | `cook_type` | Action Sprite | Frames & Tốc Độ | Thời Gian Nấu | Mô Tả Trực Quan |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| **Món Pha Chế** | Boba Milk Tea, Latte | `drink_shake` | `bartender` | **16 frames @ 3.6 FPS (4.4s/cycle)** | **30s – 32s** | Mèo lắc bình shaker điệu nghệ sủi bọt đá mát lạnh, 16 frames siêu mượt nhịp nhàng, khóa anchor 0px jitter |
+| **Món Pha Chế** | Boba Milk Tea, Latte | `drink_shake` | `bartender` | **16 frames @ 5.2 FPS (3.0s/cycle)** | **30s – 32s** | Tay mèo và cốc nước rung rung nhịp nhàng sống động, vệt sóng tốc độ anime, tia bọt đá sủi bọt, khóa anchor 0px jitter |
 | **Món Nướng Bánh Lò Đá** | Pepperoni Pizza, Belgian Waffles, Strawberry Donut | `bake` | `bake` | **4 frames @ 4.0 FPS (1.0s/cycle)** | **30s – 42s** | Mèo đeo găng lò nướng đỏ, cầm xẻng gỗ nướng pizza phô mai tan chảy & bánh vàng óng bốc khói thơm lừng |
 | **Món Nhanh / Tráng Miệng** | Hotdog, Pancakes, Dumplings | `sizzle`, `pan_toss`, `steam_basket` | `stir`, `toss` | 4 frames @ 4.0 - 4.5 FPS | **33s – 36s** | Canh xửng hấp, lật pancake & nướng nhanh |
 | **Món Cắt Thái & Cuộn** | Salmon Sushi | `slice` | `chop` | 4 frames @ 4.5 FPS | **36s** | Mèo cầm dao thái sashimi điêu luyện nhịp nhàng trên thớt gỗ |
@@ -80,11 +80,12 @@ graph TD
 - [x] **Mèo Khuấy Nồi (`stir/frame_0..4.png`):** Tinh chỉnh còn 5 frames chọn lọc (loại bỏ các frame 0, 1, 7 theo yêu cầu), giữ các frame chuyển động khuấy mượt nhất, khóa cứng anchor cơ thể 0px jitter, tốc độ 5.0 FPS (1.0s/chu kỳ).
 - [x] **Mèo Lắc Chảo (`toss/frame_0..3.png`):** Cầm chảo hất đồ ăn tung lên không trung.
 - [x] **Mèo Cắt Thái (`chop/frame_0..3.png`):** Dao thái nhịp nhàng trên thớt gỗ.
-- [x] **Mèo Bartender Pha Chế Nâng Cấp 16 Frames Chậm Rãi, Thư Thái & Siêu Mượt (`bartender/frame_0..15.png`):** 
-  - Nâng cấp gấp đôi từ 8 frames lên chu kỳ 16 frames cao cấp (344×768 RGBA).
-  - Tinh chỉnh tốc độ nhịp nhàng, điềm tĩnh: hạ từ `fps = 5.0` xuống `fps = 3.6` (278ms/frame trong engine, 260ms trong GIF, chu kỳ lặp ~4.4s hoàn chỉnh), hoàn toàn loại bỏ cảm giác rung lắc vội vã, tạo phong thái barista điềm tĩnh, thư thái đúng chất lofi cafe.
+- [x] **Mèo Bartender Pha Chế Nâng Cấp: Tay Mèo & Cốc Nước Rung Rung (`bartender/frame_0..15.png`):** 
+  - Tái tạo chu kỳ 16 frames hoạt hình sống động: tay mèo ôm chắc cốc lắc/bình shaker rung rung liên hồi (rung lắc nhịp nhàng, có sóng tốc độ anime, vệt mờ ghost trails, bọt đá tuyết bung tỏa và sao lấp lánh).
+  - Tốc độ hoàn hảo trong game: `fps = 5.2` (chu kỳ lặp ~3.0s), tạo cảm giác barista lành nghề đang tích cực lắc đồ uống.
   - **Khóa anchor tuyệt đối 0px Jitter:** Khóa chính xác tọa độ chóp mũi mèo tại `(222, 302)` xuyên suốt toàn bộ 16 frame.
-  - Tách nền sạch 100%, khử bóng mờ chuyển đổi biểu cảm mắt (facial ghosting elimination), bình shaker bạc sáng bóng cùng hiệu ứng bọt tuyết sữa/đá bung nở mềm mại.
+- [x] **Khay Gỗ Phục Vụ:** Lúc đang nấu thì bàn khay trống 100% không hiện món ăn (`is_serving = False`), chỉ khi nấu xong và bước vào trạng thái phục vụ (`is_serving = True`), món ăn bốc khói nghi ngút mới xuất hiện trên khay gỗ.
+- [x] **Nâng Cấp Font Chữ & Phối Màu UI:** Tăng kích cỡ font chữ trên toàn bộ 4 card (Tiêu đề 20 bold, Body 17 bold, Chat User 16 bold, Chat Text 15 bold, Subtext 15 bold, Badge 14 bold), phối màu sắc nét tương phản cao, triệt tiêu 100% lỗi ô vuông ký tự lạ trong chat.
 - [x] **Mèo Nướng Bánh Lò Đá (`bake/frame_0..3.png`):**
   - Hoạt ảnh 4 frame chuyên biệt dành riêng cho các món bánh (`bake`): Pepperoni Pizza, Belgian Waffles, Strawberry Donut.
   - Mèo đầu bếp đeo găng tay lò nướng đỏ hai chân nâng xẻng bánh gỗ (baker's peel), trên khay là bánh pizza phô mai tan chảy và bánh mì vàng óng.

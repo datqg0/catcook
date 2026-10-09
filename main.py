@@ -179,7 +179,7 @@ def main():
         # Update game state & particles
         cook_type = state.current_dish.get("cook_type", "sizzle") if state.current_dish else None
         state.update(dt)
-        counter_pos = (553, 715) if (state.current_dish or state.last_served_dish) else None
+        counter_pos = (553, 715) if state.is_serving else None
         particles.update(dt, current_cook_type=cook_type, counter_dish_pos=counter_pos)
 
         # Audio cooking sizzle loop management

@@ -1,1233 +1,749 @@
 {
-  "frames": {
-    "chef_idle_0": {
-      "frame": {
-        "x": 0,
-        "y": 0,
-        "w": 344,
-        "h": 768
-      },
-      "rotated": false,
-      "trimmed": false,
-      "spriteSourceSize": {
-        "x": 0,
-        "y": 0,
-        "w": 344,
-        "h": 768
-      },
-      "sourceSize": {
-        "w": 344,
-        "h": 768
-      }
-    },
-    "chef_idle_1": {
-      "frame": {
-        "x": 344,
-        "y": 0,
-        "w": 344,
-        "h": 768
-      },
-      "rotated": false,
-      "trimmed": false,
-      "spriteSourceSize": {
-        "x": 0,
-        "y": 0,
-        "w": 344,
-        "h": 768
-      },
-      "sourceSize": {
-        "w": 344,
-        "h": 768
-      }
-    },
-    "chef_idle_2": {
-      "frame": {
-        "x": 688,
-        "y": 0,
-        "w": 344,
-        "h": 768
-      },
-      "rotated": false,
-      "trimmed": false,
-      "spriteSourceSize": {
-        "x": 0,
-        "y": 0,
-        "w": 344,
-        "h": 768
-      },
-      "sourceSize": {
-        "w": 344,
-        "h": 768
-      }
-    },
-    "chef_idle_3": {
-      "frame": {
-        "x": 1032,
-        "y": 0,
-        "w": 344,
-        "h": 768
-      },
-      "rotated": false,
-      "trimmed": false,
-      "spriteSourceSize": {
-        "x": 0,
-        "y": 0,
-        "w": 344,
-        "h": 768
-      },
-      "sourceSize": {
-        "w": 344,
-        "h": 768
-      }
-    },
-    "chef_walk_0": {
-      "frame": {
-        "x": 0,
-        "y": 768,
-        "w": 344,
-        "h": 768
-      },
-      "rotated": false,
-      "trimmed": false,
-      "spriteSourceSize": {
-        "x": 0,
-        "y": 0,
-        "w": 344,
-        "h": 768
-      },
-      "sourceSize": {
-        "w": 344,
-        "h": 768
-      }
-    },
-    "chef_walk_1": {
-      "frame": {
-        "x": 344,
-        "y": 768,
-        "w": 344,
-        "h": 768
-      },
-      "rotated": false,
-      "trimmed": false,
-      "spriteSourceSize": {
-        "x": 0,
-        "y": 0,
-        "w": 344,
-        "h": 768
-      },
-      "sourceSize": {
-        "w": 344,
-        "h": 768
-      }
-    },
-    "chef_walk_2": {
-      "frame": {
-        "x": 688,
-        "y": 768,
-        "w": 344,
-        "h": 768
-      },
-      "rotated": false,
-      "trimmed": false,
-      "spriteSourceSize": {
-        "x": 0,
-        "y": 0,
-        "w": 344,
-        "h": 768
-      },
-      "sourceSize": {
-        "w": 344,
-        "h": 768
-      }
-    },
-    "chef_walk_3": {
-      "frame": {
-        "x": 1032,
-        "y": 768,
-        "w": 344,
-        "h": 768
-      },
-      "rotated": false,
-      "trimmed": false,
-      "spriteSourceSize": {
-        "x": 0,
-        "y": 0,
-        "w": 344,
-        "h": 768
-      },
-      "sourceSize": {
-        "w": 344,
-        "h": 768
-      }
-    },
-    "chef_run_0": {
-      "frame": {
-        "x": 0,
-        "y": 1536,
-        "w": 344,
-        "h": 768
-      },
-      "rotated": false,
-      "trimmed": false,
-      "spriteSourceSize": {
-        "x": 0,
-        "y": 0,
-        "w": 344,
-        "h": 768
-      },
-      "sourceSize": {
-        "w": 344,
-        "h": 768
-      }
-    },
-    "chef_run_1": {
-      "frame": {
-        "x": 344,
-        "y": 1536,
-        "w": 344,
-        "h": 768
-      },
-      "rotated": false,
-      "trimmed": false,
-      "spriteSourceSize": {
-        "x": 0,
-        "y": 0,
-        "w": 344,
-        "h": 768
-      },
-      "sourceSize": {
-        "w": 344,
-        "h": 768
-      }
-    },
-    "chef_run_2": {
-      "frame": {
-        "x": 688,
-        "y": 1536,
-        "w": 344,
-        "h": 768
-      },
-      "rotated": false,
-      "trimmed": false,
-      "spriteSourceSize": {
-        "x": 0,
-        "y": 0,
-        "w": 344,
-        "h": 768
-      },
-      "sourceSize": {
-        "w": 344,
-        "h": 768
-      }
-    },
-    "chef_run_3": {
-      "frame": {
-        "x": 1032,
-        "y": 1536,
-        "w": 344,
-        "h": 768
-      },
-      "rotated": false,
-      "trimmed": false,
-      "spriteSourceSize": {
-        "x": 0,
-        "y": 0,
-        "w": 344,
-        "h": 768
-      },
-      "sourceSize": {
-        "w": 344,
-        "h": 768
-      }
-    },
-    "chef_jump_0": {
-      "frame": {
-        "x": 0,
-        "y": 2304,
-        "w": 344,
-        "h": 768
-      },
-      "rotated": false,
-      "trimmed": false,
-      "spriteSourceSize": {
-        "x": 0,
-        "y": 0,
-        "w": 344,
-        "h": 768
-      },
-      "sourceSize": {
-        "w": 344,
-        "h": 768
-      }
-    },
-    "chef_jump_1": {
-      "frame": {
-        "x": 344,
-        "y": 2304,
-        "w": 344,
-        "h": 768
-      },
-      "rotated": false,
-      "trimmed": false,
-      "spriteSourceSize": {
-        "x": 0,
-        "y": 0,
-        "w": 344,
-        "h": 768
-      },
-      "sourceSize": {
-        "w": 344,
-        "h": 768
-      }
-    },
-    "chef_jump_2": {
-      "frame": {
-        "x": 688,
-        "y": 2304,
-        "w": 344,
-        "h": 768
-      },
-      "rotated": false,
-      "trimmed": false,
-      "spriteSourceSize": {
-        "x": 0,
-        "y": 0,
-        "w": 344,
-        "h": 768
-      },
-      "sourceSize": {
-        "w": 344,
-        "h": 768
-      }
-    },
-    "chef_jump_3": {
-      "frame": {
-        "x": 1032,
-        "y": 2304,
-        "w": 344,
-        "h": 768
-      },
-      "rotated": false,
-      "trimmed": false,
-      "spriteSourceSize": {
-        "x": 0,
-        "y": 0,
-        "w": 344,
-        "h": 768
-      },
-      "sourceSize": {
-        "w": 344,
-        "h": 768
-      }
-    },
-    "chef_attack_0": {
-      "frame": {
-        "x": 0,
-        "y": 3072,
-        "w": 344,
-        "h": 768
-      },
-      "rotated": false,
-      "trimmed": false,
-      "spriteSourceSize": {
-        "x": 0,
-        "y": 0,
-        "w": 344,
-        "h": 768
-      },
-      "sourceSize": {
-        "w": 344,
-        "h": 768
-      }
-    },
-    "chef_attack_1": {
-      "frame": {
-        "x": 344,
-        "y": 3072,
-        "w": 344,
-        "h": 768
-      },
-      "rotated": false,
-      "trimmed": false,
-      "spriteSourceSize": {
-        "x": 0,
-        "y": 0,
-        "w": 344,
-        "h": 768
-      },
-      "sourceSize": {
-        "w": 344,
-        "h": 768
-      }
-    },
-    "chef_attack_2": {
-      "frame": {
-        "x": 688,
-        "y": 3072,
-        "w": 344,
-        "h": 768
-      },
-      "rotated": false,
-      "trimmed": false,
-      "spriteSourceSize": {
-        "x": 0,
-        "y": 0,
-        "w": 344,
-        "h": 768
-      },
-      "sourceSize": {
-        "w": 344,
-        "h": 768
-      }
-    },
-    "chef_attack_3": {
-      "frame": {
-        "x": 1032,
-        "y": 3072,
-        "w": 344,
-        "h": 768
-      },
-      "rotated": false,
-      "trimmed": false,
-      "spriteSourceSize": {
-        "x": 0,
-        "y": 0,
-        "w": 344,
-        "h": 768
-      },
-      "sourceSize": {
-        "w": 344,
-        "h": 768
-      }
-    },
-    "chef_toss_0": {
-      "frame": {
-        "x": 0,
-        "y": 3840,
-        "w": 344,
-        "h": 768
-      },
-      "rotated": false,
-      "trimmed": false,
-      "spriteSourceSize": {
-        "x": 0,
-        "y": 0,
-        "w": 344,
-        "h": 768
-      },
-      "sourceSize": {
-        "w": 344,
-        "h": 768
-      }
-    },
-    "chef_toss_1": {
-      "frame": {
-        "x": 344,
-        "y": 3840,
-        "w": 344,
-        "h": 768
-      },
-      "rotated": false,
-      "trimmed": false,
-      "spriteSourceSize": {
-        "x": 0,
-        "y": 0,
-        "w": 344,
-        "h": 768
-      },
-      "sourceSize": {
-        "w": 344,
-        "h": 768
-      }
-    },
-    "chef_toss_2": {
-      "frame": {
-        "x": 688,
-        "y": 3840,
-        "w": 344,
-        "h": 768
-      },
-      "rotated": false,
-      "trimmed": false,
-      "spriteSourceSize": {
-        "x": 0,
-        "y": 0,
-        "w": 344,
-        "h": 768
-      },
-      "sourceSize": {
-        "w": 344,
-        "h": 768
-      }
-    },
-    "chef_toss_3": {
-      "frame": {
-        "x": 1032,
-        "y": 3840,
-        "w": 344,
-        "h": 768
-      },
-      "rotated": false,
-      "trimmed": false,
-      "spriteSourceSize": {
-        "x": 0,
-        "y": 0,
-        "w": 344,
-        "h": 768
-      },
-      "sourceSize": {
-        "w": 344,
-        "h": 768
-      }
-    },
-    "chef_chop_0": {
-      "frame": {
-        "x": 0,
-        "y": 5376,
-        "w": 344,
-        "h": 768
-      },
-      "rotated": false,
-      "trimmed": false,
-      "spriteSourceSize": {
-        "x": 0,
-        "y": 0,
-        "w": 344,
-        "h": 768
-      },
-      "sourceSize": {
-        "w": 344,
-        "h": 768
-      }
-    },
-    "chef_chop_1": {
-      "frame": {
-        "x": 344,
-        "y": 5376,
-        "w": 344,
-        "h": 768
-      },
-      "rotated": false,
-      "trimmed": false,
-      "spriteSourceSize": {
-        "x": 0,
-        "y": 0,
-        "w": 344,
-        "h": 768
-      },
-      "sourceSize": {
-        "w": 344,
-        "h": 768
-      }
-    },
-    "chef_chop_2": {
-      "frame": {
-        "x": 688,
-        "y": 5376,
-        "w": 344,
-        "h": 768
-      },
-      "rotated": false,
-      "trimmed": false,
-      "spriteSourceSize": {
-        "x": 0,
-        "y": 0,
-        "w": 344,
-        "h": 768
-      },
-      "sourceSize": {
-        "w": 344,
-        "h": 768
-      }
-    },
-    "chef_chop_3": {
-      "frame": {
-        "x": 1032,
-        "y": 5376,
-        "w": 344,
-        "h": 768
-      },
-      "rotated": false,
-      "trimmed": false,
-      "spriteSourceSize": {
-        "x": 0,
-        "y": 0,
-        "w": 344,
-        "h": 768
-      },
-      "sourceSize": {
-        "w": 344,
-        "h": 768
-      }
-    },
-    "chef_cheer_0": {
-      "frame": {
-        "x": 0,
-        "y": 6144,
-        "w": 344,
-        "h": 768
-      },
-      "rotated": false,
-      "trimmed": false,
-      "spriteSourceSize": {
-        "x": 0,
-        "y": 0,
-        "w": 344,
-        "h": 768
-      },
-      "sourceSize": {
-        "w": 344,
-        "h": 768
-      }
-    },
-    "chef_cheer_1": {
-      "frame": {
-        "x": 344,
-        "y": 6144,
-        "w": 344,
-        "h": 768
-      },
-      "rotated": false,
-      "trimmed": false,
-      "spriteSourceSize": {
-        "x": 0,
-        "y": 0,
-        "w": 344,
-        "h": 768
-      },
-      "sourceSize": {
-        "w": 344,
-        "h": 768
-      }
-    },
-    "chef_cheer_2": {
-      "frame": {
-        "x": 688,
-        "y": 6144,
-        "w": 344,
-        "h": 768
-      },
-      "rotated": false,
-      "trimmed": false,
-      "spriteSourceSize": {
-        "x": 0,
-        "y": 0,
-        "w": 344,
-        "h": 768
-      },
-      "sourceSize": {
-        "w": 344,
-        "h": 768
-      }
-    },
-    "chef_cheer_3": {
-      "frame": {
-        "x": 1032,
-        "y": 6144,
-        "w": 344,
-        "h": 768
-      },
-      "rotated": false,
-      "trimmed": false,
-      "spriteSourceSize": {
-        "x": 0,
-        "y": 0,
-        "w": 344,
-        "h": 768
-      },
-      "sourceSize": {
-        "w": 344,
-        "h": 768
-      }
-    },
-    "chef_stir_0": {
-      "frame": {
-        "x": 0,
-        "y": 4608,
-        "w": 344,
-        "h": 768
-      },
-      "rotated": false,
-      "trimmed": false,
-      "spriteSourceSize": {
-        "x": 0,
-        "y": 0,
-        "w": 344,
-        "h": 768
-      },
-      "sourceSize": {
-        "w": 344,
-        "h": 768
-      }
-    },
-    "chef_stir_1": {
-      "frame": {
-        "x": 344,
-        "y": 4608,
-        "w": 344,
-        "h": 768
-      },
-      "rotated": false,
-      "trimmed": false,
-      "spriteSourceSize": {
-        "x": 0,
-        "y": 0,
-        "w": 344,
-        "h": 768
-      },
-      "sourceSize": {
-        "w": 344,
-        "h": 768
-      }
-    },
-    "chef_stir_2": {
-      "frame": {
-        "x": 688,
-        "y": 4608,
-        "w": 344,
-        "h": 768
-      },
-      "rotated": false,
-      "trimmed": false,
-      "spriteSourceSize": {
-        "x": 0,
-        "y": 0,
-        "w": 344,
-        "h": 768
-      },
-      "sourceSize": {
-        "w": 344,
-        "h": 768
-      }
-    },
-    "chef_stir_3": {
-      "frame": {
-        "x": 1032,
-        "y": 4608,
-        "w": 344,
-        "h": 768
-      },
-      "rotated": false,
-      "trimmed": false,
-      "spriteSourceSize": {
-        "x": 0,
-        "y": 0,
-        "w": 344,
-        "h": 768
-      },
-      "sourceSize": {
-        "w": 344,
-        "h": 768
-      }
-    },
-    "chef_stir_4": {
-      "frame": {
-        "x": 1376,
-        "y": 4608,
-        "w": 344,
-        "h": 768
-      },
-      "rotated": false,
-      "trimmed": false,
-      "spriteSourceSize": {
-        "x": 0,
-        "y": 0,
-        "w": 344,
-        "h": 768
-      },
-      "sourceSize": {
-        "w": 344,
-        "h": 768
-      }
-    },
-    "chef_bake_0": {
-      "frame": {
-        "x": 0,
-        "y": 8448,
-        "w": 344,
-        "h": 768
-      },
-      "rotated": false,
-      "trimmed": false,
-      "spriteSourceSize": {
-        "x": 0,
-        "y": 0,
-        "w": 344,
-        "h": 768
-      },
-      "sourceSize": {
-        "w": 344,
-        "h": 768
-      }
-    },
-    "chef_bake_1": {
-      "frame": {
-        "x": 344,
-        "y": 8448,
-        "w": 344,
-        "h": 768
-      },
-      "rotated": false,
-      "trimmed": false,
-      "spriteSourceSize": {
-        "x": 0,
-        "y": 0,
-        "w": 344,
-        "h": 768
-      },
-      "sourceSize": {
-        "w": 344,
-        "h": 768
-      }
-    },
-    "chef_bake_2": {
-      "frame": {
-        "x": 688,
-        "y": 8448,
-        "w": 344,
-        "h": 768
-      },
-      "rotated": false,
-      "trimmed": false,
-      "spriteSourceSize": {
-        "x": 0,
-        "y": 0,
-        "w": 344,
-        "h": 768
-      },
-      "sourceSize": {
-        "w": 344,
-        "h": 768
-      }
-    },
-    "chef_bake_3": {
-      "frame": {
-        "x": 1032,
-        "y": 8448,
-        "w": 344,
-        "h": 768
-      },
-      "rotated": false,
-      "trimmed": false,
-      "spriteSourceSize": {
-        "x": 0,
-        "y": 0,
-        "w": 344,
-        "h": 768
-      },
-      "sourceSize": {
-        "w": 344,
-        "h": 768
-      }
-    },
-    "chef_serve_0": {
-      "frame": {
-        "x": 0,
-        "y": 9216,
-        "w": 344,
-        "h": 768
-      },
-      "rotated": false,
-      "trimmed": false,
-      "spriteSourceSize": {
-        "x": 0,
-        "y": 0,
-        "w": 344,
-        "h": 768
-      },
-      "sourceSize": {
-        "w": 344,
-        "h": 768
-      }
-    },
-    "chef_serve_1": {
-      "frame": {
-        "x": 344,
-        "y": 9216,
-        "w": 344,
-        "h": 768
-      },
-      "rotated": false,
-      "trimmed": false,
-      "spriteSourceSize": {
-        "x": 0,
-        "y": 0,
-        "w": 344,
-        "h": 768
-      },
-      "sourceSize": {
-        "w": 344,
-        "h": 768
-      }
-    },
-    "chef_serve_2": {
-      "frame": {
-        "x": 688,
-        "y": 9216,
-        "w": 344,
-        "h": 768
-      },
-      "rotated": false,
-      "trimmed": false,
-      "spriteSourceSize": {
-        "x": 0,
-        "y": 0,
-        "w": 344,
-        "h": 768
-      },
-      "sourceSize": {
-        "w": 344,
-        "h": 768
-      }
-    },
-    "chef_serve_3": {
-      "frame": {
-        "x": 1032,
-        "y": 9216,
-        "w": 344,
-        "h": 768
-      },
-      "rotated": false,
-      "trimmed": false,
-      "spriteSourceSize": {
-        "x": 0,
-        "y": 0,
-        "w": 344,
-        "h": 768
-      },
-      "sourceSize": {
-        "w": 344,
-        "h": 768
-      }
-    },
-    "chef_bartender_0": {
-      "frame": {
-        "x": 0,
-        "y": 6912,
-        "w": 344,
-        "h": 768
-      },
-      "rotated": false,
-      "trimmed": false,
-      "spriteSourceSize": {
-        "x": 0,
-        "y": 0,
-        "w": 344,
-        "h": 768
-      },
-      "sourceSize": {
-        "w": 344,
-        "h": 768
-      }
-    },
-    "chef_bartender_1": {
-      "frame": {
-        "x": 344,
-        "y": 6912,
-        "w": 344,
-        "h": 768
-      },
-      "rotated": false,
-      "trimmed": false,
-      "spriteSourceSize": {
-        "x": 0,
-        "y": 0,
-        "w": 344,
-        "h": 768
-      },
-      "sourceSize": {
-        "w": 344,
-        "h": 768
-      }
-    },
-    "chef_bartender_2": {
-      "frame": {
-        "x": 688,
-        "y": 6912,
-        "w": 344,
-        "h": 768
-      },
-      "rotated": false,
-      "trimmed": false,
-      "spriteSourceSize": {
-        "x": 0,
-        "y": 0,
-        "w": 344,
-        "h": 768
-      },
-      "sourceSize": {
-        "w": 344,
-        "h": 768
-      }
-    },
-    "chef_bartender_3": {
-      "frame": {
-        "x": 1032,
-        "y": 6912,
-        "w": 344,
-        "h": 768
-      },
-      "rotated": false,
-      "trimmed": false,
-      "spriteSourceSize": {
-        "x": 0,
-        "y": 0,
-        "w": 344,
-        "h": 768
-      },
-      "sourceSize": {
-        "w": 344,
-        "h": 768
-      }
-    },
-    "chef_bartender_4": {
-      "frame": {
-        "x": 1376,
-        "y": 6912,
-        "w": 344,
-        "h": 768
-      },
-      "rotated": false,
-      "trimmed": false,
-      "spriteSourceSize": {
-        "x": 0,
-        "y": 0,
-        "w": 344,
-        "h": 768
-      },
-      "sourceSize": {
-        "w": 344,
-        "h": 768
-      }
-    },
-    "chef_bartender_5": {
-      "frame": {
-        "x": 1720,
-        "y": 6912,
-        "w": 344,
-        "h": 768
-      },
-      "rotated": false,
-      "trimmed": false,
-      "spriteSourceSize": {
-        "x": 0,
-        "y": 0,
-        "w": 344,
-        "h": 768
-      },
-      "sourceSize": {
-        "w": 344,
-        "h": 768
-      }
-    },
-    "chef_bartender_6": {
-      "frame": {
-        "x": 2064,
-        "y": 6912,
-        "w": 344,
-        "h": 768
-      },
-      "rotated": false,
-      "trimmed": false,
-      "spriteSourceSize": {
-        "x": 0,
-        "y": 0,
-        "w": 344,
-        "h": 768
-      },
-      "sourceSize": {
-        "w": 344,
-        "h": 768
-      }
-    },
-    "chef_bartender_7": {
-      "frame": {
-        "x": 2408,
-        "y": 6912,
-        "w": 344,
-        "h": 768
-      },
-      "rotated": false,
-      "trimmed": false,
-      "spriteSourceSize": {
-        "x": 0,
-        "y": 0,
-        "w": 344,
-        "h": 768
-      },
-      "sourceSize": {
-        "w": 344,
-        "h": 768
-      }
-    },
-    "chef_bartender_8": {
-      "frame": {
-        "x": 0,
-        "y": 7680,
-        "w": 344,
-        "h": 768
-      },
-      "rotated": false,
-      "trimmed": false,
-      "spriteSourceSize": {
-        "x": 0,
-        "y": 0,
-        "w": 344,
-        "h": 768
-      },
-      "sourceSize": {
-        "w": 344,
-        "h": 768
-      }
-    },
-    "chef_bartender_9": {
-      "frame": {
-        "x": 344,
-        "y": 7680,
-        "w": 344,
-        "h": 768
-      },
-      "rotated": false,
-      "trimmed": false,
-      "spriteSourceSize": {
-        "x": 0,
-        "y": 0,
-        "w": 344,
-        "h": 768
-      },
-      "sourceSize": {
-        "w": 344,
-        "h": 768
-      }
-    },
-    "chef_bartender_10": {
-      "frame": {
-        "x": 688,
-        "y": 7680,
-        "w": 344,
-        "h": 768
-      },
-      "rotated": false,
-      "trimmed": false,
-      "spriteSourceSize": {
-        "x": 0,
-        "y": 0,
-        "w": 344,
-        "h": 768
-      },
-      "sourceSize": {
-        "w": 344,
-        "h": 768
-      }
-    },
-    "chef_bartender_11": {
-      "frame": {
-        "x": 1032,
-        "y": 7680,
-        "w": 344,
-        "h": 768
-      },
-      "rotated": false,
-      "trimmed": false,
-      "spriteSourceSize": {
-        "x": 0,
-        "y": 0,
-        "w": 344,
-        "h": 768
-      },
-      "sourceSize": {
-        "w": 344,
-        "h": 768
-      }
-    },
-    "chef_bartender_12": {
-      "frame": {
-        "x": 1376,
-        "y": 7680,
-        "w": 344,
-        "h": 768
-      },
-      "rotated": false,
-      "trimmed": false,
-      "spriteSourceSize": {
-        "x": 0,
-        "y": 0,
-        "w": 344,
-        "h": 768
-      },
-      "sourceSize": {
-        "w": 344,
-        "h": 768
-      }
-    },
-    "chef_bartender_13": {
-      "frame": {
-        "x": 1720,
-        "y": 7680,
-        "w": 344,
-        "h": 768
-      },
-      "rotated": false,
-      "trimmed": false,
-      "spriteSourceSize": {
-        "x": 0,
-        "y": 0,
-        "w": 344,
-        "h": 768
-      },
-      "sourceSize": {
-        "w": 344,
-        "h": 768
-      }
-    },
-    "chef_bartender_14": {
-      "frame": {
-        "x": 2064,
-        "y": 7680,
-        "w": 344,
-        "h": 768
-      },
-      "rotated": false,
-      "trimmed": false,
-      "spriteSourceSize": {
-        "x": 0,
-        "y": 0,
-        "w": 344,
-        "h": 768
-      },
-      "sourceSize": {
-        "w": 344,
-        "h": 768
-      }
-    },
-    "chef_bartender_15": {
-      "frame": {
-        "x": 2408,
-        "y": 7680,
-        "w": 344,
-        "h": 768
-      },
-      "rotated": false,
-      "trimmed": false,
-      "spriteSourceSize": {
-        "x": 0,
-        "y": 0,
-        "w": 344,
-        "h": 768
-      },
-      "sourceSize": {
-        "w": 344,
-        "h": 768
-      }
-    }
-  },
   "meta": {
     "image": "chef_master_spritesheet.png",
-    "format": "RGBA8888",
     "size": {
       "w": 2752,
       "h": 9984
     },
-    "scale": "1"
+    "frame_width": 344,
+    "frame_height": 768,
+    "anchor": {
+      "x": 222,
+      "y": 302
+    }
+  },
+  "frames": {
+    "idle_0": {
+      "frame": {
+        "x": 0,
+        "y": 0,
+        "w": 344,
+        "h": 768
+      },
+      "anchor": {
+        "x": 222,
+        "y": 302
+      }
+    },
+    "idle_1": {
+      "frame": {
+        "x": 344,
+        "y": 0,
+        "w": 344,
+        "h": 768
+      },
+      "anchor": {
+        "x": 222,
+        "y": 302
+      }
+    },
+    "idle_2": {
+      "frame": {
+        "x": 688,
+        "y": 0,
+        "w": 344,
+        "h": 768
+      },
+      "anchor": {
+        "x": 222,
+        "y": 302
+      }
+    },
+    "idle_3": {
+      "frame": {
+        "x": 1032,
+        "y": 0,
+        "w": 344,
+        "h": 768
+      },
+      "anchor": {
+        "x": 222,
+        "y": 302
+      }
+    },
+    "walk_0": {
+      "frame": {
+        "x": 0,
+        "y": 768,
+        "w": 344,
+        "h": 768
+      },
+      "anchor": {
+        "x": 222,
+        "y": 302
+      }
+    },
+    "walk_1": {
+      "frame": {
+        "x": 344,
+        "y": 768,
+        "w": 344,
+        "h": 768
+      },
+      "anchor": {
+        "x": 222,
+        "y": 302
+      }
+    },
+    "walk_2": {
+      "frame": {
+        "x": 688,
+        "y": 768,
+        "w": 344,
+        "h": 768
+      },
+      "anchor": {
+        "x": 222,
+        "y": 302
+      }
+    },
+    "walk_3": {
+      "frame": {
+        "x": 1032,
+        "y": 768,
+        "w": 344,
+        "h": 768
+      },
+      "anchor": {
+        "x": 222,
+        "y": 302
+      }
+    },
+    "run_0": {
+      "frame": {
+        "x": 0,
+        "y": 1536,
+        "w": 344,
+        "h": 768
+      },
+      "anchor": {
+        "x": 222,
+        "y": 302
+      }
+    },
+    "run_1": {
+      "frame": {
+        "x": 344,
+        "y": 1536,
+        "w": 344,
+        "h": 768
+      },
+      "anchor": {
+        "x": 222,
+        "y": 302
+      }
+    },
+    "run_2": {
+      "frame": {
+        "x": 688,
+        "y": 1536,
+        "w": 344,
+        "h": 768
+      },
+      "anchor": {
+        "x": 222,
+        "y": 302
+      }
+    },
+    "run_3": {
+      "frame": {
+        "x": 1032,
+        "y": 1536,
+        "w": 344,
+        "h": 768
+      },
+      "anchor": {
+        "x": 222,
+        "y": 302
+      }
+    },
+    "jump_0": {
+      "frame": {
+        "x": 0,
+        "y": 2304,
+        "w": 344,
+        "h": 768
+      },
+      "anchor": {
+        "x": 222,
+        "y": 302
+      }
+    },
+    "jump_1": {
+      "frame": {
+        "x": 344,
+        "y": 2304,
+        "w": 344,
+        "h": 768
+      },
+      "anchor": {
+        "x": 222,
+        "y": 302
+      }
+    },
+    "jump_2": {
+      "frame": {
+        "x": 688,
+        "y": 2304,
+        "w": 344,
+        "h": 768
+      },
+      "anchor": {
+        "x": 222,
+        "y": 302
+      }
+    },
+    "jump_3": {
+      "frame": {
+        "x": 1032,
+        "y": 2304,
+        "w": 344,
+        "h": 768
+      },
+      "anchor": {
+        "x": 222,
+        "y": 302
+      }
+    },
+    "attack_0": {
+      "frame": {
+        "x": 0,
+        "y": 3072,
+        "w": 344,
+        "h": 768
+      },
+      "anchor": {
+        "x": 222,
+        "y": 302
+      }
+    },
+    "attack_1": {
+      "frame": {
+        "x": 344,
+        "y": 3072,
+        "w": 344,
+        "h": 768
+      },
+      "anchor": {
+        "x": 222,
+        "y": 302
+      }
+    },
+    "attack_2": {
+      "frame": {
+        "x": 688,
+        "y": 3072,
+        "w": 344,
+        "h": 768
+      },
+      "anchor": {
+        "x": 222,
+        "y": 302
+      }
+    },
+    "attack_3": {
+      "frame": {
+        "x": 1032,
+        "y": 3072,
+        "w": 344,
+        "h": 768
+      },
+      "anchor": {
+        "x": 222,
+        "y": 302
+      }
+    },
+    "toss_0": {
+      "frame": {
+        "x": 0,
+        "y": 3840,
+        "w": 344,
+        "h": 768
+      },
+      "anchor": {
+        "x": 222,
+        "y": 302
+      }
+    },
+    "toss_1": {
+      "frame": {
+        "x": 344,
+        "y": 3840,
+        "w": 344,
+        "h": 768
+      },
+      "anchor": {
+        "x": 222,
+        "y": 302
+      }
+    },
+    "toss_2": {
+      "frame": {
+        "x": 688,
+        "y": 3840,
+        "w": 344,
+        "h": 768
+      },
+      "anchor": {
+        "x": 222,
+        "y": 302
+      }
+    },
+    "toss_3": {
+      "frame": {
+        "x": 1032,
+        "y": 3840,
+        "w": 344,
+        "h": 768
+      },
+      "anchor": {
+        "x": 222,
+        "y": 302
+      }
+    },
+    "stir_0": {
+      "frame": {
+        "x": 0,
+        "y": 4608,
+        "w": 344,
+        "h": 768
+      },
+      "anchor": {
+        "x": 222,
+        "y": 302
+      }
+    },
+    "stir_1": {
+      "frame": {
+        "x": 344,
+        "y": 4608,
+        "w": 344,
+        "h": 768
+      },
+      "anchor": {
+        "x": 222,
+        "y": 302
+      }
+    },
+    "stir_2": {
+      "frame": {
+        "x": 688,
+        "y": 4608,
+        "w": 344,
+        "h": 768
+      },
+      "anchor": {
+        "x": 222,
+        "y": 302
+      }
+    },
+    "stir_3": {
+      "frame": {
+        "x": 1032,
+        "y": 4608,
+        "w": 344,
+        "h": 768
+      },
+      "anchor": {
+        "x": 222,
+        "y": 302
+      }
+    },
+    "stir_4": {
+      "frame": {
+        "x": 1376,
+        "y": 4608,
+        "w": 344,
+        "h": 768
+      },
+      "anchor": {
+        "x": 222,
+        "y": 302
+      }
+    },
+    "chop_0": {
+      "frame": {
+        "x": 0,
+        "y": 5376,
+        "w": 344,
+        "h": 768
+      },
+      "anchor": {
+        "x": 222,
+        "y": 302
+      }
+    },
+    "chop_1": {
+      "frame": {
+        "x": 344,
+        "y": 5376,
+        "w": 344,
+        "h": 768
+      },
+      "anchor": {
+        "x": 222,
+        "y": 302
+      }
+    },
+    "chop_2": {
+      "frame": {
+        "x": 688,
+        "y": 5376,
+        "w": 344,
+        "h": 768
+      },
+      "anchor": {
+        "x": 222,
+        "y": 302
+      }
+    },
+    "chop_3": {
+      "frame": {
+        "x": 1032,
+        "y": 5376,
+        "w": 344,
+        "h": 768
+      },
+      "anchor": {
+        "x": 222,
+        "y": 302
+      }
+    },
+    "cheer_0": {
+      "frame": {
+        "x": 0,
+        "y": 6144,
+        "w": 344,
+        "h": 768
+      },
+      "anchor": {
+        "x": 222,
+        "y": 302
+      }
+    },
+    "cheer_1": {
+      "frame": {
+        "x": 344,
+        "y": 6144,
+        "w": 344,
+        "h": 768
+      },
+      "anchor": {
+        "x": 222,
+        "y": 302
+      }
+    },
+    "cheer_2": {
+      "frame": {
+        "x": 688,
+        "y": 6144,
+        "w": 344,
+        "h": 768
+      },
+      "anchor": {
+        "x": 222,
+        "y": 302
+      }
+    },
+    "cheer_3": {
+      "frame": {
+        "x": 1032,
+        "y": 6144,
+        "w": 344,
+        "h": 768
+      },
+      "anchor": {
+        "x": 222,
+        "y": 302
+      }
+    },
+    "bartender_0": {
+      "frame": {
+        "x": 0,
+        "y": 6912,
+        "w": 344,
+        "h": 768
+      },
+      "anchor": {
+        "x": 222,
+        "y": 302
+      }
+    },
+    "bartender_1": {
+      "frame": {
+        "x": 344,
+        "y": 6912,
+        "w": 344,
+        "h": 768
+      },
+      "anchor": {
+        "x": 222,
+        "y": 302
+      }
+    },
+    "bartender_2": {
+      "frame": {
+        "x": 688,
+        "y": 6912,
+        "w": 344,
+        "h": 768
+      },
+      "anchor": {
+        "x": 222,
+        "y": 302
+      }
+    },
+    "bartender_3": {
+      "frame": {
+        "x": 1032,
+        "y": 6912,
+        "w": 344,
+        "h": 768
+      },
+      "anchor": {
+        "x": 222,
+        "y": 302
+      }
+    },
+    "bartender_4": {
+      "frame": {
+        "x": 1376,
+        "y": 6912,
+        "w": 344,
+        "h": 768
+      },
+      "anchor": {
+        "x": 222,
+        "y": 302
+      }
+    },
+    "bartender_5": {
+      "frame": {
+        "x": 1720,
+        "y": 6912,
+        "w": 344,
+        "h": 768
+      },
+      "anchor": {
+        "x": 222,
+        "y": 302
+      }
+    },
+    "bartender_6": {
+      "frame": {
+        "x": 2064,
+        "y": 6912,
+        "w": 344,
+        "h": 768
+      },
+      "anchor": {
+        "x": 222,
+        "y": 302
+      }
+    },
+    "bartender_7": {
+      "frame": {
+        "x": 2408,
+        "y": 6912,
+        "w": 344,
+        "h": 768
+      },
+      "anchor": {
+        "x": 222,
+        "y": 302
+      }
+    },
+    "bartender_8": {
+      "frame": {
+        "x": 0,
+        "y": 7680,
+        "w": 344,
+        "h": 768
+      },
+      "anchor": {
+        "x": 222,
+        "y": 302
+      }
+    },
+    "bartender_9": {
+      "frame": {
+        "x": 344,
+        "y": 7680,
+        "w": 344,
+        "h": 768
+      },
+      "anchor": {
+        "x": 222,
+        "y": 302
+      }
+    },
+    "bartender_10": {
+      "frame": {
+        "x": 688,
+        "y": 7680,
+        "w": 344,
+        "h": 768
+      },
+      "anchor": {
+        "x": 222,
+        "y": 302
+      }
+    },
+    "bartender_11": {
+      "frame": {
+        "x": 1032,
+        "y": 7680,
+        "w": 344,
+        "h": 768
+      },
+      "anchor": {
+        "x": 222,
+        "y": 302
+      }
+    },
+    "bartender_12": {
+      "frame": {
+        "x": 1376,
+        "y": 7680,
+        "w": 344,
+        "h": 768
+      },
+      "anchor": {
+        "x": 222,
+        "y": 302
+      }
+    },
+    "bartender_13": {
+      "frame": {
+        "x": 1720,
+        "y": 7680,
+        "w": 344,
+        "h": 768
+      },
+      "anchor": {
+        "x": 222,
+        "y": 302
+      }
+    },
+    "bartender_14": {
+      "frame": {
+        "x": 2064,
+        "y": 7680,
+        "w": 344,
+        "h": 768
+      },
+      "anchor": {
+        "x": 222,
+        "y": 302
+      }
+    },
+    "bartender_15": {
+      "frame": {
+        "x": 2408,
+        "y": 7680,
+        "w": 344,
+        "h": 768
+      },
+      "anchor": {
+        "x": 222,
+        "y": 302
+      }
+    },
+    "bake_0": {
+      "frame": {
+        "x": 0,
+        "y": 8448,
+        "w": 344,
+        "h": 768
+      },
+      "anchor": {
+        "x": 222,
+        "y": 302
+      }
+    },
+    "bake_1": {
+      "frame": {
+        "x": 344,
+        "y": 8448,
+        "w": 344,
+        "h": 768
+      },
+      "anchor": {
+        "x": 222,
+        "y": 302
+      }
+    },
+    "bake_2": {
+      "frame": {
+        "x": 688,
+        "y": 8448,
+        "w": 344,
+        "h": 768
+      },
+      "anchor": {
+        "x": 222,
+        "y": 302
+      }
+    },
+    "bake_3": {
+      "frame": {
+        "x": 1032,
+        "y": 8448,
+        "w": 344,
+        "h": 768
+      },
+      "anchor": {
+        "x": 222,
+        "y": 302
+      }
+    },
+    "serve_0": {
+      "frame": {
+        "x": 0,
+        "y": 9216,
+        "w": 344,
+        "h": 768
+      },
+      "anchor": {
+        "x": 222,
+        "y": 302
+      }
+    },
+    "serve_1": {
+      "frame": {
+        "x": 344,
+        "y": 9216,
+        "w": 344,
+        "h": 768
+      },
+      "anchor": {
+        "x": 222,
+        "y": 302
+      }
+    },
+    "serve_2": {
+      "frame": {
+        "x": 688,
+        "y": 9216,
+        "w": 344,
+        "h": 768
+      },
+      "anchor": {
+        "x": 222,
+        "y": 302
+      }
+    },
+    "serve_3": {
+      "frame": {
+        "x": 1032,
+        "y": 9216,
+        "w": 344,
+        "h": 768
+      },
+      "anchor": {
+        "x": 222,
+        "y": 302
+      }
+    }
   }
 }

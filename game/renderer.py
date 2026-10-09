@@ -74,16 +74,16 @@ class DinerRenderer:
                 chosen = fam
                 break
 
-        self.font_title = pygame.font.SysFont(chosen, 20, bold=True)
-        self.font_cmd_primary = pygame.font.SysFont(chosen, 20, bold=True)
-        self.font_cmd_sub = pygame.font.SysFont(chosen, 14, bold=True)
-        self.font_header = pygame.font.SysFont(chosen, 17, bold=True)
-        self.font_body = pygame.font.SysFont(chosen, 15, bold=True)
-        self.font_chat_user = pygame.font.SysFont(chosen, 14, bold=True)
-        self.font_chat_text = pygame.font.SysFont(chosen, 14)
-        self.font_subtext = pygame.font.SysFont(chosen, 14, bold=False)
-        self.font_badge = pygame.font.SysFont(chosen, 13, bold=True)
-        self.font_tiny = pygame.font.SysFont(chosen, 13, bold=True)
+        self.font_title = pygame.font.SysFont(chosen, 22, bold=True)
+        self.font_cmd_primary = pygame.font.SysFont(chosen, 21, bold=True)
+        self.font_cmd_sub = pygame.font.SysFont(chosen, 15, bold=True)
+        self.font_header = pygame.font.SysFont(chosen, 20, bold=True)
+        self.font_body = pygame.font.SysFont(chosen, 17, bold=True)
+        self.font_chat_user = pygame.font.SysFont(chosen, 16, bold=True)
+        self.font_chat_text = pygame.font.SysFont(chosen, 15, bold=True)
+        self.font_subtext = pygame.font.SysFont(chosen, 15, bold=True)
+        self.font_badge = pygame.font.SysFont(chosen, 14, bold=True)
+        self.font_tiny = pygame.font.SysFont(chosen, 14, bold=True)
 
     def _load_assets(self):
         has_display = pygame.display.get_surface() is not None
@@ -260,7 +260,7 @@ class DinerRenderer:
         """
         current_time = getattr(state, "elapsed_total", self.anim_timer)
         is_donated = (current_time - getattr(state, "last_donate_timestamp", -999.0)) < 3.5
-        is_serving = state.last_served_dish is not None and ((current_time - getattr(state, "serve_timestamp", -999.0)) < 3.2)
+        is_serving = getattr(state, "is_serving", False) or (state.last_served_dish is not None and ((current_time - getattr(state, "serve_timestamp", -999.0)) < 3.8))
         is_cooking = state.current_dish is not None
         cook_type = state.current_dish.get("cook_type", "simmer") if state.current_dish else None
 
@@ -275,7 +275,7 @@ class DinerRenderer:
         elif is_cooking:
             if cook_type in ["drink_shake", "bartender", "brew", "shake"]:
                 action = "bartender"
-                fps = 3.6
+                fps = 5.2
                 pos = (200, 200)
             elif cook_type in ["bake", "oven", "baker", "pastry"]:
                 action = "bake"
@@ -309,10 +309,18 @@ class DinerRenderer:
 
     def _render_counter_dish(self, surface, state):
         """
-        Renders the active or served dish plated on the wooden serving tray (Layer 5).
-        Optimized for all 16 dishes: Ramen, Pizza, Burger, Sushi, Pancakes, Boba, etc.
+        Renders the completed dish plated on the wooden serving tray (Layer 5).
+        LÚC ĐANG NẤU THÌ BÀN TRỐNG (Table remains empty while cooking).
+        Only plated when state.is_serving is True (dish has just been served)!
         """
-        dish = state.current_dish or state.last_served_dish
+        is_serving = getattr(state, "is_serving", False) or (
+            state.last_served_dish is not None and
+            ((getattr(state, "elapsed_total", self.anim_timer) - getattr(state, "serve_timestamp", -999.0)) < 3.8)
+        )
+        if not is_serving:
+            return
+
+        dish = state.last_served_dish
         if not dish:
             return
 
@@ -333,13 +341,13 @@ class DinerRenderer:
         # Plated dish tag badge (sized comfortably for larger font)
         d_name = dish["name"] if len(dish["name"]) <= 18 else dish["name"][:16] + ".."
         tw, _ = self.font_tiny.size(d_name)
-        tag_w = max(148, tw + 22)
-        tag_bg = pygame.Surface((tag_w, 26), pygame.SRCALPHA)
-        pygame.draw.rect(tag_bg, (18, 14, 12, 235), (0, 0, tag_w, 26), border_radius=5)
-        pygame.draw.rect(tag_bg, COLOR_BORDER_AMBER, (0, 0, tag_w, 26), 1, border_radius=5)
+        tag_w = max(152, tw + 24)
+        tag_bg = pygame.Surface((tag_w, 28), pygame.SRCALPHA)
+        pygame.draw.rect(tag_bg, (18, 14, 12, 235), (0, 0, tag_w, 28), border_radius=6)
+        pygame.draw.rect(tag_bg, COLOR_BORDER_AMBER, (0, 0, tag_w, 28), 1, border_radius=6)
         surface.blit(tag_bg, (counter_x - tag_w // 2, counter_y + 42))
         self.draw_text(surface, d_name, self.font_tiny, COLOR_TEXT_GOLD,
-                       (counter_x - tw // 2, counter_y + 46), shadow=False)
+                       (counter_x - tw // 2, counter_y + 47), shadow=False)
 
     def _render_header(self, surface, state, dt):
         """
@@ -354,13 +362,13 @@ class DinerRenderer:
         dish = state.current_dish
         bowl_icon = self.ui_icons.get("bowl")
         if bowl_icon:
-            surface.blit(bowl_icon, (34, 844))
+            surface.blit(bowl_icon, (34, 842))
 
-        self.draw_text(surface, "COOKING:", self.font_header, COLOR_TEXT_GOLD, (68, 846))
+        self.draw_text(surface, "COOKING:", self.font_header, COLOR_TEXT_GOLD, (68, 844))
 
         if dish:
-            w1, _ = self.draw_text(surface, f"{dish['name']} for ", self.font_body, COLOR_TEXT_MAIN, (68, 874))
-            self.draw_text(surface, dish["user"], self.font_body, COLOR_TEXT_PINK, (68 + w1, 874))
+            w1, _ = self.draw_text(surface, f"{dish['name']} for ", self.font_body, COLOR_TEXT_MAIN, (36, 876))
+            self.draw_text(surface, dish["user"], self.font_body, COLOR_TEXT_PINK, (36 + w1, 876))
 
             # Progress Bar
             prog = dish["progress"]
@@ -372,10 +380,10 @@ class DinerRenderer:
             pygame.draw.rect(surface, COLOR_BORDER_AMBER, (bar_x, bar_y, bar_w, bar_h), 1, border_radius=4)
 
             fill_w = int((bar_w - 4) * prog)
-            bar_color = dish.get("theme_color", (234, 107, 42))
+            bar_color = dish.get("theme_color", (245, 110, 25))
             if fill_w > 0:
                 pygame.draw.rect(surface, bar_color, (bar_x + 2, bar_y + 2, fill_w, bar_h - 4), border_radius=3)
-                pygame.draw.rect(surface, (255, 185, 90), (bar_x + 2, bar_y + 2, fill_w, 3), border_radius=1)
+                pygame.draw.rect(surface, (255, 195, 100), (bar_x + 2, bar_y + 2, fill_w, 3), border_radius=1)
 
                 # Light sweep
                 self.sweep_pos = (self.sweep_pos + dt * 170) % max(1, bar_w)
@@ -385,16 +393,19 @@ class DinerRenderer:
                     surface.blit(sweep_surf, (bar_x + 2 + int(self.sweep_pos), bar_y + 2))
 
             pct_str = f"{int(prog * 100)}%"
-            self.draw_text(surface, pct_str, self.font_header, COLOR_TEXT_MAIN, (bar_x + bar_w + 10, bar_y + 2))
+            self.draw_text(surface, pct_str, self.font_header, COLOR_TEXT_MAIN, (bar_x + bar_w + 10, bar_y + 1))
 
-            # Step description
-            step_clean = dish["current_step"].replace("✦ ", "* ")
+            # Step description (truncated cleanly to fit card width)
+            step_clean = dish["current_step"].replace("✦ ", "").replace("* ", "").strip()
+            max_step_chars = 32
+            if len(step_clean) > max_step_chars:
+                step_clean = step_clean[:max_step_chars - 3].rstrip() + "..."
             sparkle_icon = self.ui_icons.get("sparkle")
             if sparkle_icon:
                 surface.blit(pygame.transform.scale(sparkle_icon, (16, 16)), (36, 946))
-                self.draw_text(surface, step_clean.lstrip("* "), self.font_subtext, (255, 235, 180), (58, 944))
+                self.draw_text(surface, step_clean, self.font_subtext, (255, 235, 150), (58, 944))
             else:
-                self.draw_text(surface, step_clean, self.font_subtext, (255, 235, 180), (36, 944))
+                self.draw_text(surface, step_clean, self.font_subtext, (255, 235, 150), (36, 944))
 
             # Compliment count badge
             if dish.get("compliments", 0) > 0:
@@ -407,63 +418,77 @@ class DinerRenderer:
         """Card 2 (Top Right): Order queue list with PENDING status."""
         clip_icon = self.ui_icons.get("clipboard")
         if clip_icon:
-            surface.blit(clip_icon, (436, 844))
-        self.draw_text(surface, "ORDER QUEUE", self.font_header, COLOR_TEXT_GOLD, (466, 846))
+            surface.blit(clip_icon, (436, 842))
+        self.draw_text(surface, "ORDER QUEUE", self.font_header, COLOR_TEXT_GOLD, (466, 844))
 
         start_y = 876
         for i in range(3):
             y = start_y + i * 28
             if i < len(state.order_queue):
                 item = state.order_queue[i]
-                self.draw_text(surface, f"{i+1}. {item['user']}", self.font_body, (100, 175, 255), (436, y))
-                self.draw_text(surface, "PENDING", self.font_badge, COLOR_TEXT_CYAN, (618, y + 2))
+                self.draw_text(surface, f"{i+1}. {item['user']}", self.font_body, (120, 215, 255), (436, y))
+                self.draw_text(surface, "PENDING", self.font_badge, COLOR_TEXT_CYAN, (614, y + 2))
             else:
-                self.draw_text(surface, f"{i+1}. ---", self.font_chat_text, (90, 85, 80), (436, y))
+                self.draw_text(surface, f"{i+1}. ---", self.font_body, (120, 115, 110), (436, y))
 
-        self.draw_text(surface, f"QUEUE SIZE: {len(state.order_queue)}", self.font_badge, (200, 160, 120), (436, 964))
+        self.draw_text(surface, f"QUEUE SIZE: {len(state.order_queue)}", self.font_badge, (255, 195, 140), (436, 964))
 
     def _render_card_chat(self, surface, state):
         """Card 3 (Bottom Left): Live chat messages with user-colored tags."""
         chat_icon = self.ui_icons.get("chat")
         if chat_icon:
-            surface.blit(chat_icon, (34, 1010))
-        self.draw_text(surface, "LIVE CHAT", self.font_header, COLOR_TEXT_CYAN, (64, 1012))
+            surface.blit(chat_icon, (34, 1008))
+        self.draw_text(surface, "LIVE CHAT", self.font_header, COLOR_TEXT_CYAN, (64, 1010))
 
         heart_icon = self.ui_icons.get("heart")
         if heart_icon:
-            surface.blit(pygame.transform.scale(heart_icon, (16, 16)), (375, 1012))
+            surface.blit(pygame.transform.scale(heart_icon, (16, 16)), (375, 1010))
 
-        start_y = 1042
+        start_y = 1040
         line_spacing = 30
         for i, msg in enumerate(state.recent_chats[-5:]):
             y = start_y + i * line_spacing
             u_str = f"{msg['user']}: "
             w, _ = self.draw_text(surface, u_str, self.font_chat_user, msg["color"], (36, y))
-            clean_text = msg["text"].replace("🍳", "").replace("💖", "♥").replace("❤️", "♥").replace("✨", "*")
+            clean_text = (msg["text"]
+                          .replace("🍳", "")
+                          .replace("💖", "♥")
+                          .replace("❤️", "♥")
+                          .replace("✨", "*")
+                          .replace("🍲", "")
+                          .replace("🎉", "*")
+                          .replace("★", "")
+                          .strip())
+            # Truncate if chat line exceeds card width
+            avail_w = 345 - w
+            if avail_w > 50 and self.font_chat_text.size(clean_text)[0] > avail_w:
+                while len(clean_text) > 4 and self.font_chat_text.size(clean_text + "..")[0] > avail_w:
+                    clean_text = clean_text[:-1]
+                clean_text += ".."
             self.draw_text(surface, clean_text, self.font_chat_text, COLOR_TEXT_MAIN, (36 + w, y))
 
     def _render_card_leaderboard(self, surface, state):
         """Card 4 (Bottom Right): Leaderboard ranking with coins."""
         trophy_icon = self.ui_icons.get("trophy")
         if trophy_icon:
-            surface.blit(pygame.transform.scale(trophy_icon, (20, 20)), (436, 1010))
-        self.draw_text(surface, "TODAY'S TOP CHEFS", self.font_header, COLOR_TEXT_GOLD, (464, 1012))
+            surface.blit(pygame.transform.scale(trophy_icon, (20, 20)), (436, 1008))
+        self.draw_text(surface, "TODAY'S TOP CHEFS", self.font_header, COLOR_TEXT_GOLD, (464, 1010))
 
         coin_img = self.ui_icons.get("coin")
         coin_scaled = pygame.transform.scale(coin_img, (18, 18)) if coin_img else None
 
-        start_y = 1050
-        row_spacing = 44
-        rank_colors = [COLOR_TEXT_GOLD, (215, 220, 230), (220, 150, 100)]
+        start_y = 1048
+        row_spacing = 42
+        rank_colors = [COLOR_TEXT_GOLD, (230, 235, 245), (240, 165, 110)]
         for i, item in enumerate(state.leaderboard[:3]):
             y = start_y + i * row_spacing
             rc = rank_colors[i] if i < len(rank_colors) else COLOR_TEXT_MAIN
             self.draw_text(surface, f"{i+1}.", self.font_header, rc, (436, y))
-            self.draw_text(surface, item["user"], self.font_body, COLOR_TEXT_MAIN, (464, y))
+            self.draw_text(surface, item["user"], self.font_body, COLOR_TEXT_MAIN, (466, y + 1))
 
             if coin_scaled:
-                surface.blit(coin_scaled, (604, y + 2))
-            self.draw_text(surface, str(item["coins"]), self.font_badge, COLOR_TEXT_GOLD, (628, y + 3))
+                surface.blit(coin_scaled, (596, y + 2))
+            self.draw_text(surface, str(item["coins"]), self.font_header, COLOR_TEXT_GOLD, (622, y + 1))
 
     def _render_chat_input(self, surface, input_state):
         prompt_rect = (36, 1190, 648, 52)
