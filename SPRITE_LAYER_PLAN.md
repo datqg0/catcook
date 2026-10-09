@@ -80,8 +80,9 @@ graph TD
 - [x] **Mèo Khuấy Nồi (`stir/frame_0..4.png`):** Tinh chỉnh còn 5 frames chọn lọc (loại bỏ các frame 0, 1, 7 theo yêu cầu), giữ các frame chuyển động khuấy mượt nhất, khóa cứng anchor cơ thể 0px jitter, tốc độ 5.0 FPS (1.0s/chu kỳ).
 - [x] **Mèo Lắc Chảo (`toss/frame_0..3.png`):** Cầm chảo hất đồ ăn tung lên không trung.
 - [x] **Mèo Cắt Thái (`chop/frame_0..3.png`):** Dao thái nhịp nhàng trên thớt gỗ.
-- [x] **Mèo Bartender Pha Chế Nâng Cấp: Tay Mèo & Cốc Nước Rung Rung (`bartender/frame_0..15.png`):** 
-  - Tái tạo chu kỳ 16 frames hoạt hình sống động: tay mèo ôm chắc cốc lắc/bình shaker rung rung liên hồi (rung lắc nhịp nhàng, có sóng tốc độ anime, vệt mờ ghost trails, bọt đá tuyết bung tỏa và sao lấp lánh).
+- [x] **Mèo Bartender Pha Chế Nâng Cấp: Chai Chuyển Động Thực Sự & Không Bóng Mờ (`bartender/frame_0..15.png`):** 
+  - Loại bỏ hoàn toàn 100% hiệu ứng bóng mờ (ghost blur / translucent trails). Bình shaker/cốc nước hoàn toàn sắc nét, nguyên khối ở mọi frame.
+  - Bình shaker và tay mèo chuyển động cơ học thực sự: thay đổi cao độ (thấp, vừa, vung cao trên vai), góc nghiêng (28° đến 42°) và lực lắc theo 2 nhịp beat sống động.
   - Tốc độ hoàn hảo trong game: `fps = 5.2` (chu kỳ lặp ~3.0s), tạo cảm giác barista lành nghề đang tích cực lắc đồ uống.
   - **Khóa anchor tuyệt đối 0px Jitter:** Khóa chính xác tọa độ chóp mũi mèo tại `(222, 302)` xuyên suốt toàn bộ 16 frame.
 - [x] **Khay Gỗ Phục Vụ:** Lúc đang nấu thì bàn khay trống 100% không hiện món ăn (`is_serving = False`), chỉ khi nấu xong và bước vào trạng thái phục vụ (`is_serving = True`), món ăn bốc khói nghi ngút mới xuất hiện trên khay gỗ.
