@@ -97,5 +97,9 @@ graph TD
 - [x] **Tái tạo Artwork Nền Gốc (Không dùng hộp che / mask):** Tái tạo trực tiếp background AI nguyên bản cho `diner_bg_new.png`, tích hợp thanh lệnh gỗ khắc tự nhiên, triệt tiêu 100% hai ô Level/XP và Audio/LIVE cũ mà không cần vẽ khối che nhân tạo.
 - [x] **Nâng cấp kích thước Font Chữ toàn bộ UI:** Tăng kích thước font chữ trên toàn bộ giao diện (Tiêu đề lệnh 20 bold, Header card 17 bold, Nội dung 15 bold, Chat/Hàng chờ 14 bold, Tag món ăn 13 bold) giúp chữ to rõ, sắc nét, dễ đọc trên livestream.
 - [x] Chạy kiểm thử tự động `python -m unittest discover tests -v` đạt 9/9 tests PASS 100%.
+- [x] **Loại bỏ hoàn toàn rác đồ họa tiền cảnh & khay gỗ:**
+  - Tẩy sạch 100% cánh tay áo và móng mèo cũ bị cắt cụt sót lại sau nồi súp bên trái.
+  - Loại bỏ hoàn toàn khối đa giác gỗ thô đè lên bát mì ramen và tượng Maneki-Neko bên phải. Thay thế bằng khay gỗ tự nhiên sạch sẽ (empty Japanese serving tray) từ artwork AI gốc `diner_bg_empty_tray`, sẵn sàng hiển thị bất kỳ món ăn nào (Pizza, Ramen, Sushi...) một cách sắc nét và chân thực.
+  - Căn chỉnh vị trí hoạt ảnh ăn mừng (`cheer` tại `pos = (200, 220)`) nối liền mượt mà sau gờ quầy bếp.
 - [x] Chụp ảnh giả lập màn hình game thực tế:
-  - `assets/verified_new_layout.png` & `assets/verified_final_diner_frame.png`: Khung cảnh hoàn chỉnh với artwork background nguyên bản sạch sẽ và font chữ to rõ.
+  - `assets/verified_pizza_cheer.png` & `assets/verified_final_diner_frame.png`: Khung cảnh hoàn chỉnh không còn bất kỳ chi tiết lỗi, ghost limbs hay vết chắp vá.

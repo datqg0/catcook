@@ -264,7 +264,7 @@ class DinerRenderer:
         if is_serving or has_cheer:
             action = "cheer"
             fps = 4.0
-            pos = (200, 190)
+            pos = (200, 220)
         elif is_cooking:
             if cook_type in ["pan_toss", "sizzle", "deepfry", "drink_shake"]:
                 action = "toss"
