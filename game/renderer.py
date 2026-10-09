@@ -274,7 +274,7 @@ class DinerRenderer:
                 pos = (200, 205)
             else:  # simmer, bake, steam_basket, default
                 action = "stir"
-                fps = 4.0
+                fps = 8.0
                 pos = (200, 200)
         else:
             action = "idle"

@@ -76,7 +76,7 @@ graph TD
 ### Giai Đoạn 2: Xử Lý Bộ Sprite Rời Transparent RGBA (HOÀN THÀNH ✅)
 - [x] **Mèo Ăn Mừng (`cheer/frame_0..3.png`):** Calico cat giơ 2 chân ăn mừng `\(=^o^=)/`, mắt nhắm cong hạnh phúc, má hồng, mũ đầu bếp & khăn đỏ chuẩn anime lofi.
 - [x] **Mèo Đứng Chờ (`idle/frame_0..3.png`):** Đứng sau quầy, chớp mắt và mỉm cười tự nhiên.
-- [x] **Mèo Khuấy Nồi (`stir/frame_0..3.png`):** Muôi gỗ khuấy tròn trong nồi.
+- [x] **Mèo Khuấy Nồi (`stir/frame_0..7.png`):** Nâng cấp chu kỳ 8 frame siêu mượt, khóa cứng anchor cơ thể (triệt tiêu rung giật 14px), tẩy sạch 100% pixel lem viền; muôi gỗ khuấy tròn liên tục và tự nhiên.
 - [x] **Mèo Lắc Chảo (`toss/frame_0..3.png`):** Cầm chảo hất đồ ăn tung lên không trung.
 - [x] **Mèo Cắt Thái (`chop/frame_0..3.png`):** Dao thái nhịp nhàng trên thớt gỗ.
 - [x] **Spritesheet Atlas:** Đã xuất đầy đủ 9 sheet riêng lẻ và master spritesheet kèm `chef_master_spritesheet.json`.
