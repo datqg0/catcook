@@ -126,7 +126,7 @@ class DinerRenderer:
         self.chef_animations = {}
         self.chef_animations_scaled = {}
         scale = 0.82
-        for action in ["idle", "walk", "run", "jump", "attack", "toss", "stir", "chop", "cheer", "bartender"]:
+        for action in ["idle", "walk", "run", "jump", "attack", "toss", "stir", "chop", "cheer", "bartender", "bake"]:
             act_dir = os.path.join(anim_dir, action)
             self.chef_animations[action] = []
             self.chef_animations_scaled[action] = []
@@ -271,6 +271,10 @@ class DinerRenderer:
                 action = "bartender"
                 fps = 5.0
                 pos = (200, 200)
+            elif cook_type in ["bake", "oven", "baker", "pastry"]:
+                action = "bake"
+                fps = 4.0
+                pos = (200, 200)
             elif cook_type in ["pan_toss", "sizzle", "deepfry"]:
                 action = "toss"
                 fps = 4.5
@@ -279,7 +283,7 @@ class DinerRenderer:
                 action = "chop"
                 fps = 4.5
                 pos = (200, 205)
-            else:  # simmer, bake, steam_basket, default
+            else:  # simmer, steam_basket, default
                 action = "stir"
                 fps = 5.0
                 pos = (200, 200)

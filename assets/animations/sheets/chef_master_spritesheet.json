@@ -899,6 +899,86 @@
         "w": 344,
         "h": 768
       }
+    },
+    "chef_bake_0": {
+      "frame": {
+        "x": 0,
+        "y": 7680,
+        "w": 344,
+        "h": 768
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 344,
+        "h": 768
+      },
+      "sourceSize": {
+        "w": 344,
+        "h": 768
+      }
+    },
+    "chef_bake_1": {
+      "frame": {
+        "x": 344,
+        "y": 7680,
+        "w": 344,
+        "h": 768
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 344,
+        "h": 768
+      },
+      "sourceSize": {
+        "w": 344,
+        "h": 768
+      }
+    },
+    "chef_bake_2": {
+      "frame": {
+        "x": 688,
+        "y": 7680,
+        "w": 344,
+        "h": 768
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 344,
+        "h": 768
+      },
+      "sourceSize": {
+        "w": 344,
+        "h": 768
+      }
+    },
+    "chef_bake_3": {
+      "frame": {
+        "x": 1032,
+        "y": 7680,
+        "w": 344,
+        "h": 768
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 344,
+        "h": 768
+      },
+      "sourceSize": {
+        "w": 344,
+        "h": 768
+      }
     }
   },
   "meta": {
@@ -906,7 +986,7 @@
     "format": "RGBA8888",
     "size": {
       "w": 2752,
-      "h": 7680
+      "h": 8448
     },
     "scale": "1"
   }

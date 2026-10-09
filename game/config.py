@@ -224,7 +224,7 @@ MENU_ITEMS = {
         "name": "Strawberry Donut",
         "icon": "donut.png",
         "cook_time": 30.0,
-        "cook_type": "slice",
+        "cook_type": "bake",
         "theme_color": (255, 120, 170),
         "xp": 22,
         "coins": 12,

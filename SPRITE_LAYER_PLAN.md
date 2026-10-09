@@ -52,10 +52,10 @@ graph TD
 | Danh Mục Món | Các Món Ăn Cụ Thể | `cook_type` | Action Sprite | Frames & Tốc Độ | Thời Gian Nấu | Mô Tả Trực Quan |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
 | **Món Pha Chế** | Boba Milk Tea, Latte | `drink_shake` | `bartender` | **8 frames @ 5.0 FPS (1.6s/cycle)** | **30s – 32s** | Mèo lắc bình shaker điệu nghệ sủi bọt đá mát lạnh, 8 frames mượt mà khóa anchor 0px jitter |
-| **Món Nhanh / Tráng Miệng** | Donut, Hotdog, Pancakes, Dumplings, Waffles | `bake`, `sizzle`, `pan_toss`, `steam_basket` | `stir`, `toss` | 4 frames @ 4.0 - 4.5 FPS | **30s – 36s** | Canh xửng hấp, lật pancake & nướng nhanh |
+| **Món Nướng Bánh Lò Đá** | Pepperoni Pizza, Belgian Waffles, Strawberry Donut | `bake` | `bake` | **4 frames @ 4.0 FPS (1.0s/cycle)** | **30s – 42s** | Mèo đeo găng lò nướng đỏ, cầm xẻng gỗ nướng pizza phô mai tan chảy & bánh vàng óng bốc khói thơm lừng |
+| **Món Nhanh / Tráng Miệng** | Hotdog, Pancakes, Dumplings | `sizzle`, `pan_toss`, `steam_basket` | `stir`, `toss` | 4 frames @ 4.0 - 4.5 FPS | **33s – 36s** | Canh xửng hấp, lật pancake & nướng nhanh |
 | **Món Cắt Thái & Cuộn** | Salmon Sushi | `slice` | `chop` | 4 frames @ 4.5 FPS | **36s** | Mèo cầm dao thái sashimi điêu luyện nhịp nhàng trên thớt gỗ |
 | **Món Nướng & Searing** | Smash Burger, Birria Tacos, Fried Chicken | `sizzle`, `deepfry` | `toss` | 4 frames @ 4.5 FPS | **38s – 40s** | Áp chảo xèo xèo, chiên giòn, lật thịt bốc khói vàng ươm |
-| **Món Lò Nướng Phức Tạp** | Pepperoni Pizza | `bake` | `stir` | 4 frames @ 4.0 FPS | **42s** | Canh lò nướng phô mai tan chảy kéo sợi |
 | **Món Sốt Nóng** | Creamy Carbonara | `pan_toss` | `toss` | 4 frames @ 4.5 FPS | **42s** | Đảo chảo sốt kem trứng béo ngậy |
 | **Món Nước & Hầm Kỳ Công** | Tonkotsu Ramen, Japanese Curry | `simmer` | `stir` | **5 frames @ 5.0 FPS** | **44s** | Mèo cầm muôi gỗ khuấy nồi nước dùng hầm xương nghi ngút khói |
 | **Món Bít Tết Hảo Hạng** | Ribeye Steak | `sizzle` | `toss` | 4 frames @ 4.5 FPS | **45s** | Áp chảo bơ tỏi hương thảo kỳ công đạt chuẩn medium-rare |
@@ -84,7 +84,15 @@ graph TD
   - Tốc độ nhịp nhàng: `fps = 5.0` (200ms/frame, 1.6s toàn bộ chu kỳ lặp), tạo phong thái barista điềm tĩnh, chuẩn mực quán cà phê lofi.
   - **Khóa anchor tuyệt đối 0px Jitter:** Khóa chính xác tọa độ chóp mũi mèo tại `(222, 302)` xuyên suốt 8 frame, loại bỏ hoàn toàn hiện tượng lệch ngang hoặc rung giật cơ thể.
   - Tách nền sạch 100%, đường viền đen anime sắc sảo, bình shaker bạc phản chiếu ánh sáng và bọt sữa/đá lạnh bung nở tự nhiên.
-- [x] **Spritesheet Atlas:** Đã xuất đầy đủ 10 sheet riêng lẻ và master spritesheet kèm `chef_master_spritesheet.json` (48 frames tổng cộng).
+- [x] **Mèo Nướng Bánh Lò Đá (`bake/frame_0..3.png`):**
+  - Hoạt ảnh 4 frame chuyên biệt dành riêng cho các món bánh (`bake`): Pepperoni Pizza, Belgian Waffles, Strawberry Donut.
+  - Mèo đầu bếp đeo găng tay lò nướng đỏ hai chân nâng xẻng bánh gỗ (baker's peel), trên khay là bánh pizza phô mai tan chảy và bánh mì vàng óng.
+  - Chu kỳ hoạt họa 4.0 FPS (250ms/frame):
+    - *Frame 0:* Tư thế chuẩn bị kiểm tra bánh, ánh mắt chăm chú háo hức.
+    - *Frame 1:* Ánh lửa lò nướng vàng cam rọi ấm áp lên bánh và găng tay, mắt chớp thư thái cảm nhận hơi ấm.
+    - *Frame 2:* Xẻng bánh nâng nhẹ (+3px), phô mai sôi xèo xèo, bão sao lấp lánh vàng óng bùng nổ, mắt mèo lấp lánh ánh sao phấn khích.
+    - *Frame 3:* Nụ cười nhắm mắt mãn nguyện `^‿^`, má hồng rạng rỡ, làn khói thơm lừng cuộn tròn ngọt ngào.
+- [x] **Spritesheet Atlas:** Đã xuất đầy đủ 11 sheet riêng lẻ (bao gồm `chef_bake_sheet.png`) và master spritesheet 11 hàng (2752×8448) kèm `chef_master_spritesheet.json` (49 frames tổng cộng).
 
 ### Giai Đoạn 3: Cải Tiến Renderer `game/renderer.py` (HOÀN THÀNH ✅)
 - [x] Phân tầng Z-Index chuẩn xác:
