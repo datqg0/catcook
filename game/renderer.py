@@ -328,46 +328,11 @@ class DinerRenderer:
 
     def _render_header(self, surface, state, dt):
         """
-        Renders the prominent interactive Command Bar (Layer 8) in the top header (y: 86..202),
-        replacing the previous Level/XP & Audio boxes per user request.
-        Presents primary stream commands clearly with high contrast and cute mascots.
+        Header: Clean AI-generated artwork in diner_bg_new.png natively incorporates
+        the Cozy Midnight Diner marquee and carved wooden command banner without any artificial
+        cover boxes, completely eliminating the legacy Level/XP and Audio/Live HUD boxes.
         """
-        box_rect = pygame.Rect(24, 86, 672, 116)
-
-        # Subtle warm breathing border glow
-        glow_pulse = 0.85 + 0.15 * math.sin(self.anim_timer * 3.0)
-        border_col = (
-            int(185 * glow_pulse + 50 * (1.0 - glow_pulse)),
-            int(120 * glow_pulse + 40 * (1.0 - glow_pulse)),
-            55
-        )
-        pygame.draw.rect(surface, (18, 14, 12), box_rect, border_radius=8)
-        pygame.draw.rect(surface, border_col, box_rect, 2, border_radius=8)
-
-        # 1. Mascot Icons (Left Chef Mascot & Right Food Icon)
-        mascot_cat = self.ui_icons.get("chef_mascot")
-        if mascot_cat:
-            mc_scaled = pygame.transform.smoothscale(mascot_cat, (56, 52))
-            surface.blit(mc_scaled, (40, 118))
-        elif self.ui_icons.get("chat"):
-            surface.blit(self.ui_icons.get("chat"), (46, 128))
-
-        mascot_food = self.ui_icons.get("ramen_banner")
-        if mascot_food:
-            mf_scaled = pygame.transform.smoothscale(mascot_food, (56, 52))
-            surface.blit(mf_scaled, (624, 118))
-        elif self.ui_icons.get("bowl"):
-            surface.blit(self.ui_icons.get("bowl"), (628, 128))
-
-        # 2. Main Commands (Line 1: Large Bold Golden Text)
-        cmd_text = "!cook [món]   |   !yum   |   !menu   |   !khen"
-        tw, th = self.font_cmd_primary.size(cmd_text)
-        self.draw_text(surface, cmd_text, self.font_cmd_primary, COLOR_TEXT_GOLD, (360 - tw // 2, 108))
-
-        # 3. Interactive Subtext Guide (Line 2: Clear, warm contrast)
-        sub_text = 'Chat "!cook <tên món>" để gọi món  •  "!khen" để tặng tim cổ vũ!'
-        sw, sh = self.font_cmd_sub.size(sub_text)
-        self.draw_text(surface, sub_text, self.font_cmd_sub, (255, 235, 195), (360 - sw // 2, 150))
+        pass
 
     def _render_card_cooking(self, surface, state, dt):
         """Card 1 (Top Left): Active dish cooking status and progress bar."""

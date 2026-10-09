@@ -94,7 +94,8 @@ graph TD
 
 ### Giai Đoạn 4: Kiểm Thử & Tinh Chỉnh QA (HOÀN THÀNH ✅)
 - [x] **Tối ưu hóa bố cục Header & Bảng Lệnh:** Xóa 2 ô DINER LEVEL và NOW PLAYING ở header, chuyển thanh lệnh (`!cook [món] | !yum | !menu | !khen`) lên vị trí này thành bảng điều khiển trung tâm nổi bật, loại bỏ thanh lệnh trùng lặp ở chân trang.
+- [x] **Tái tạo Artwork Nền Gốc (Không dùng hộp che / mask):** Tái tạo trực tiếp background AI nguyên bản cho `diner_bg_new.png`, tích hợp thanh lệnh gỗ khắc tự nhiên, triệt tiêu 100% hai ô Level/XP và Audio/LIVE cũ mà không cần vẽ khối che nhân tạo.
 - [x] **Nâng cấp kích thước Font Chữ toàn bộ UI:** Tăng kích thước font chữ trên toàn bộ giao diện (Tiêu đề lệnh 20 bold, Header card 17 bold, Nội dung 15 bold, Chat/Hàng chờ 14 bold, Tag món ăn 13 bold) giúp chữ to rõ, sắc nét, dễ đọc trên livestream.
 - [x] Chạy kiểm thử tự động `python -m unittest discover tests -v` đạt 9/9 tests PASS 100%.
 - [x] Chụp ảnh giả lập màn hình game thực tế:
-  - `assets/verified_new_layout.png` & `assets/verified_final_diner_frame.png`: Khung cảnh hoàn chỉnh với bảng lệnh trung tâm ở đầu màn hình và font chữ to rõ.
+  - `assets/verified_new_layout.png` & `assets/verified_final_diner_frame.png`: Khung cảnh hoàn chỉnh với artwork background nguyên bản sạch sẽ và font chữ to rõ.
