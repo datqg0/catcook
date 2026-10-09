@@ -229,6 +229,47 @@ class ConfettiPiece:
         surface.blit(s, (int(self.x), int(self.y)))
 
 
+class FireEmberParticle:
+    """Rising glowing embers and heat sparks from cooking flames."""
+    def __init__(self, x, y):
+        self.x = x + random.uniform(-14, 14)
+        self.y = y + random.uniform(-4, 4)
+        angle = random.uniform(-math.pi * 0.85, -math.pi * 0.15)
+        speed = random.uniform(35, 90)
+        self.vx = math.cos(angle) * speed
+        self.vy = math.sin(angle) * speed
+        self.lifetime = random.uniform(0.4, 0.9)
+        self.age = 0.0
+        self.size = random.uniform(1.5, 3.2)
+        self.color_stages = [
+            (255, 250, 180),  # White-hot gold
+            (255, 170, 40),   # Vibrant orange
+            (230, 60, 20),    # Deep ember red
+        ]
+
+    def update(self, dt):
+        self.age += dt
+        self.x += self.vx * dt + math.sin(self.age * 9.0) * 0.6
+        self.y += self.vy * dt
+        self.vy -= 15 * dt  # slight thermal buoyancy
+        return self.age < self.lifetime
+
+    def draw(self, surface):
+        progress = self.age / self.lifetime
+        alpha = max(0, int(255 * (1.0 - progress)))
+        if progress < 0.35:
+            c = self.color_stages[0]
+        elif progress < 0.7:
+            c = self.color_stages[1]
+        else:
+            c = self.color_stages[2]
+            
+        r = int(max(1, self.size * (1.0 - progress * 0.5)))
+        s = pygame.Surface((r * 2 + 2, r * 2 + 2), pygame.SRCALPHA)
+        pygame.draw.circle(s, (*c, alpha), (r + 1, r + 1), r)
+        surface.blit(s, (int(self.x - r), int(self.y - r)), special_flags=pygame.BLEND_ADD)
+
+
 class ParticleManager:
     def __init__(self, heart_img=None, sparkle_img=None):
         self.heart_img = heart_img
@@ -239,10 +280,12 @@ class ParticleManager:
         self.sizzle_sparks = []
         self.broth_bubbles = []
         self.ice_sparkles = []
+        self.fire_embers = []
         self.confetti = []
         self.raindrops = [RainDrop() for _ in range(40)]
         self.steam_timer = 0.0
         self.counter_steam_timer = 0.0
+        self.coffee_steam_timer = 0.0
 
     def spawn_steam(self, x, y, size_range=(3, 8), color=(235, 230, 225)):
         self.steams.append(SteamParticle(x, y, size_range, color))
@@ -274,9 +317,22 @@ class ParticleManager:
             if current_cook_type in ["sizzle", "pan_toss", "deepfry"]:
                 for _ in range(random.randint(1, 2)):
                     self.sizzle_sparks.append(SizzleSpark(230, 560))
+                # Rising fire embers from sizzling stove
+                self.fire_embers.append(FireEmberParticle(226, 608))
+            elif current_cook_type in ["simmer", "bake", "steam_basket"]:
+                if random.random() < 0.65:
+                    self.fire_embers.append(FireEmberParticle(226, 610))
+                if current_cook_type == "bake":
+                    self.fire_embers.append(FireEmberParticle(85, 575))
             elif current_cook_type in ["drink_shake"]:
                 if random.random() < 0.6:
                     self.ice_sparkles.append(IceChillSparkle(230, 560))
+
+        # Delicate aromatic steam from coffee machine
+        self.coffee_steam_timer += dt
+        if self.coffee_steam_timer > 0.32:
+            self.coffee_steam_timer = 0.0
+            self.spawn_steam(630, 584, size_range=(2, 4), color=(245, 240, 235))
 
         # Gentle aroma steam from served counter dish
         if counter_dish_pos:
@@ -297,6 +353,7 @@ class ParticleManager:
         self.sizzle_sparks = [s for s in self.sizzle_sparks if s.update(dt)]
         self.broth_bubbles = [b for b in self.broth_bubbles if b.update(dt)]
         self.ice_sparkles = [i for i in self.ice_sparkles if i.update(dt)]
+        self.fire_embers = [e for e in self.fire_embers if e.update(dt)]
         self.confetti = [c for c in self.confetti if c.update(dt)]
 
     def draw_rain(self, surface):
@@ -312,6 +369,8 @@ class ParticleManager:
             sp.draw(surface)
         for ic in self.ice_sparkles:
             ic.draw(surface)
+        for fe in self.fire_embers:
+            fe.draw(surface)
 
     def draw_fx(self, surface):
         for h in self.hearts:

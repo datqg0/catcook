@@ -161,6 +161,21 @@ class DinerRenderer:
                     if has_display: img = img.convert_alpha()
                     self.ui_icons[key] = img
 
+        # 6. Kitchen Decor Props (Oven, Coffee Machine, Spices, Utensil Rack, Bread Basket)
+        decor_dir = os.path.join(os.path.dirname(BG_DIR), "decor")
+        def _load_decor(fname):
+            p = os.path.join(decor_dir, fname)
+            if os.path.exists(p):
+                img = pygame.image.load(p)
+                return img.convert_alpha() if has_display else img
+            return None
+
+        self.decor_oven = _load_decor("oven.png")
+        self.decor_coffee = _load_decor("coffee_machine.png")
+        self.decor_spices = _load_decor("spice_rack.png")
+        self.decor_utensils = _load_decor("utensils_rack.png")
+        self.decor_bread = _load_decor("bread_basket.png")
+
     def draw_text(self, surface, text, font, color, pos, shadow=True, shadow_color=(0, 0, 0, 210)):
         """Draws crisp text with subtle drop shadow for high readability."""
         x, y = pos
@@ -187,6 +202,10 @@ class DinerRenderer:
         # 4. Dynamic Window Rain Streaks
         particles.draw_rain(surface)
 
+        # 4b. Wall Utensil Rack (mounted on tiled wall above counter)
+        if getattr(self, "decor_utensils", None):
+            surface.blit(self.decor_utensils, (45, 435))
+
         # 5. Maneki-Neko (Lucky Cat) Waving Paw Animation (Layer 1)
         self._render_lucky_cat(surface)
 
@@ -196,6 +215,12 @@ class DinerRenderer:
         # 6b. Foreground Counter & Stove (Layer 3 & 4: stove & dining counter in front)
         if hasattr(self, "fg_counter") and self.fg_counter:
             surface.blit(self.fg_counter, (0, 615))
+
+        # 6c. Kitchen Appliances & Decor Props (Oven, Coffee Machine, Spices, Bread)
+        self._render_kitchen_decor(surface, state)
+
+        # 6d. Dynamic Fire Flames & Glowing Hearth (Stove Burner & Oven Fire)
+        self._render_fire_effects(surface, state, dt)
 
         # 7. Plated Food Display (Layer 5: on the wooden counter tray)
         self._render_counter_dish(surface, state)
@@ -323,6 +348,134 @@ class DinerRenderer:
         tw, _ = self.font_tiny.size(d_name)
         self.draw_text(surface, d_name, self.font_tiny, COLOR_TEXT_GOLD,
                        (counter_x - tw // 2, counter_y + 48), shadow=False)
+
+    def _render_kitchen_decor(self, surface, state):
+        """
+        Renders vibrant kitchen appliances and props:
+        - Retro Baking Oven on left counter
+        - Wicker Bread Basket beside oven
+        - Vintage Espresso Coffee Machine on right counter with barista LEDs
+        - Japanese Condiment & Spice Rack on counter shelf
+        """
+        # 1. Oven on left counter
+        if getattr(self, "decor_oven", None):
+            surface.blit(self.decor_oven, (35, 515))
+
+        # 2. Bread basket beside oven
+        if getattr(self, "decor_bread", None):
+            surface.blit(self.decor_bread, (5, 575))
+
+        # 3. Espresso coffee machine on right counter
+        if getattr(self, "decor_coffee", None):
+            surface.blit(self.decor_coffee, (595, 492))
+            # Dynamic Barista LED indicator lights
+            # Green power LED (ready)
+            green_pulse = int(180 + 75 * math.sin(self.anim_timer * 2.8))
+            g_surf = pygame.Surface((6, 6), pygame.SRCALPHA)
+            pygame.draw.circle(g_surf, (50, 240, 100, green_pulse), (3, 3), 3)
+            surface.blit(g_surf, (682, 527), special_flags=pygame.BLEND_ADD)
+            # Amber brew status LED
+            is_drink = state.current_dish and state.current_dish.get("cook_type") == "drink_shake"
+            amber_pulse = int(220 if is_drink else (120 + 60 * math.sin(self.anim_timer * 4.0)))
+            a_surf = pygame.Surface((6, 6), pygame.SRCALPHA)
+            pygame.draw.circle(a_surf, (255, 170, 40, amber_pulse), (3, 3), 3)
+            surface.blit(a_surf, (682, 539), special_flags=pygame.BLEND_ADD)
+
+        # 4. Japanese Spice Rack on counter shelf
+        if getattr(self, "decor_spices", None):
+            surface.blit(self.decor_spices, (460, 560))
+
+    def _render_fire_effects(self, surface, state, dt):
+        """
+        Renders dynamic animated fire flame effects:
+        1. Stove Gas Burner Fire: roaring blue/orange flames under pot during cooking,
+           and gentle blue pilot simmer flame when idle.
+        2. Oven Fire / Hearth Glow: glowing baking embers & flame tongues inside oven window.
+        """
+        is_cooking = state.current_dish is not None
+        cook_type = state.current_dish.get("cook_type", "simmer") if state.current_dish else None
+        t = self.anim_timer
+
+        # -------------------------------------------------------------
+        # A. STOVE GAS BURNER FIRE (Center x=226, y=612)
+        # -------------------------------------------------------------
+        flame_cx, flame_cy = 226, 612
+        intensity = 1.35 if (cook_type in ["sizzle", "pan_toss", "deepfry"]) else (1.0 if is_cooking else 0.4)
+
+        # 1. Warm Ambient Fire Glow (BLEND_ADD)
+        glow_radius = int(58 * intensity)
+        glow_surf = pygame.Surface((glow_radius * 2, glow_radius * 2), pygame.SRCALPHA)
+        pulse = 0.82 + 0.18 * math.sin(t * 15.0) * math.cos(t * 24.0)
+        max_alpha = int(55 * intensity * pulse)
+        for r in range(glow_radius, 0, -6):
+            alpha = int(max_alpha * (1.0 - r / glow_radius))
+            pygame.draw.circle(glow_surf, (255, 115, 25, alpha), (glow_radius, glow_radius), r)
+        surface.blit(glow_surf, (flame_cx - glow_radius, flame_cy - glow_radius + 4), special_flags=pygame.BLEND_ADD)
+
+        # 2. Blue Gas Flame Base Jets
+        num_jets = 11 if is_cooking else 7
+        jet_span = 24 if is_cooking else 14
+        for i in range(-num_jets // 2, num_jets // 2 + 1):
+            bx = flame_cx + int(i * (jet_span / (num_jets // 2)))
+            by = flame_cy + 3
+            bh = int((5 + 2.5 * math.sin(t * 18.0 + i * 1.3)) * min(1.2, intensity))
+            pygame.draw.line(surface, (35, 150, 255, 230), (bx, by), (bx, by - bh), 2)
+            pygame.draw.circle(surface, (180, 235, 255, 255), (bx, int(by - bh)), 1)
+
+        # 3. Active Dancing Orange/Yellow Flame Tongues (when cooking)
+        if is_cooking:
+            flame_tongues = [
+                (-18, 14), (-12, 20), (-6, 26), (0, 28), (6, 25), (12, 19), (18, 13)
+            ]
+            for idx, (ox, base_h) in enumerate(flame_tongues):
+                drift = math.sin(t * 12.0 + idx * 1.5) * 2.8
+                fx = flame_cx + ox + drift
+                fy = flame_cy + 1
+                h_tongue = base_h * intensity * (0.78 + 0.32 * math.sin(t * 21.0 + idx * 2.2) + 0.2 * math.cos(t * 31.0 + idx * 1.3))
+
+                # Outer fiery red-orange flame
+                p_outer = [
+                    (fx - 4, fy),
+                    (fx + 4, fy),
+                    (fx + math.sin(t * 16.0 + idx) * 2.5, fy - h_tongue)
+                ]
+                pygame.draw.polygon(surface, (255, 75, 15), p_outer)
+
+                # Inner vibrant golden flame
+                p_inner = [
+                    (fx - 2, fy),
+                    (fx + 2, fy),
+                    (fx + math.sin(t * 16.0 + idx) * 1.4, fy - h_tongue * 0.75)
+                ]
+                pygame.draw.polygon(surface, (255, 215, 55), p_inner)
+
+                # Incandescent hot white tip
+                tip_x = int(fx + math.sin(t * 16.0 + idx) * 0.9)
+                tip_y = int(fy - h_tongue * 0.48)
+                pygame.draw.circle(surface, (255, 255, 210), (tip_x, tip_y), 2)
+
+        # -------------------------------------------------------------
+        # B. OVEN HEARTH FIRE & EMBERS (Inside oven window at x=55..119, y=543..587)
+        # -------------------------------------------------------------
+        is_baking = is_cooking and (cook_type in ["bake", "sizzle"] or (state.current_dish and state.current_dish.get("key") in ["pizza", "pancakes", "waffles", "burger"]))
+        oven_intensity = 1.3 if is_baking else 0.8
+
+        # 1. Hearth glow inside oven window (BLEND_ADD)
+        o_glow = pygame.Surface((64, 44), pygame.SRCALPHA)
+        o_pulse = 0.8 + 0.2 * math.sin(t * 10.0) * math.cos(t * 16.0)
+        o_alpha = int(68 * oven_intensity * o_pulse)
+        o_glow.fill((255, 115, 30, o_alpha))
+        surface.blit(o_glow, (55, 543), special_flags=pygame.BLEND_ADD)
+
+        # 2. Dancing baking flame ribbons on bottom stone
+        for oi in range(5):
+            ofx = 62 + oi * 11 + math.sin(t * 11.0 + oi * 1.6) * 1.6
+            ofy = 586
+            ofh = int((7 + 4.5 * math.sin(t * 15.0 + oi * 2.1)) * oven_intensity)
+            # Outer flame
+            pygame.draw.polygon(surface, (255, 135, 35, 225), [(ofx - 3, ofy), (ofx + 3, ofy), (ofx, ofy - ofh)])
+            # Core bright flame
+            pygame.draw.polygon(surface, (255, 235, 95, 245), [(ofx - 1, ofy), (ofx + 1, ofy), (ofx, ofy - ofh * 0.6)])
 
     def _render_header(self, surface, state, dt):
         """Dynamic header overlays (Level XP bar, Audio Equalizer bars, LIVE dot)."""

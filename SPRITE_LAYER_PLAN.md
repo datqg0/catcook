@@ -84,17 +84,25 @@ graph TD
 ### Giai Đoạn 3: Cải Tiến Renderer `game/renderer.py` (HOÀN THÀNH ✅)
 - [x] Phân tầng Z-Index chuẩn xác:
   1. `Layer 0`: Background sạch `diner_bg_new.png` + Neon window pulse + Đèn lồng + Hạt mưa rơi.
-  2. `Layer 1`: Maneki-Neko (tượng đón khách).
+  2. `Layer 1`: Giá treo dụng cụ bếp inox (`utensils_rack.png` trên tường) & Maneki-Neko.
   3. `Layer 2`: Mèo Đầu Bếp (Animated action frame tại `pos = (200, 200)` trên sàn bếp).
   4. `Layer 3 & 4`: Bếp Ga & Quầy Ăn Tiền Cảnh (`fg_counter` tại `y = 615` che thân dưới, chân mèo đặt trên sàn tự nhiên).
-  5. `Layer 5`: Món Ăn Phục Vụ (`_render_counter_dish` đặt đúng lòng khay gỗ tại `x=540, y=730` cho cả 16 món).
-  6. `Layer 6`: Phụ kiện bàn ăn (Ly trà matcha, đũa thìa).
-  7. `Layer 7`: Hạt hơi nước bốc lên từ nồi & đĩa món ăn, tim bay, sao lấp lánh.
-  8. `Layer 8`: Dynamic HUD, Thanh XP, Live Visualizer, 4 UI Card và Command Bar.
+  5. `Layer 4b (Thiết Bị & Decor)`:
+     - **Lò nướng bánh retro (`oven.png` tại `x=35, y=515`):** Kính nhìn thấy lửa than đỏ rực bên trong lò.
+     - **Giỏ mây bánh mì Pháp (`bread_basket.png` tại `x=5, y=575`):** Baguette & Croissant thơm lừng cạnh lò.
+     - **Máy pha cà phê Espresso (`coffee_machine.png` tại `x=595, y=492`):** Inox & đỏ ruby, đồng hồ áp kế, vòi hơi, đèn LED barista.
+     - **Bộ hũ gia vị Shoyu & sa tế (`spice_rack.png` tại `x=460, y=560`):** Xì dầu nắp đỏ, ớt Shichimi, dầu ớt rayu.
+  6. `Layer 4c (Hiệu Ứng Lửa Cháy Dynamic Fire)`:
+     - Lửa bếp ga: Vành gas xanh + các lưỡi lửa đỏ cam vàng liếm đáy nồi/chảo + quầng sáng tỏa ấm (`BLEND_ADD`).
+     - Lửa trong lò nướng: Ngọn lửa than âm ỉ và bùng sáng khi nướng Pizza/Bake.
+  7. `Layer 5`: Món Ăn Phục Vụ (`_render_counter_dish` đặt đúng lòng khay gỗ tại `x=540, y=730` cho cả 16 món).
+  8. `Layer 6`: Phụ kiện bàn ăn (Ly trà matcha, đũa thìa).
+  9. `Layer 7`: Hạt hơi nước bốc lên từ nồi & cà phê, tàn lửa bay (`FireEmberParticle`), tim bay, sao lấp lánh.
+  10. `Layer 8`: Dynamic HUD, Thanh XP, Live Visualizer, 4 UI Card và Command Bar.
 
 ### Giai Đoạn 4: Kiểm Thử & Tinh Chỉnh QA (HOÀN THÀNH ✅)
 - [x] Chạy kiểm thử tự động `python -m unittest discover tests -v` đạt 9/9 tests PASS 100%.
 - [x] Chụp ảnh giả lập màn hình game thực tế:
-  - `assets/verified_final_diner_frame.png`: Khung cảnh hoàn chỉnh sạch sẽ, mèo khuấy nồi, bát mì ramen đặt ngay ngắn trong khay gỗ, không còn viền bẩn hay vệt lem nhem.
-  - Không còn hiện tượng mèo đứng lên bếp hay floating.
-  - Không còn lỗi "món nào cũng thành ramen".
+  - `assets/verified_render_cooking_ramen.png`: Nấu ramen với ngọn lửa bếp ga xanh đỏ bốc cao, hơi nước và tàn lửa.
+  - `assets/verified_render_cooking_pizza.png`: Nướng pizza với lò nướng rực lửa than, chảo lật đồ ăn, máy pha cà phê đỏ ruby.
+  - `assets/verified_final_diner_frame.png`: Toàn cảnh hoàn chỉnh ấm cúng, sinh động với đầy đủ thiết bị và ánh lửa.
