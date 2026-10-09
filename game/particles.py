@@ -324,9 +324,9 @@ class ParticleManager:
                     self.fire_embers.append(FireEmberParticle(226, 610))
                 if current_cook_type == "bake":
                     self.fire_embers.append(FireEmberParticle(85, 575))
-            elif current_cook_type in ["drink_shake"]:
-                if random.random() < 0.6:
-                    self.ice_sparkles.append(IceChillSparkle(230, 560))
+            elif current_cook_type in ["drink_shake", "bartender"]:
+                if random.random() < 0.65:
+                    self.ice_sparkles.append(IceChillSparkle(345 + random.randint(-35, 35), 540 + random.randint(-30, 30)))
 
         # Delicate aromatic steam from coffee machine
         self.coffee_steam_timer += dt

@@ -38,9 +38,9 @@ class TestSpriteAnimations(unittest.TestCase):
         pygame.quit()
 
     def test_01_all_action_folders_and_frames(self):
-        """Verify all 9 actions have clean RGBA PNG frames (8 for stir, 4 for others)."""
+        """Verify all 10 actions have clean RGBA PNG frames (8 for stir, 4 for others)."""
         anim_dir = os.path.join(PROJECT_ROOT, "assets", "animations")
-        actions = ["idle", "walk", "run", "jump", "attack", "toss", "stir", "chop", "cheer"]
+        actions = ["idle", "walk", "run", "jump", "attack", "toss", "stir", "chop", "cheer", "bartender"]
 
         for action in actions:
             act_path = os.path.join(anim_dir, action)
@@ -59,7 +59,7 @@ class TestSpriteAnimations(unittest.TestCase):
     def test_02_sprite_sheets_and_atlas(self):
         """Verify individual sheets and master spritesheet + JSON atlas."""
         sheets_dir = os.path.join(PROJECT_ROOT, "assets", "animations", "sheets")
-        actions = ["idle", "walk", "run", "jump", "attack", "toss", "stir", "chop", "cheer"]
+        actions = ["idle", "walk", "run", "jump", "attack", "toss", "stir", "chop", "cheer", "bartender"]
 
         for action in actions:
             sheet_path = os.path.join(sheets_dir, f"chef_{action}_sheet.png")
@@ -85,16 +85,17 @@ class TestSpriteAnimations(unittest.TestCase):
         canvas = pygame.Surface((CANVAS_WIDTH, CANVAS_HEIGHT))
         particles = ParticleManager()
 
-        # Check all 9 animations are loaded
-        for action in ["idle", "walk", "run", "jump", "attack", "toss", "stir", "chop", "cheer"]:
+        # Check all 10 animations are loaded
+        for action in ["idle", "walk", "run", "jump", "attack", "toss", "stir", "chop", "cheer", "bartender"]:
             self.assertIn(action, renderer.chef_animations)
             expected_count = 8 if action == "stir" else 4
             self.assertEqual(len(renderer.chef_animations[action]), expected_count, f"Action {action} must have {expected_count} frames")
 
-        # Cycle through multiple cooking actions and verify no exceptions
-        for cook_type in ["sizzle", "slice", "simmer", None]:
+        # Cycle through multiple cooking actions including drinks and verify no exceptions
+        for cook_type in ["sizzle", "slice", "simmer", "drink_shake", None]:
             if cook_type:
-                state.start_cooking("ramen" if cook_type == "simmer" else ("pizza" if cook_type == "sizzle" else "sushi"), "@Viewer")
+                dish_key = "ramen" if cook_type == "simmer" else ("boba" if cook_type == "drink_shake" else ("pizza" if cook_type == "sizzle" else "sushi"))
+                state.start_cooking(dish_key, "@Viewer")
             else:
                 state.current_dish = None
 

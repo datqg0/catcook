@@ -79,7 +79,8 @@ graph TD
 - [x] **Mèo Khuấy Nồi (`stir/frame_0..7.png`):** Nâng cấp chu kỳ 8 frame siêu mượt, khóa cứng anchor cơ thể (triệt tiêu rung giật 14px), tẩy sạch 100% pixel lem viền; muôi gỗ khuấy tròn liên tục và tự nhiên.
 - [x] **Mèo Lắc Chảo (`toss/frame_0..3.png`):** Cầm chảo hất đồ ăn tung lên không trung.
 - [x] **Mèo Cắt Thái (`chop/frame_0..3.png`):** Dao thái nhịp nhàng trên thớt gỗ.
-- [x] **Spritesheet Atlas:** Đã xuất đầy đủ 9 sheet riêng lẻ và master spritesheet kèm `chef_master_spritesheet.json`.
+- [x] **Mèo Bartender Pha Chế (`bartender/frame_0..3.png`):** Hoạt ảnh pha chế chuyên nghiệp dành riêng cho cà phê & đồ uống ("cafe với nước", Boba Milk Tea, Iced Caramel Latte). Calico cat 2 chân cầm bình lắc cocktail shaker bạc sáng bóng, lắc điệu nghệ qua lại, nháy mắt duyên dáng, tinh thể đá lạnh & bọt sữa bay bổng cùng hạt cà phê và trân châu.
+- [x] **Spritesheet Atlas:** Đã xuất đầy đủ 10 sheet riêng lẻ và master spritesheet kèm `chef_master_spritesheet.json` (44 frames).
 
 ### Giai Đoạn 3: Cải Tiến Renderer `game/renderer.py` (HOÀN THÀNH ✅)
 - [x] Phân tầng Z-Index chuẩn xác:

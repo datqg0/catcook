@@ -126,7 +126,7 @@ class DinerRenderer:
         self.chef_animations = {}
         self.chef_animations_scaled = {}
         scale = 0.82
-        for action in ["idle", "walk", "run", "jump", "attack", "toss", "stir", "chop", "cheer"]:
+        for action in ["idle", "walk", "run", "jump", "attack", "toss", "stir", "chop", "cheer", "bartender"]:
             act_dir = os.path.join(anim_dir, action)
             self.chef_animations[action] = []
             self.chef_animations_scaled[action] = []
@@ -250,8 +250,9 @@ class DinerRenderer:
         """
         Renders the animated chef character (Layer 2) standing behind the counter.
         Action switches dynamically per dish cooking technique (cook_type):
+        - drink_shake / bartender / brew -> 'bartender' (Lắc bình shaker điệu nghệ phong cách bartender quán bar/cafe)
         - simmer / bake / steam_basket -> 'stir' (Khuấy nồi súp broth)
-        - pan_toss / sizzle / deepfry / drink_shake -> 'toss' (Lắc chảo / lật đồ ăn)
+        - pan_toss / sizzle / deepfry -> 'toss' (Lắc chảo / lật đồ ăn)
         - slice / prep -> 'chop' (Cắt thái dao trên thớt)
         - is_serving / cheer -> 'cheer' (Ăn mừng giơ 2 tay rạng rỡ)
         - idle -> 'idle' (Đứng chờ order, chớp mắt tự nhiên)
@@ -266,7 +267,11 @@ class DinerRenderer:
             fps = 4.0
             pos = (200, 220)
         elif is_cooking:
-            if cook_type in ["pan_toss", "sizzle", "deepfry", "drink_shake"]:
+            if cook_type in ["drink_shake", "bartender", "brew", "shake"]:
+                action = "bartender"
+                fps = 6.0
+                pos = (200, 200)
+            elif cook_type in ["pan_toss", "sizzle", "deepfry"]:
                 action = "toss"
                 fps = 4.5
                 pos = (195, 200)

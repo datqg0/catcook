@@ -799,6 +799,86 @@
         "w": 344,
         "h": 768
       }
+    },
+    "chef_bartender_0": {
+      "frame": {
+        "x": 0,
+        "y": 6912,
+        "w": 344,
+        "h": 768
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 344,
+        "h": 768
+      },
+      "sourceSize": {
+        "w": 344,
+        "h": 768
+      }
+    },
+    "chef_bartender_1": {
+      "frame": {
+        "x": 344,
+        "y": 6912,
+        "w": 344,
+        "h": 768
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 344,
+        "h": 768
+      },
+      "sourceSize": {
+        "w": 344,
+        "h": 768
+      }
+    },
+    "chef_bartender_2": {
+      "frame": {
+        "x": 688,
+        "y": 6912,
+        "w": 344,
+        "h": 768
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 344,
+        "h": 768
+      },
+      "sourceSize": {
+        "w": 344,
+        "h": 768
+      }
+    },
+    "chef_bartender_3": {
+      "frame": {
+        "x": 1032,
+        "y": 6912,
+        "w": 344,
+        "h": 768
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 344,
+        "h": 768
+      },
+      "sourceSize": {
+        "w": 344,
+        "h": 768
+      }
     }
   },
   "meta": {
@@ -806,7 +886,7 @@
     "format": "RGBA8888",
     "size": {
       "w": 2752,
-      "h": 6912
+      "h": 7680
     },
     "scale": "1"
   }
