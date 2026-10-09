@@ -8,6 +8,20 @@
     "audio_bitrate": "128k",
     "stream_key": "YOUR_YOUTUBE_STREAM_KEY_HERE"
   },
+  "youtube": {
+    "api_key": "",
+    "video_id": "",
+    "live_chat_id": "",
+    "enabled": false,
+    "polling_interval": 4.0
+  },
+  "donate": {
+    "enabled": true,
+    "webhook_port": 8088,
+    "webhook_secret": "",
+    "usd_to_coins": 100,
+    "auto_cook_on_message": true
+  },
   "game": {
     "diner_name": "Cozy Midnight Diner",
     "initial_level": 27,
@@ -16,7 +30,7 @@
     "simulation_interval_min": 12.0,
     "simulation_interval_max": 28.0,
     "music_volume": 0.55,
-    "sfx_volume": 0.70
+    "sfx_volume": 0.7
   },
   "display": {
     "window_scale": 0.75,

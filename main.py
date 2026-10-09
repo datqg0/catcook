@@ -2,11 +2,12 @@
 Main entry point for Cozy Midnight Diner (24/7 Interactive YouTube Stream).
 Renders 720x1280 vertical canvas, plays chill lofi music, handles interactive commands.
 Features 16 comfort foods, custom dish animations, procedural SFX, viewer simulator,
-and YouTube chat polling integration.
+YouTube chat polling, and independent Desktop Studio Controller integration.
 """
 import sys
 import os
 import json
+import subprocess
 import pygame
 
 from game.config import (
@@ -19,6 +20,8 @@ from game.particles import ParticleManager
 from game.commands import CommandDispatcher
 from game.audio import AudioManager
 from game.viewer_sim import ViewerSimulator
+from game.studio_bridge import StudioBridge
+from game.donate_receiver import DonateReceiver
 from youtube.chat_poller import YouTubeChatPoller
 
 
@@ -33,12 +36,24 @@ def load_config():
     return {}
 
 
+def open_studio_controller():
+    """Launches the independent Studio Controller desktop window in a separate process."""
+    script_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "studio_controller.py")
+    if os.path.exists(script_path):
+        try:
+            subprocess.Popen([sys.executable, script_path])
+            print("[Main] Opened Studio Controller window.")
+        except Exception as e:
+            print(f"[Main] Failed to open Studio Controller: {e}")
+
+
 def main():
     pygame.init()
     pygame.display.set_caption("Cozy Midnight Diner - 24/7 Interactive Stream")
 
     cfg = load_config()
     game_cfg = cfg.get("game", {})
+    config_path = os.path.join(os.path.dirname(__file__), "config", "config.json")
 
     # Initialize Audio System (Lofi music + SFX)
     audio = AudioManager(
@@ -71,10 +86,21 @@ def main():
         max_interval=game_cfg.get("simulation_interval_max", 28.0)
     )
 
+    # Independent Studio Controller IPC Bridge
+    studio_bridge = StudioBridge()
+    studio_bridge.start()
+
+    # Auto-launch Studio Controller if requested via CLI
+    if "--studio" in sys.argv:
+        open_studio_controller()
+
     # YouTube Chat Poller (if configured with API key)
-    config_path = os.path.join(os.path.dirname(__file__), "config", "config.json")
     chat_poller = YouTubeChatPoller(dispatcher, config_path=config_path)
     chat_poller.start()
+
+    # Universal International Donate Webhook Receiver (Streamlabs / Ko-fi / PayPal)
+    donate_receiver = DonateReceiver(state, dispatcher, config_path=config_path)
+    donate_receiver.start()
 
     # Wire Visual & Audio Event Hooks
     state.on_cheer_callback = lambda: (
@@ -118,6 +144,7 @@ def main():
     print("    [M]       : Show !menu in chat")
     print("    [C]       : Type custom chat command (e.g. !cook waffles)")
     print("    [V]       : Toggle Viewer Simulator ON/OFF")
+    print("    [O]       : Open Studio Controller (Independent Settings UI)")
     print("    [ESC]     : Exit")
     print("=" * 65 + "\n")
 
@@ -155,6 +182,9 @@ def main():
                     elif event.key == pygame.K_c:
                         input_state["active"] = True
                         input_state["text"] = "!cook "
+                    elif event.key == pygame.K_o:
+                        open_studio_controller()
+                        state.add_chat("System", "Studio Controller window opened!", (95, 225, 255))
                     elif event.key in (pygame.K_SPACE, pygame.K_y):
                         dispatcher.dispatch("@You", "!yum")
                     elif event.key == pygame.K_t:
@@ -176,6 +206,12 @@ def main():
         # Update viewer simulation
         viewer_sim.update(dt)
 
+        # Studio Controller IPC tick (processes commands & broadcasts status)
+        studio_bridge.tick(state, audio, viewer_sim, dispatcher, cfg,
+                           config_path=config_path,
+                           chat_poller=chat_poller,
+                           donate_receiver=donate_receiver)
+
         # Update game state & particles
         cook_type = state.current_dish.get("cook_type", "sizzle") if state.current_dish else None
         state.update(dt)
@@ -191,13 +227,18 @@ def main():
         # Render 720x1280 canvas
         renderer.render(canvas, state, particles, input_state, dt)
 
-        # Scale canvas to display window
+        # Scale canvas to display window (Optimized for low-spec PCs)
         cur_w, cur_h = display_surf.get_size()
-        scaled = pygame.transform.smoothscale(canvas, (cur_w, cur_h))
-        display_surf.blit(scaled, (0, 0))
+        if (cur_w, cur_h) == (CANVAS_WIDTH, CANVAS_HEIGHT):
+            display_surf.blit(canvas, (0, 0))
+        else:
+            scaled = pygame.transform.scale(canvas, (cur_w, cur_h))
+            display_surf.blit(scaled, (0, 0))
 
         pygame.display.flip()
 
+    donate_receiver.stop()
+    studio_bridge.stop()
     chat_poller.stop()
     pygame.quit()
     sys.exit()

@@ -248,3 +248,75 @@ class GameState:
             self.on_complete_callback()
 
         self.current_dish = None
+
+    def instant_finish(self):
+        """Instantly completes the dish currently being cooked."""
+        if self.current_dish:
+            self.current_dish["elapsed"] = self.current_dish["cook_time"]
+            self.current_dish["progress"] = 1.0
+            self._finish_cooking()
+            return True
+        return False
+
+    def skip_dish(self):
+        """Skips/cancels the current dish and picks up the next order from the queue."""
+        if self.current_dish:
+            name = self.current_dish.get("name", "Dish")
+            self.add_chat("System", f"Skipped cooking {name}.", COLOR_TEXT_PINK)
+            self.current_dish = None
+            self.idle_timer = 0.0
+            if self.order_queue:
+                next_order = self.order_queue.pop(0)
+                self.start_cooking(next_order["key"], next_order["user"])
+            return True
+        return False
+
+    def clear_order_queue(self):
+        """Clears all pending orders in the queue."""
+        count = len(self.order_queue)
+        self.order_queue.clear()
+        self.add_chat("System", f"Order queue cleared ({count} orders removed).", COLOR_TEXT_CYAN)
+        return count
+
+    def set_level(self, new_level):
+        """Manually sets the diner level."""
+        self.diner_level = max(1, int(new_level))
+        self.add_chat("System", f"Diner Level adjusted to Lv. {self.diner_level}!", COLOR_TEXT_GOLD)
+
+    def get_summary(self):
+        """Returns clean JSON-serializable status dictionary for the Studio Controller."""
+        curr = None
+        if self.current_dish:
+            curr = {
+                "key": self.current_dish.get("key"),
+                "name": self.current_dish.get("name"),
+                "user": self.current_dish.get("user"),
+                "cook_time": self.current_dish.get("cook_time"),
+                "elapsed": round(self.current_dish.get("elapsed", 0.0), 1),
+                "progress": round(self.current_dish.get("progress", 0.0), 3),
+                "current_step": self.current_dish.get("current_step", ""),
+                "compliments": self.current_dish.get("compliments", 0)
+            }
+
+        queue_list = [
+            {"user": item["user"], "key": item["key"], "name": item["name"]}
+            for item in self.order_queue
+        ]
+
+        recent_chats = [
+            {"user": c["user"], "text": c["text"]}
+            for c in self.recent_chats[-8:]
+        ]
+
+        return {
+            "level": self.diner_level,
+            "exp": self.exp,
+            "max_exp": self.max_exp,
+            "current_dish": curr,
+            "is_serving": self.is_serving,
+            "order_queue": queue_list,
+            "order_queue_len": len(self.order_queue),
+            "recent_chats": recent_chats,
+            "leaderboard": self.leaderboard[:5]
+        }
+
