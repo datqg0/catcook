@@ -640,6 +640,266 @@
         "h": 768
       }
     },
+    "chef_stir_0": {
+      "frame": {
+        "x": 0,
+        "y": 4608,
+        "w": 344,
+        "h": 768
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 344,
+        "h": 768
+      },
+      "sourceSize": {
+        "w": 344,
+        "h": 768
+      }
+    },
+    "chef_stir_1": {
+      "frame": {
+        "x": 344,
+        "y": 4608,
+        "w": 344,
+        "h": 768
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 344,
+        "h": 768
+      },
+      "sourceSize": {
+        "w": 344,
+        "h": 768
+      }
+    },
+    "chef_stir_2": {
+      "frame": {
+        "x": 688,
+        "y": 4608,
+        "w": 344,
+        "h": 768
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 344,
+        "h": 768
+      },
+      "sourceSize": {
+        "w": 344,
+        "h": 768
+      }
+    },
+    "chef_stir_3": {
+      "frame": {
+        "x": 1032,
+        "y": 4608,
+        "w": 344,
+        "h": 768
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 344,
+        "h": 768
+      },
+      "sourceSize": {
+        "w": 344,
+        "h": 768
+      }
+    },
+    "chef_stir_4": {
+      "frame": {
+        "x": 1376,
+        "y": 4608,
+        "w": 344,
+        "h": 768
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 344,
+        "h": 768
+      },
+      "sourceSize": {
+        "w": 344,
+        "h": 768
+      }
+    },
+    "chef_bake_0": {
+      "frame": {
+        "x": 0,
+        "y": 8448,
+        "w": 344,
+        "h": 768
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 344,
+        "h": 768
+      },
+      "sourceSize": {
+        "w": 344,
+        "h": 768
+      }
+    },
+    "chef_bake_1": {
+      "frame": {
+        "x": 344,
+        "y": 8448,
+        "w": 344,
+        "h": 768
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 344,
+        "h": 768
+      },
+      "sourceSize": {
+        "w": 344,
+        "h": 768
+      }
+    },
+    "chef_bake_2": {
+      "frame": {
+        "x": 688,
+        "y": 8448,
+        "w": 344,
+        "h": 768
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 344,
+        "h": 768
+      },
+      "sourceSize": {
+        "w": 344,
+        "h": 768
+      }
+    },
+    "chef_bake_3": {
+      "frame": {
+        "x": 1032,
+        "y": 8448,
+        "w": 344,
+        "h": 768
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 344,
+        "h": 768
+      },
+      "sourceSize": {
+        "w": 344,
+        "h": 768
+      }
+    },
+    "chef_serve_0": {
+      "frame": {
+        "x": 0,
+        "y": 9216,
+        "w": 344,
+        "h": 768
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 344,
+        "h": 768
+      },
+      "sourceSize": {
+        "w": 344,
+        "h": 768
+      }
+    },
+    "chef_serve_1": {
+      "frame": {
+        "x": 344,
+        "y": 9216,
+        "w": 344,
+        "h": 768
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 344,
+        "h": 768
+      },
+      "sourceSize": {
+        "w": 344,
+        "h": 768
+      }
+    },
+    "chef_serve_2": {
+      "frame": {
+        "x": 688,
+        "y": 9216,
+        "w": 344,
+        "h": 768
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 344,
+        "h": 768
+      },
+      "sourceSize": {
+        "w": 344,
+        "h": 768
+      }
+    },
+    "chef_serve_3": {
+      "frame": {
+        "x": 1032,
+        "y": 9216,
+        "w": 344,
+        "h": 768
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 344,
+        "h": 768
+      },
+      "sourceSize": {
+        "w": 344,
+        "h": 768
+      }
+    },
     "chef_bartender_0": {
       "frame": {
         "x": 0,
@@ -800,10 +1060,10 @@
         "h": 768
       }
     },
-    "chef_stir_0": {
+    "chef_bartender_8": {
       "frame": {
         "x": 0,
-        "y": 4608,
+        "y": 7680,
         "w": 344,
         "h": 768
       },
@@ -820,10 +1080,10 @@
         "h": 768
       }
     },
-    "chef_stir_1": {
+    "chef_bartender_9": {
       "frame": {
         "x": 344,
-        "y": 4608,
+        "y": 7680,
         "w": 344,
         "h": 768
       },
@@ -840,10 +1100,10 @@
         "h": 768
       }
     },
-    "chef_stir_2": {
+    "chef_bartender_10": {
       "frame": {
         "x": 688,
-        "y": 4608,
+        "y": 7680,
         "w": 344,
         "h": 768
       },
@@ -860,10 +1120,10 @@
         "h": 768
       }
     },
-    "chef_stir_3": {
+    "chef_bartender_11": {
       "frame": {
         "x": 1032,
-        "y": 4608,
+        "y": 7680,
         "w": 344,
         "h": 768
       },
@@ -880,29 +1140,9 @@
         "h": 768
       }
     },
-    "chef_stir_4": {
+    "chef_bartender_12": {
       "frame": {
         "x": 1376,
-        "y": 4608,
-        "w": 344,
-        "h": 768
-      },
-      "rotated": false,
-      "trimmed": false,
-      "spriteSourceSize": {
-        "x": 0,
-        "y": 0,
-        "w": 344,
-        "h": 768
-      },
-      "sourceSize": {
-        "w": 344,
-        "h": 768
-      }
-    },
-    "chef_bake_0": {
-      "frame": {
-        "x": 0,
         "y": 7680,
         "w": 344,
         "h": 768
@@ -920,9 +1160,9 @@
         "h": 768
       }
     },
-    "chef_bake_1": {
+    "chef_bartender_13": {
       "frame": {
-        "x": 344,
+        "x": 1720,
         "y": 7680,
         "w": 344,
         "h": 768
@@ -940,9 +1180,9 @@
         "h": 768
       }
     },
-    "chef_bake_2": {
+    "chef_bartender_14": {
       "frame": {
-        "x": 688,
+        "x": 2064,
         "y": 7680,
         "w": 344,
         "h": 768
@@ -960,90 +1200,10 @@
         "h": 768
       }
     },
-    "chef_bake_3": {
+    "chef_bartender_15": {
       "frame": {
-        "x": 1032,
+        "x": 2408,
         "y": 7680,
-        "w": 344,
-        "h": 768
-      },
-      "rotated": false,
-      "trimmed": false,
-      "spriteSourceSize": {
-        "x": 0,
-        "y": 0,
-        "w": 344,
-        "h": 768
-      },
-      "sourceSize": {
-        "w": 344,
-        "h": 768
-      }
-    },
-    "chef_serve_0": {
-      "frame": {
-        "x": 0,
-        "y": 8448,
-        "w": 344,
-        "h": 768
-      },
-      "rotated": false,
-      "trimmed": false,
-      "spriteSourceSize": {
-        "x": 0,
-        "y": 0,
-        "w": 344,
-        "h": 768
-      },
-      "sourceSize": {
-        "w": 344,
-        "h": 768
-      }
-    },
-    "chef_serve_1": {
-      "frame": {
-        "x": 344,
-        "y": 8448,
-        "w": 344,
-        "h": 768
-      },
-      "rotated": false,
-      "trimmed": false,
-      "spriteSourceSize": {
-        "x": 0,
-        "y": 0,
-        "w": 344,
-        "h": 768
-      },
-      "sourceSize": {
-        "w": 344,
-        "h": 768
-      }
-    },
-    "chef_serve_2": {
-      "frame": {
-        "x": 688,
-        "y": 8448,
-        "w": 344,
-        "h": 768
-      },
-      "rotated": false,
-      "trimmed": false,
-      "spriteSourceSize": {
-        "x": 0,
-        "y": 0,
-        "w": 344,
-        "h": 768
-      },
-      "sourceSize": {
-        "w": 344,
-        "h": 768
-      }
-    },
-    "chef_serve_3": {
-      "frame": {
-        "x": 1032,
-        "y": 8448,
         "w": 344,
         "h": 768
       },
@@ -1066,7 +1226,7 @@
     "format": "RGBA8888",
     "size": {
       "w": 2752,
-      "h": 9216
+      "h": 9984
     },
     "scale": "1"
   }

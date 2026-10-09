@@ -38,14 +38,14 @@ class TestSpriteAnimations(unittest.TestCase):
         pygame.quit()
 
     def test_01_all_action_folders_and_frames(self):
-        """Verify all 12 actions have clean RGBA PNG frames (5 for stir, 8 for bartender, 4 for others including bake and serve)."""
+        """Verify all 12 actions have clean RGBA PNG frames (5 for stir, 16 for bartender, 4 for others including bake and serve)."""
         anim_dir = os.path.join(PROJECT_ROOT, "assets", "animations")
         actions = ["idle", "walk", "run", "jump", "attack", "toss", "stir", "chop", "cheer", "bartender", "bake", "serve"]
 
         for action in actions:
             act_path = os.path.join(anim_dir, action)
             self.assertTrue(os.path.isdir(act_path), f"Missing action directory: {action}")
-            expected_frames = 5 if action == "stir" else (8 if action == "bartender" else 4)
+            expected_frames = 5 if action == "stir" else (16 if action == "bartender" else 4)
             for i in range(expected_frames):
                 fpath = os.path.join(act_path, f"frame_{i}.png")
                 self.assertTrue(os.path.exists(fpath), f"Missing frame {i} in {action}")
@@ -75,7 +75,7 @@ class TestSpriteAnimations(unittest.TestCase):
             data = json.load(f)
             self.assertIn("frames", data)
             self.assertIn("meta", data)
-            expected_total = sum(5 if a == "stir" else (8 if a == "bartender" else 4) for a in actions)
+            expected_total = sum(5 if a == "stir" else (16 if a == "bartender" else 4) for a in actions)
             self.assertEqual(len(data["frames"]), expected_total)
 
     def test_03_engine_frame_cycling(self):
@@ -88,7 +88,7 @@ class TestSpriteAnimations(unittest.TestCase):
         # Check all 12 animations are loaded
         for action in ["idle", "walk", "run", "jump", "attack", "toss", "stir", "chop", "cheer", "bartender", "bake", "serve"]:
             self.assertIn(action, renderer.chef_animations)
-            expected_count = 5 if action == "stir" else (8 if action == "bartender" else 4)
+            expected_count = 5 if action == "stir" else (16 if action == "bartender" else 4)
             self.assertEqual(len(renderer.chef_animations[action]), expected_count, f"Action {action} must have {expected_count} frames")
 
         # Cycle through multiple cooking actions including drinks and bake and verify no exceptions

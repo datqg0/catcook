@@ -275,7 +275,7 @@ class DinerRenderer:
         elif is_cooking:
             if cook_type in ["drink_shake", "bartender", "brew", "shake"]:
                 action = "bartender"
-                fps = 5.0
+                fps = 3.6
                 pos = (200, 200)
             elif cook_type in ["bake", "oven", "baker", "pastry"]:
                 action = "bake"
