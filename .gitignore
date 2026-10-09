@@ -1,0 +1,9 @@
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+assets/test_*.png
+assets/inspect_*.png
+assets/tray_*.png
+assets/current_test_render.png
+assets/backgrounds/diner_bg_clean_master.png

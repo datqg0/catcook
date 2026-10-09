@@ -87,13 +87,17 @@ class DinerRenderer:
         has_display = pygame.display.get_surface() is not None
 
         # 1. Base clean background matching reference mockup
-        bg_clean_path = os.path.join(BG_DIR, "diner_bg_clean.png")
-        if os.path.exists(bg_clean_path):
-            surf = pygame.image.load(bg_clean_path)
+        bg_new_path = os.path.join(BG_DIR, "diner_bg_new.png")
+        if os.path.exists(bg_new_path):
+            surf = pygame.image.load(bg_new_path)
             self.bg_clean = surf.convert() if has_display else surf
         else:
-            surf = pygame.image.load(os.path.join(BG_DIR, "full_reference_720x1280.png"))
+            surf = pygame.image.load(os.path.join(BG_DIR, "diner_bg_clean.png"))
             self.bg_clean = surf.convert() if has_display else surf
+
+        # Foreground Counter & Stove (Layer 3 & 4: sits in front of chef so chef stands on floor behind counter)
+        fg_counter_surf = self.bg_clean.subsurface((0, 615, 720, 1280 - 615)).copy()
+        self.fg_counter = fg_counter_surf.convert() if has_display else fg_counter_surf
 
         # 2. Living Animation Overlays
         anim_dir = os.path.join(os.path.dirname(BG_DIR), "animations")
@@ -118,9 +122,12 @@ class DinerRenderer:
 
         # 3. Action Sprite Sequences (preserved for full backward compatibility & unit tests)
         self.chef_animations = {}
+        self.chef_animations_scaled = {}
+        scale = 0.82
         for action in ["idle", "walk", "run", "jump", "attack", "toss", "stir", "chop", "cheer"]:
             act_dir = os.path.join(anim_dir, action)
             self.chef_animations[action] = []
+            self.chef_animations_scaled[action] = []
             if os.path.exists(act_dir):
                 for i in range(16):
                     fpath = os.path.join(act_dir, f"frame_{i}.png")
@@ -128,6 +135,9 @@ class DinerRenderer:
                         img = pygame.image.load(fpath)
                         if has_display: img = img.convert_alpha()
                         self.chef_animations[action].append(img)
+                        w, h = img.get_size()
+                        scaled_img = pygame.transform.smoothscale(img, (int(w * scale), int(h * scale)))
+                        self.chef_animations_scaled[action].append(scaled_img)
 
         # 4. Plated Food Icons
         self.food_icons = {}
@@ -177,16 +187,20 @@ class DinerRenderer:
         # 4. Dynamic Window Rain Streaks
         particles.draw_rain(surface)
 
-        # 5. Maneki-Neko (Lucky Cat) Waving Paw Animation
+        # 5. Maneki-Neko (Lucky Cat) Waving Paw Animation (Layer 1)
         self._render_lucky_cat(surface)
 
-        # 6. Chef Cat Living Animation (Natural Blinking, Smiling Expressions)
+        # 6. Chef Cat Character Animation (Layer 2: standing on floor behind counter)
         self._render_chef_character(surface, state)
 
-        # 7. Plated Food Display (When a dish other than signature ramen is active)
+        # 6b. Foreground Counter & Stove (Layer 3 & 4: stove & dining counter in front)
+        if hasattr(self, "fg_counter") and self.fg_counter:
+            surface.blit(self.fg_counter, (0, 615))
+
+        # 7. Plated Food Display (Layer 5: on the wooden counter tray)
         self._render_counter_dish(surface, state)
 
-        # 8. Steam & Broth Particles
+        # 8. Steam & Broth Particles (Layer 7)
         particles.draw_steam(surface)
 
         # 9. Dynamic Header Elements (XP progress bar, Live Equalizer bars, LIVE indicator)
@@ -226,57 +240,84 @@ class DinerRenderer:
             surface.blit(scaled, (lx - w // 2, ly - h // 2), special_flags=pygame.BLEND_ADD)
 
     def _render_lucky_cat(self, surface):
-        """Animates the lucky waving cat paw on the front counter."""
-        if self.neko_paw:
-            paw_angle = math.sin(self.anim_timer * 2.8) * 7.5
-            rot_paw = pygame.transform.rotate(self.neko_paw, paw_angle)
-            surface.blit(rot_paw, (644, 562))
+        """Animates lucky waving cat paw if statue body is present."""
+        # Only render if explicitly configured with statue base
+        return
 
     def _render_chef_character(self, surface, state):
         """
-        Renders living facial expressions for the chef cat:
-        - When praised/tipped or serving dish: Happy anime smiling eyes (^ ^) with rosy blush
-        - While idle/cooking: Natural blinking every ~4 seconds
+        Renders the animated chef character (Layer 2) standing behind the counter.
+        Action switches dynamically per dish cooking technique (cook_type):
+        - simmer / bake / steam_basket -> 'stir' (Khuấy nồi súp broth)
+        - pan_toss / sizzle / deepfry / drink_shake -> 'toss' (Lắc chảo / lật đồ ăn)
+        - slice / prep -> 'chop' (Cắt thái dao trên thớt)
+        - is_serving / cheer -> 'cheer' (Ăn mừng giơ 2 tay rạng rỡ)
+        - idle -> 'idle' (Đứng chờ order, chớp mắt tự nhiên)
         """
-        is_serving = state.last_served_dish is not None and (self.anim_timer - getattr(state, "serve_timestamp", 0) < 2.5)
+        is_serving = state.last_served_dish is not None and (self.anim_timer - getattr(state, "serve_timestamp", 0) < 2.8)
         has_cheer = state.current_dish and state.current_dish.get("compliments", 0) > 0
+        is_cooking = state.current_dish is not None
+        cook_type = state.current_dish.get("cook_type", "simmer") if state.current_dish else None
 
         if is_serving or has_cheer:
-            if self.happy_overlay:
-                surface.blit(self.happy_overlay, (0, 0))
+            action = "cheer"
+            fps = 4.0
+            pos = (200, 190)
+        elif is_cooking:
+            if cook_type in ["pan_toss", "sizzle", "deepfry", "drink_shake"]:
+                action = "toss"
+                fps = 4.5
+                pos = (195, 200)
+            elif cook_type in ["slice", "prep"]:
+                action = "chop"
+                fps = 4.5
+                pos = (200, 205)
+            else:  # simmer, bake, steam_basket, default
+                action = "stir"
+                fps = 4.0
+                pos = (200, 200)
         else:
-            # Natural blink every 4.2s for 0.16s
-            if self.blink_overlay and (self.anim_timer % 4.2) < 0.16:
-                surface.blit(self.blink_overlay, (0, 0))
+            action = "idle"
+            fps = 3.0
+            pos = (200, 200)
+
+        scaled_frames = getattr(self, "chef_animations_scaled", {}).get(action) or self.chef_animations.get(action, [])
+        if scaled_frames:
+            frame_idx = int(self.anim_timer * fps) % len(scaled_frames)
+            surface.blit(scaled_frames[frame_idx], pos)
+        elif self.happy_overlay and (is_serving or has_cheer):
+            surface.blit(self.happy_overlay, (0, 0))
+        elif self.blink_overlay and (self.anim_timer % 4.2) < 0.16:
+            surface.blit(self.blink_overlay, (0, 0))
 
     def _render_counter_dish(self, surface, state):
         """
-        When cooking a dish other than the default signature ramen (e.g. Pizza, Burger, Sushi),
-        renders the plated dish badge on the wooden counter tray.
+        Renders the active or served dish plated on the wooden serving tray (Layer 5).
+        Optimized for all 16 dishes: Ramen, Pizza, Burger, Sushi, Pancakes, Boba, etc.
         """
         dish = state.current_dish or state.last_served_dish
-        if not dish or dish.get("key") == "ramen":
+        if not dish:
             return
 
         icon = self.food_counter_icons.get(dish["key"])
         if not icon:
             return
 
-        counter_x = 485
-        counter_y = 690
+        counter_x = 540
+        counter_y = 730
 
         # Gentle floating breathing motion
         scale_mod = 1.0 + math.sin(self.anim_timer * 3.2) * 0.03
-        sw = int(72 * scale_mod)
-        sh = int(72 * scale_mod)
+        sw = int(88 * scale_mod)
+        sh = int(88 * scale_mod)
         scaled_icon = pygame.transform.smoothscale(icon, (sw, sh))
         surface.blit(scaled_icon, (counter_x - sw // 2, counter_y - sh // 2))
 
         # Plated dish tag badge
-        tag_bg = pygame.Surface((130, 22), pygame.SRCALPHA)
-        pygame.draw.rect(tag_bg, (18, 14, 12, 215), (0, 0, 130, 22), border_radius=4)
-        pygame.draw.rect(tag_bg, COLOR_BORDER_AMBER, (0, 0, 130, 22), 1, border_radius=4)
-        surface.blit(tag_bg, (counter_x - 65, counter_y + 44))
+        tag_bg = pygame.Surface((136, 22), pygame.SRCALPHA)
+        pygame.draw.rect(tag_bg, (18, 14, 12, 225), (0, 0, 136, 22), border_radius=4)
+        pygame.draw.rect(tag_bg, COLOR_BORDER_AMBER, (0, 0, 136, 22), 1, border_radius=4)
+        surface.blit(tag_bg, (counter_x - 68, counter_y + 44))
 
         d_name = dish["name"] if len(dish["name"]) <= 16 else dish["name"][:14] + ".."
         tw, _ = self.font_tiny.size(d_name)

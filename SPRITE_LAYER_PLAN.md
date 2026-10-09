@@ -47,41 +47,54 @@ graph TD
 
 ---
 
-## 4. Kế Hoạch Triển Khai Chi Tiết (Action Plan)
+## 4. Bảng Ánh Xạ Animation Tối Ưu Theo Từng Món Ăn (Dish Animation Matrix)
 
-### Giai Đoạn 1: Chuẩn Bị Background Sạch 100%
-- [ ] Dựng canvas nền `diner_bg_empty_clean.png` (720×1280):
-  - Phục hồi mảng tường gỗ và gờ cửa sổ nơi Maneki-Neko từng ngồi (loại bỏ hoàn toàn vệt mờ).
-  - Phục hồi mặt quầy gỗ nơi đặt bếp và khay ăn (loại bỏ hoàn toàn bát mì ramen cũ và vệt đáy bát).
-  - Giữ nguyên các chi tiết đẹp: cửa sổ đêm Tokyo mưa lofi, đèn lồng ấm áp, bảng "TONIGHT'S SPECIAL", các viền bo thẻ UI.
+| Danh Mục Món | Các Món Ăn Cụ Thể | `cook_type` | Action Sprite | Tốc Độ (FPS) | Mô Tả Trực Quan |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **Món Nước & Hầm** | Tonkotsu Ramen, Japanese Curry | `simmer` | `stir` | 4.0 | Mèo cầm muôi gỗ khuấy nồi nước dùng nghi ngút khói trên bếp ga |
+| **Món Áp Chảo & Lắc Chảo** | Pancakes, Creamy Carbonara, Fried Rice | `pan_toss` | `toss` | 4.5 | Mèo cầm chảo hất/lắc liên tục, đồ ăn nảy lên không trung đẹp mắt |
+| **Món Nướng & Searing** | Smash Burger, Ribeye Steak, Birria Tacos, Hotdog | `sizzle` | `toss` | 4.5 | Áp chảo xèo xèo, lật thịt nướng bốc khói mỡ vàng ươm |
+| **Món Dao & Cắt Thái** | Salmon Sushi | `slice` | `chop` | 4.5 | Mèo cầm dao thái sashimi điêu luyện nhịp nhàng trên thớt gỗ |
+| **Món Lò Nướng** | Pepperoni Pizza, Donut, Waffles | `bake` | `stir` | 4.0 | Mèo đứng canh lò & khay nướng chuẩn bị topping |
+| **Món Pha Chế** | Boba Milk Tea, Matcha Latte | `drink_shake` | `toss` | 4.5 | Mèo lắc bình shaker điệu nghệ sủi bọt đá mát lạnh |
+| **Món Chiên Ngập Dầu** | Fried Chicken | `deepfry` | `toss` | 4.5 | Nhấc vợt chiên giòn tan ngập dầu sủi tăm |
+| **Món Hấp Xửng Trúc** | Dim Sum Dumplings | `steam_basket` | `stir` | 4.0 | Mèo canh xửng tre nghi ngút khói hấp chín tới |
+| **Ăn Mừng Hoàn Thành** | *Tất cả 16 món khi nấu xong hoặc nhận !khen* | `serve` | `cheer` | 4.0 | Mèo giơ 2 chân `\(=^o^=)/`, mắt nhắm cong `^ ^`, má hồng ăn mừng |
+| **Chờ Order** | *Khi chưa có lệnh !cook* | `idle` | `idle` | 3.0 | Mèo đứng thẳng sau quầy, chớp mắt tự nhiên, đuôi vẫy nhẹ |
 
-### Giai Đoạn 2: Xử Lý Bộ Sprite Rời (Transparent RGBA)
-- [ ] **Mèo Ăn Mừng (`chef_cheer_clean.png`):**
-  - Sử dụng ảnh đã gen chuẩn (chú mèo calico giơ hai chân ăn mừng cực kỳ đáng yêu, phong cách anime sắc nét).
-  - Tách nền trong suốt hoàn hảo bằng alpha mask, tối ưu hóa kích thước đặt đúng vị trí bếp.
-- [ ] **Mèo Maneki-Neko (`maneki_neko_body.png` & `paw`):**
-  - Tách thân tượng mèo sứ sạch sẽ khỏi nền cũ.
-  - Tách riêng bàn tay vẫy để render góc quay mượt mà `angle = sin(t * freq) * amp`.
-- [ ] **Khay Gỗ & Đĩa Sứ Trắng (`wooden_tray_plate.png`):**
-  - Dựng khay gỗ Nhật Bản và chiếc **đĩa sứ trắng** tinh tế (thay thế hoàn toàn bát mì ramen).
-  - Khi người xem gõ lệnh nấu bất kỳ món nào (`!cook ramen`, `!cook pizza`, `!cook sushi`), món ăn đó sẽ được đặt ngay ngắn vào lòng chiếc đĩa này!
+---
 
-### Giai Đoạn 3: Cải Tiến Renderer (`game/renderer.py`)
-- [ ] Cập nhật hàm `render()` theo đúng thứ tự Z-Index của kiến trúc phân lớp:
-  1. `surface.blit(self.bg_empty, (0, 0))`
-  2. `_render_lucky_cat(surface)`: Vẽ thân Neko + cánh tay vẫy hoạt họa.
-  3. `_render_chef(surface, state)`:
-     - Bình thường: Vẽ mèo khuấy nồi + chớp mắt.
-     - Khi hoàn thành món / được khen thưởng (`!khen`, `!yum`): Vẽ **mèo giơ tay ăn mừng**.
-  4. `_render_stove_and_pot(surface)`: Bếp và nồi đặt phía trước mèo.
-  5. `_render_serving_tray(surface)`: Khay gỗ và chiếc đĩa sứ sạch.
-  6. `_render_plated_food(surface, state)`: Vẽ món ăn hiện tại lên đĩa kèm nhãn tên món và hiệu ứng khói.
-  7. `_render_tableware(surface)`: Ly trà matcha và đũa thìa.
-  8. `_render_vfx_and_ui(surface, state)`: Đèn neon ngoài cửa sổ, mưa rơi, tim bay, khói bốc, HUD chữ.
+## 5. Kế Hoạch Triển Khai & Kết Quả (Action Plan & Verification)
 
-### Giai Đoạn 4: Kiểm Thử & Tinh Chỉnh (QA Verification)
-- [ ] Chạy kiểm thử tự động `python -m pytest` đảm bảo 100% tests vượt qua.
-- [ ] Chụp ảnh giả lập màn hình game thực tế trong 2 trạng thái:
-  - Trạng thái 1: **Đang nấu ăn bình thường** (Mèo khuấy nồi, Neko vẫy tay, đĩa sứ chờ phục vụ).
-  - Trạng thái 2: **Ăn mừng hoàn thành món** (Mèo giơ 2 chân ăn mừng rạng rỡ, món ăn hiện đẹp mắt trên đĩa).
-- [ ] Kiểm tra trực quan đảm bảo không còn bất kỳ đường viền răng cưa, vệt mờ chắp vá nào.
+### Giai Đoạn 1: Chuẩn Bị Background Sạch 100% (HOÀN THÀNH ✅)
+- [x] Dựng canvas nền `diner_bg_new.png` (720×1280):
+  - Phục hồi không gian quán đêm Tokyo mưa lofi ấm cúng qua khung cửa sổ.
+  - Mặt khay gỗ bên phải hoàn toàn sạch sẽ, sẵn sàng bày bất kỳ món ăn nào trong thực đơn.
+  - Bếp ga & nồi súp hầm ở tiền cảnh bên trái, tạo chiều sâu 3D chân thực.
+  - 4 khung card UI sạch sẽ ở nửa dưới màn hình với viền hổ phách sắc nét.
+
+### Giai Đoạn 2: Xử Lý Bộ Sprite Rời Transparent RGBA (HOÀN THÀNH ✅)
+- [x] **Mèo Ăn Mừng (`cheer/frame_0..3.png`):** Calico cat giơ 2 chân ăn mừng `\(=^o^=)/`, mắt nhắm cong hạnh phúc, má hồng, mũ đầu bếp & khăn đỏ chuẩn anime lofi.
+- [x] **Mèo Đứng Chờ (`idle/frame_0..3.png`):** Đứng sau quầy, chớp mắt và mỉm cười tự nhiên.
+- [x] **Mèo Khuấy Nồi (`stir/frame_0..3.png`):** Muôi gỗ khuấy tròn trong nồi.
+- [x] **Mèo Lắc Chảo (`toss/frame_0..3.png`):** Cầm chảo hất đồ ăn tung lên không trung.
+- [x] **Mèo Cắt Thái (`chop/frame_0..3.png`):** Dao thái nhịp nhàng trên thớt gỗ.
+- [x] **Spritesheet Atlas:** Đã xuất đầy đủ 9 sheet riêng lẻ và master spritesheet kèm `chef_master_spritesheet.json`.
+
+### Giai Đoạn 3: Cải Tiến Renderer `game/renderer.py` (HOÀN THÀNH ✅)
+- [x] Phân tầng Z-Index chuẩn xác:
+  1. `Layer 0`: Background sạch `diner_bg_new.png` + Neon window pulse + Đèn lồng + Hạt mưa rơi.
+  2. `Layer 1`: Maneki-Neko (tượng đón khách).
+  3. `Layer 2`: Mèo Đầu Bếp (Animated action frame tại `pos = (200, 200)` trên sàn bếp).
+  4. `Layer 3 & 4`: Bếp Ga & Quầy Ăn Tiền Cảnh (`fg_counter` tại `y = 615` che thân dưới, chân mèo đặt trên sàn tự nhiên).
+  5. `Layer 5`: Món Ăn Phục Vụ (`_render_counter_dish` đặt đúng lòng khay gỗ tại `x=540, y=730` cho cả 16 món).
+  6. `Layer 6`: Phụ kiện bàn ăn (Ly trà matcha, đũa thìa).
+  7. `Layer 7`: Hạt hơi nước bốc lên từ nồi & đĩa món ăn, tim bay, sao lấp lánh.
+  8. `Layer 8`: Dynamic HUD, Thanh XP, Live Visualizer, 4 UI Card và Command Bar.
+
+### Giai Đoạn 4: Kiểm Thử & Tinh Chỉnh QA (HOÀN THÀNH ✅)
+- [x] Chạy kiểm thử tự động `python -m unittest discover tests -v` đạt 9/9 tests PASS 100%.
+- [x] Chụp ảnh giả lập màn hình game thực tế:
+  - `assets/verified_final_diner_frame.png`: Khung cảnh hoàn chỉnh sạch sẽ, mèo khuấy nồi, bát mì ramen đặt ngay ngắn trong khay gỗ, không còn viền bẩn hay vệt lem nhem.
+  - Không còn hiện tượng mèo đứng lên bếp hay floating.
+  - Không còn lỗi "món nào cũng thành ramen".
