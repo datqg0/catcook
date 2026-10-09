@@ -57,7 +57,7 @@ graph TD
 | **Món Nướng & Searing** | Smash Burger, Birria Tacos, Fried Chicken | `sizzle`, `deepfry` | `toss` | 4 frames @ 4.5 FPS | **38s – 40s** | Áp chảo xèo xèo, chiên giòn, lật thịt bốc khói vàng ươm |
 | **Món Lò Nướng Phức Tạp** | Pepperoni Pizza | `bake` | `stir` | 4 frames @ 4.0 FPS | **42s** | Canh lò nướng phô mai tan chảy kéo sợi |
 | **Món Sốt Nóng** | Creamy Carbonara | `pan_toss` | `toss` | 4 frames @ 4.5 FPS | **42s** | Đảo chảo sốt kem trứng béo ngậy |
-| **Món Nước & Hầm Kỳ Công** | Tonkotsu Ramen, Japanese Curry | `simmer` | `stir` | **8 frames @ 4.0 FPS** | **44s** | Mèo cầm muôi gỗ khuấy nồi nước dùng hầm xương nghi ngút khói |
+| **Món Nước & Hầm Kỳ Công** | Tonkotsu Ramen, Japanese Curry | `simmer` | `stir` | **5 frames @ 5.0 FPS** | **44s** | Mèo cầm muôi gỗ khuấy nồi nước dùng hầm xương nghi ngút khói |
 | **Món Bít Tết Hảo Hạng** | Ribeye Steak | `sizzle` | `toss` | 4 frames @ 4.5 FPS | **45s** | Áp chảo bơ tỏi hương thảo kỳ công đạt chuẩn medium-rare |
 | **Ăn Mừng Hoàn Thành** | *Tất cả 16 món khi nấu xong hoặc nhận !khen* | `serve` | `cheer` | 4 frames @ 4.0 FPS | — | Mèo giơ 2 chân `\(=^o^=)/`, mắt nhắm cong `^ ^`, má hồng ăn mừng |
 | **Chờ Order** | *Khi chưa có lệnh !cook* | `idle` | `idle` | 4 frames @ 3.0 FPS | — | Mèo đứng thẳng sau quầy, chớp mắt tự nhiên, đuôi vẫy nhẹ |
@@ -76,7 +76,7 @@ graph TD
 ### Giai Đoạn 2: Xử Lý Bộ Sprite Rời Transparent RGBA (HOÀN THÀNH ✅)
 - [x] **Mèo Ăn Mừng (`cheer/frame_0..3.png`):** Calico cat giơ 2 chân ăn mừng `\(=^o^=)/`, mắt nhắm cong hạnh phúc, má hồng, mũ đầu bếp & khăn đỏ chuẩn anime lofi.
 - [x] **Mèo Đứng Chờ (`idle/frame_0..3.png`):** Đứng sau quầy, chớp mắt và mỉm cười tự nhiên.
-- [x] **Mèo Khuấy Nồi (`stir/frame_0..7.png`):** Nâng cấp chu kỳ 8 frame siêu mượt, khóa cứng anchor cơ thể (triệt tiêu rung giật 14px), tẩy sạch 100% pixel lem viền; muôi gỗ khuấy tròn liên tục và tự nhiên.
+- [x] **Mèo Khuấy Nồi (`stir/frame_0..4.png`):** Tinh chỉnh còn 5 frames chọn lọc (loại bỏ các frame 0, 1, 7 theo yêu cầu), giữ các frame chuyển động khuấy mượt nhất, khóa cứng anchor cơ thể 0px jitter, tốc độ 5.0 FPS (1.0s/chu kỳ).
 - [x] **Mèo Lắc Chảo (`toss/frame_0..3.png`):** Cầm chảo hất đồ ăn tung lên không trung.
 - [x] **Mèo Cắt Thái (`chop/frame_0..3.png`):** Dao thái nhịp nhàng trên thớt gỗ.
 - [x] **Mèo Bartender Pha Chế Nâng Cấp 8 Frames Chậm Rãi & Polish (`bartender/frame_0..7.png`):** 

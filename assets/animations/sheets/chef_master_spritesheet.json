@@ -480,166 +480,6 @@
         "h": 768
       }
     },
-    "chef_stir_0": {
-      "frame": {
-        "x": 0,
-        "y": 4608,
-        "w": 344,
-        "h": 768
-      },
-      "rotated": false,
-      "trimmed": false,
-      "spriteSourceSize": {
-        "x": 0,
-        "y": 0,
-        "w": 344,
-        "h": 768
-      },
-      "sourceSize": {
-        "w": 344,
-        "h": 768
-      }
-    },
-    "chef_stir_1": {
-      "frame": {
-        "x": 344,
-        "y": 4608,
-        "w": 344,
-        "h": 768
-      },
-      "rotated": false,
-      "trimmed": false,
-      "spriteSourceSize": {
-        "x": 0,
-        "y": 0,
-        "w": 344,
-        "h": 768
-      },
-      "sourceSize": {
-        "w": 344,
-        "h": 768
-      }
-    },
-    "chef_stir_2": {
-      "frame": {
-        "x": 688,
-        "y": 4608,
-        "w": 344,
-        "h": 768
-      },
-      "rotated": false,
-      "trimmed": false,
-      "spriteSourceSize": {
-        "x": 0,
-        "y": 0,
-        "w": 344,
-        "h": 768
-      },
-      "sourceSize": {
-        "w": 344,
-        "h": 768
-      }
-    },
-    "chef_stir_3": {
-      "frame": {
-        "x": 1032,
-        "y": 4608,
-        "w": 344,
-        "h": 768
-      },
-      "rotated": false,
-      "trimmed": false,
-      "spriteSourceSize": {
-        "x": 0,
-        "y": 0,
-        "w": 344,
-        "h": 768
-      },
-      "sourceSize": {
-        "w": 344,
-        "h": 768
-      }
-    },
-    "chef_stir_4": {
-      "frame": {
-        "x": 1376,
-        "y": 4608,
-        "w": 344,
-        "h": 768
-      },
-      "rotated": false,
-      "trimmed": false,
-      "spriteSourceSize": {
-        "x": 0,
-        "y": 0,
-        "w": 344,
-        "h": 768
-      },
-      "sourceSize": {
-        "w": 344,
-        "h": 768
-      }
-    },
-    "chef_stir_5": {
-      "frame": {
-        "x": 1720,
-        "y": 4608,
-        "w": 344,
-        "h": 768
-      },
-      "rotated": false,
-      "trimmed": false,
-      "spriteSourceSize": {
-        "x": 0,
-        "y": 0,
-        "w": 344,
-        "h": 768
-      },
-      "sourceSize": {
-        "w": 344,
-        "h": 768
-      }
-    },
-    "chef_stir_6": {
-      "frame": {
-        "x": 2064,
-        "y": 4608,
-        "w": 344,
-        "h": 768
-      },
-      "rotated": false,
-      "trimmed": false,
-      "spriteSourceSize": {
-        "x": 0,
-        "y": 0,
-        "w": 344,
-        "h": 768
-      },
-      "sourceSize": {
-        "w": 344,
-        "h": 768
-      }
-    },
-    "chef_stir_7": {
-      "frame": {
-        "x": 2408,
-        "y": 4608,
-        "w": 344,
-        "h": 768
-      },
-      "rotated": false,
-      "trimmed": false,
-      "spriteSourceSize": {
-        "x": 0,
-        "y": 0,
-        "w": 344,
-        "h": 768
-      },
-      "sourceSize": {
-        "w": 344,
-        "h": 768
-      }
-    },
     "chef_chop_0": {
       "frame": {
         "x": 0,
@@ -944,6 +784,106 @@
       "frame": {
         "x": 2408,
         "y": 6912,
+        "w": 344,
+        "h": 768
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 344,
+        "h": 768
+      },
+      "sourceSize": {
+        "w": 344,
+        "h": 768
+      }
+    },
+    "chef_stir_0": {
+      "frame": {
+        "x": 0,
+        "y": 4608,
+        "w": 344,
+        "h": 768
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 344,
+        "h": 768
+      },
+      "sourceSize": {
+        "w": 344,
+        "h": 768
+      }
+    },
+    "chef_stir_1": {
+      "frame": {
+        "x": 344,
+        "y": 4608,
+        "w": 344,
+        "h": 768
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 344,
+        "h": 768
+      },
+      "sourceSize": {
+        "w": 344,
+        "h": 768
+      }
+    },
+    "chef_stir_2": {
+      "frame": {
+        "x": 688,
+        "y": 4608,
+        "w": 344,
+        "h": 768
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 344,
+        "h": 768
+      },
+      "sourceSize": {
+        "w": 344,
+        "h": 768
+      }
+    },
+    "chef_stir_3": {
+      "frame": {
+        "x": 1032,
+        "y": 4608,
+        "w": 344,
+        "h": 768
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 344,
+        "h": 768
+      },
+      "sourceSize": {
+        "w": 344,
+        "h": 768
+      }
+    },
+    "chef_stir_4": {
+      "frame": {
+        "x": 1376,
+        "y": 4608,
         "w": 344,
         "h": 768
       },
