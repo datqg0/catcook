@@ -74,14 +74,16 @@ class DinerRenderer:
                 chosen = fam
                 break
 
-        self.font_title = pygame.font.SysFont(chosen, 17, bold=True)
-        self.font_header = pygame.font.SysFont(chosen, 14, bold=True)
-        self.font_body = pygame.font.SysFont(chosen, 13, bold=True)
-        self.font_chat_user = pygame.font.SysFont(chosen, 12, bold=True)
-        self.font_chat_text = pygame.font.SysFont(chosen, 12)
-        self.font_subtext = pygame.font.SysFont(chosen, 12, bold=False)
-        self.font_badge = pygame.font.SysFont(chosen, 11, bold=True)
-        self.font_tiny = pygame.font.SysFont(chosen, 10, bold=True)
+        self.font_title = pygame.font.SysFont(chosen, 20, bold=True)
+        self.font_cmd_primary = pygame.font.SysFont(chosen, 20, bold=True)
+        self.font_cmd_sub = pygame.font.SysFont(chosen, 14, bold=True)
+        self.font_header = pygame.font.SysFont(chosen, 17, bold=True)
+        self.font_body = pygame.font.SysFont(chosen, 15, bold=True)
+        self.font_chat_user = pygame.font.SysFont(chosen, 14, bold=True)
+        self.font_chat_text = pygame.font.SysFont(chosen, 14)
+        self.font_subtext = pygame.font.SysFont(chosen, 14, bold=False)
+        self.font_badge = pygame.font.SysFont(chosen, 13, bold=True)
+        self.font_tiny = pygame.font.SysFont(chosen, 13, bold=True)
 
     def _load_assets(self):
         has_display = pygame.display.get_surface() is not None
@@ -161,21 +163,6 @@ class DinerRenderer:
                     if has_display: img = img.convert_alpha()
                     self.ui_icons[key] = img
 
-        # 6. Kitchen Decor Props (Oven, Coffee Machine, Spices, Utensil Rack, Bread Basket)
-        decor_dir = os.path.join(os.path.dirname(BG_DIR), "decor")
-        def _load_decor(fname):
-            p = os.path.join(decor_dir, fname)
-            if os.path.exists(p):
-                img = pygame.image.load(p)
-                return img.convert_alpha() if has_display else img
-            return None
-
-        self.decor_oven = _load_decor("oven.png")
-        self.decor_coffee = _load_decor("coffee_machine.png")
-        self.decor_spices = _load_decor("spice_rack.png")
-        self.decor_utensils = _load_decor("utensils_rack.png")
-        self.decor_bread = _load_decor("bread_basket.png")
-
     def draw_text(self, surface, text, font, color, pos, shadow=True, shadow_color=(0, 0, 0, 210)):
         """Draws crisp text with subtle drop shadow for high readability."""
         x, y = pos
@@ -202,10 +189,6 @@ class DinerRenderer:
         # 4. Dynamic Window Rain Streaks
         particles.draw_rain(surface)
 
-        # 4b. Wall Utensil Rack (mounted on tiled wall above counter)
-        if getattr(self, "decor_utensils", None):
-            surface.blit(self.decor_utensils, (45, 435))
-
         # 5. Maneki-Neko (Lucky Cat) Waving Paw Animation (Layer 1)
         self._render_lucky_cat(surface)
 
@@ -215,12 +198,6 @@ class DinerRenderer:
         # 6b. Foreground Counter & Stove (Layer 3 & 4: stove & dining counter in front)
         if hasattr(self, "fg_counter") and self.fg_counter:
             surface.blit(self.fg_counter, (0, 615))
-
-        # 6c. Kitchen Appliances & Decor Props (Oven, Coffee Machine, Spices, Bread)
-        self._render_kitchen_decor(surface, state)
-
-        # 6d. Dynamic Fire Flames & Glowing Hearth (Stove Burner & Oven Fire)
-        self._render_fire_effects(surface, state, dt)
 
         # 7. Plated Food Display (Layer 5: on the wooden counter tray)
         self._render_counter_dish(surface, state)
@@ -338,197 +315,79 @@ class DinerRenderer:
         scaled_icon = pygame.transform.smoothscale(icon, (sw, sh))
         surface.blit(scaled_icon, (counter_x - sw // 2, counter_y - sh // 2))
 
-        # Plated dish tag badge
-        tag_bg = pygame.Surface((136, 22), pygame.SRCALPHA)
-        pygame.draw.rect(tag_bg, (18, 14, 12, 225), (0, 0, 136, 22), border_radius=4)
-        pygame.draw.rect(tag_bg, COLOR_BORDER_AMBER, (0, 0, 136, 22), 1, border_radius=4)
-        surface.blit(tag_bg, (counter_x - 68, counter_y + 44))
-
-        d_name = dish["name"] if len(dish["name"]) <= 16 else dish["name"][:14] + ".."
+        # Plated dish tag badge (sized comfortably for larger font)
+        d_name = dish["name"] if len(dish["name"]) <= 18 else dish["name"][:16] + ".."
         tw, _ = self.font_tiny.size(d_name)
+        tag_w = max(148, tw + 22)
+        tag_bg = pygame.Surface((tag_w, 26), pygame.SRCALPHA)
+        pygame.draw.rect(tag_bg, (18, 14, 12, 235), (0, 0, tag_w, 26), border_radius=5)
+        pygame.draw.rect(tag_bg, COLOR_BORDER_AMBER, (0, 0, tag_w, 26), 1, border_radius=5)
+        surface.blit(tag_bg, (counter_x - tag_w // 2, counter_y + 42))
         self.draw_text(surface, d_name, self.font_tiny, COLOR_TEXT_GOLD,
-                       (counter_x - tw // 2, counter_y + 48), shadow=False)
-
-    def _render_kitchen_decor(self, surface, state):
-        """
-        Renders vibrant kitchen appliances and props:
-        - Retro Baking Oven on left counter
-        - Wicker Bread Basket beside oven
-        - Vintage Espresso Coffee Machine on right counter with barista LEDs
-        - Japanese Condiment & Spice Rack on counter shelf
-        """
-        # 1. Oven on left counter
-        if getattr(self, "decor_oven", None):
-            surface.blit(self.decor_oven, (35, 515))
-
-        # 2. Bread basket beside oven
-        if getattr(self, "decor_bread", None):
-            surface.blit(self.decor_bread, (5, 575))
-
-        # 3. Espresso coffee machine on right counter
-        if getattr(self, "decor_coffee", None):
-            surface.blit(self.decor_coffee, (595, 492))
-            # Dynamic Barista LED indicator lights
-            # Green power LED (ready)
-            green_pulse = int(180 + 75 * math.sin(self.anim_timer * 2.8))
-            g_surf = pygame.Surface((6, 6), pygame.SRCALPHA)
-            pygame.draw.circle(g_surf, (50, 240, 100, green_pulse), (3, 3), 3)
-            surface.blit(g_surf, (682, 527), special_flags=pygame.BLEND_ADD)
-            # Amber brew status LED
-            is_drink = state.current_dish and state.current_dish.get("cook_type") == "drink_shake"
-            amber_pulse = int(220 if is_drink else (120 + 60 * math.sin(self.anim_timer * 4.0)))
-            a_surf = pygame.Surface((6, 6), pygame.SRCALPHA)
-            pygame.draw.circle(a_surf, (255, 170, 40, amber_pulse), (3, 3), 3)
-            surface.blit(a_surf, (682, 539), special_flags=pygame.BLEND_ADD)
-
-        # 4. Japanese Spice Rack on counter shelf
-        if getattr(self, "decor_spices", None):
-            surface.blit(self.decor_spices, (460, 560))
-
-    def _render_fire_effects(self, surface, state, dt):
-        """
-        Renders dynamic animated fire flame effects:
-        1. Stove Gas Burner Fire: roaring blue/orange flames under pot during cooking,
-           and gentle blue pilot simmer flame when idle.
-        2. Oven Fire / Hearth Glow: glowing baking embers & flame tongues inside oven window.
-        """
-        is_cooking = state.current_dish is not None
-        cook_type = state.current_dish.get("cook_type", "simmer") if state.current_dish else None
-        t = self.anim_timer
-
-        # -------------------------------------------------------------
-        # A. STOVE GAS BURNER FIRE (Center x=226, y=612)
-        # -------------------------------------------------------------
-        flame_cx, flame_cy = 226, 612
-        intensity = 1.35 if (cook_type in ["sizzle", "pan_toss", "deepfry"]) else (1.0 if is_cooking else 0.4)
-
-        # 1. Warm Ambient Fire Glow (BLEND_ADD)
-        glow_radius = int(58 * intensity)
-        glow_surf = pygame.Surface((glow_radius * 2, glow_radius * 2), pygame.SRCALPHA)
-        pulse = 0.82 + 0.18 * math.sin(t * 15.0) * math.cos(t * 24.0)
-        max_alpha = int(55 * intensity * pulse)
-        for r in range(glow_radius, 0, -6):
-            alpha = int(max_alpha * (1.0 - r / glow_radius))
-            pygame.draw.circle(glow_surf, (255, 115, 25, alpha), (glow_radius, glow_radius), r)
-        surface.blit(glow_surf, (flame_cx - glow_radius, flame_cy - glow_radius + 4), special_flags=pygame.BLEND_ADD)
-
-        # 2. Blue Gas Flame Base Jets
-        num_jets = 11 if is_cooking else 7
-        jet_span = 24 if is_cooking else 14
-        for i in range(-num_jets // 2, num_jets // 2 + 1):
-            bx = flame_cx + int(i * (jet_span / (num_jets // 2)))
-            by = flame_cy + 3
-            bh = int((5 + 2.5 * math.sin(t * 18.0 + i * 1.3)) * min(1.2, intensity))
-            pygame.draw.line(surface, (35, 150, 255, 230), (bx, by), (bx, by - bh), 2)
-            pygame.draw.circle(surface, (180, 235, 255, 255), (bx, int(by - bh)), 1)
-
-        # 3. Active Dancing Orange/Yellow Flame Tongues (when cooking)
-        if is_cooking:
-            flame_tongues = [
-                (-18, 14), (-12, 20), (-6, 26), (0, 28), (6, 25), (12, 19), (18, 13)
-            ]
-            for idx, (ox, base_h) in enumerate(flame_tongues):
-                drift = math.sin(t * 12.0 + idx * 1.5) * 2.8
-                fx = flame_cx + ox + drift
-                fy = flame_cy + 1
-                h_tongue = base_h * intensity * (0.78 + 0.32 * math.sin(t * 21.0 + idx * 2.2) + 0.2 * math.cos(t * 31.0 + idx * 1.3))
-
-                # Outer fiery red-orange flame
-                p_outer = [
-                    (fx - 4, fy),
-                    (fx + 4, fy),
-                    (fx + math.sin(t * 16.0 + idx) * 2.5, fy - h_tongue)
-                ]
-                pygame.draw.polygon(surface, (255, 75, 15), p_outer)
-
-                # Inner vibrant golden flame
-                p_inner = [
-                    (fx - 2, fy),
-                    (fx + 2, fy),
-                    (fx + math.sin(t * 16.0 + idx) * 1.4, fy - h_tongue * 0.75)
-                ]
-                pygame.draw.polygon(surface, (255, 215, 55), p_inner)
-
-                # Incandescent hot white tip
-                tip_x = int(fx + math.sin(t * 16.0 + idx) * 0.9)
-                tip_y = int(fy - h_tongue * 0.48)
-                pygame.draw.circle(surface, (255, 255, 210), (tip_x, tip_y), 2)
-
-        # -------------------------------------------------------------
-        # B. OVEN HEARTH FIRE & EMBERS (Inside oven window at x=55..119, y=543..587)
-        # -------------------------------------------------------------
-        is_baking = is_cooking and (cook_type in ["bake", "sizzle"] or (state.current_dish and state.current_dish.get("key") in ["pizza", "pancakes", "waffles", "burger"]))
-        oven_intensity = 1.3 if is_baking else 0.8
-
-        # 1. Hearth glow inside oven window (BLEND_ADD)
-        o_glow = pygame.Surface((64, 44), pygame.SRCALPHA)
-        o_pulse = 0.8 + 0.2 * math.sin(t * 10.0) * math.cos(t * 16.0)
-        o_alpha = int(68 * oven_intensity * o_pulse)
-        o_glow.fill((255, 115, 30, o_alpha))
-        surface.blit(o_glow, (55, 543), special_flags=pygame.BLEND_ADD)
-
-        # 2. Dancing baking flame ribbons on bottom stone
-        for oi in range(5):
-            ofx = 62 + oi * 11 + math.sin(t * 11.0 + oi * 1.6) * 1.6
-            ofy = 586
-            ofh = int((7 + 4.5 * math.sin(t * 15.0 + oi * 2.1)) * oven_intensity)
-            # Outer flame
-            pygame.draw.polygon(surface, (255, 135, 35, 225), [(ofx - 3, ofy), (ofx + 3, ofy), (ofx, ofy - ofh)])
-            # Core bright flame
-            pygame.draw.polygon(surface, (255, 235, 95, 245), [(ofx - 1, ofy), (ofx + 1, ofy), (ofx, ofy - ofh * 0.6)])
+                       (counter_x - tw // 2, counter_y + 46), shadow=False)
 
     def _render_header(self, surface, state, dt):
-        """Dynamic header overlays (Level XP bar, Audio Equalizer bars, LIVE dot)."""
-        # 1. Level XP bar in header
-        exp_prog = min(1.0, state.exp / max(1, state.max_exp))
-        bar_x, bar_y, bar_w, bar_h = 113, 198, 161, 22
-        pygame.draw.rect(surface, (20, 16, 14), (bar_x, bar_y, bar_w, bar_h), border_radius=3)
-        fill_w = int(bar_w * exp_prog)
-        if fill_w > 0:
-            pygame.draw.rect(surface, (234, 107, 42), (bar_x, bar_y, fill_w, bar_h), border_radius=3)
-            pygame.draw.rect(surface, (255, 180, 80), (bar_x, bar_y, fill_w, 3), border_radius=1)
+        """
+        Renders the prominent interactive Command Bar (Layer 8) in the top header (y: 86..202),
+        replacing the previous Level/XP & Audio boxes per user request.
+        Presents primary stream commands clearly with high contrast and cute mascots.
+        """
+        box_rect = pygame.Rect(24, 86, 672, 116)
 
-        xp_str = f"{state.exp} / {state.max_exp} XP"
-        tw, _ = self.font_tiny.size(xp_str)
-        self.draw_text(surface, xp_str, self.font_tiny, (255, 245, 230),
-                       (bar_x + (bar_w - tw) // 2, bar_y + 4), shadow=False)
+        # Subtle warm breathing border glow
+        glow_pulse = 0.85 + 0.15 * math.sin(self.anim_timer * 3.0)
+        border_col = (
+            int(185 * glow_pulse + 50 * (1.0 - glow_pulse)),
+            int(120 * glow_pulse + 40 * (1.0 - glow_pulse)),
+            55
+        )
+        pygame.draw.rect(surface, (18, 14, 12), box_rect, border_radius=8)
+        pygame.draw.rect(surface, border_col, box_rect, 2, border_radius=8)
 
-        # 2. Dynamic Segmented Audio VU-Meter (x: 585..695, y: 115..160)
-        vis_rect = pygame.Rect(582, 115, 115, 48)
-        pygame.draw.rect(surface, (18, 14, 12), vis_rect)
-        for i, val in enumerate(state.vis_bars[:7]):
-            col_x = 586 + i * 15
-            num_blocks = max(1, int(val * 5))
-            for b in range(num_blocks):
-                by = 154 - b * 8
-                col = (255, 195, 75) if b < 4 else (255, 120, 60)
-                pygame.draw.rect(surface, col, (col_x, by, 11, 6), border_radius=1)
+        # 1. Mascot Icons (Left Chef Mascot & Right Food Icon)
+        mascot_cat = self.ui_icons.get("chef_mascot")
+        if mascot_cat:
+            mc_scaled = pygame.transform.smoothscale(mascot_cat, (56, 52))
+            surface.blit(mc_scaled, (40, 118))
+        elif self.ui_icons.get("chat"):
+            surface.blit(self.ui_icons.get("chat"), (46, 128))
 
-        # 3. Red LIVE Pulsing Dot
-        dot_alpha = int(140 + 115 * abs((self.live_blink_timer * 2.5) % 2.0 - 1.0))
-        dot_surf = pygame.Surface((8, 8), pygame.SRCALPHA)
-        pygame.draw.circle(dot_surf, (255, 40, 40, dot_alpha), (4, 4), 4)
-        surface.blit(dot_surf, (644, 165))
+        mascot_food = self.ui_icons.get("ramen_banner")
+        if mascot_food:
+            mf_scaled = pygame.transform.smoothscale(mascot_food, (56, 52))
+            surface.blit(mf_scaled, (624, 118))
+        elif self.ui_icons.get("bowl"):
+            surface.blit(self.ui_icons.get("bowl"), (628, 128))
+
+        # 2. Main Commands (Line 1: Large Bold Golden Text)
+        cmd_text = "!cook [món]   |   !yum   |   !menu   |   !khen"
+        tw, th = self.font_cmd_primary.size(cmd_text)
+        self.draw_text(surface, cmd_text, self.font_cmd_primary, COLOR_TEXT_GOLD, (360 - tw // 2, 108))
+
+        # 3. Interactive Subtext Guide (Line 2: Clear, warm contrast)
+        sub_text = 'Chat "!cook <tên món>" để gọi món  •  "!khen" để tặng tim cổ vũ!'
+        sw, sh = self.font_cmd_sub.size(sub_text)
+        self.draw_text(surface, sub_text, self.font_cmd_sub, (255, 235, 195), (360 - sw // 2, 150))
 
     def _render_card_cooking(self, surface, state, dt):
         """Card 1 (Top Left): Active dish cooking status and progress bar."""
         dish = state.current_dish
         bowl_icon = self.ui_icons.get("bowl")
         if bowl_icon:
-            surface.blit(bowl_icon, (34, 846))
+            surface.blit(bowl_icon, (34, 844))
 
-        self.draw_text(surface, "COOKING:", self.font_header, COLOR_TEXT_GOLD, (66, 848))
+        self.draw_text(surface, "COOKING:", self.font_header, COLOR_TEXT_GOLD, (68, 846))
 
         if dish:
-            w1, _ = self.draw_text(surface, f"{dish['name']} for ", self.font_body, COLOR_TEXT_MAIN, (66, 874))
-            self.draw_text(surface, dish["user"], self.font_body, COLOR_TEXT_PINK, (66 + w1, 874))
+            w1, _ = self.draw_text(surface, f"{dish['name']} for ", self.font_body, COLOR_TEXT_MAIN, (68, 874))
+            self.draw_text(surface, dish["user"], self.font_body, COLOR_TEXT_PINK, (68 + w1, 874))
 
             # Progress Bar
             prog = dish["progress"]
-            bar_w = 300
-            bar_h = 22
+            bar_w = 265
+            bar_h = 24
             bar_x = 36
-            bar_y = 908
+            bar_y = 906
             pygame.draw.rect(surface, (20, 16, 14), (bar_x, bar_y, bar_w, bar_h), border_radius=4)
             pygame.draw.rect(surface, COLOR_BORDER_AMBER, (bar_x, bar_y, bar_w, bar_h), 1, border_radius=4)
 
@@ -552,14 +411,14 @@ class DinerRenderer:
             step_clean = dish["current_step"].replace("✦ ", "* ")
             sparkle_icon = self.ui_icons.get("sparkle")
             if sparkle_icon:
-                surface.blit(pygame.transform.scale(sparkle_icon, (14, 14)), (36, 948))
-                self.draw_text(surface, step_clean.lstrip("* "), self.font_subtext, (255, 235, 180), (54, 946))
+                surface.blit(pygame.transform.scale(sparkle_icon, (16, 16)), (36, 946))
+                self.draw_text(surface, step_clean.lstrip("* "), self.font_subtext, (255, 235, 180), (58, 944))
             else:
-                self.draw_text(surface, step_clean, self.font_subtext, (255, 235, 180), (36, 946))
+                self.draw_text(surface, step_clean, self.font_subtext, (255, 235, 180), (36, 944))
 
             # Compliment count badge
             if dish.get("compliments", 0) > 0:
-                self.draw_text(surface, f"♥ x{dish['compliments']}", self.font_badge, COLOR_TEXT_PINK, (335, 848))
+                self.draw_text(surface, f"♥ x{dish['compliments']}", self.font_badge, COLOR_TEXT_PINK, (330, 846))
         else:
             self.draw_text(surface, "Chef is preparing fresh ingredients...", self.font_body, COLOR_TEXT_MUTED, (44, 885))
             self.draw_text(surface, "Type !cook [dish] to order delicious food!", self.font_subtext, COLOR_TEXT_GOLD, (44, 920))
@@ -568,34 +427,34 @@ class DinerRenderer:
         """Card 2 (Top Right): Order queue list with PENDING status."""
         clip_icon = self.ui_icons.get("clipboard")
         if clip_icon:
-            surface.blit(clip_icon, (436, 848))
-        self.draw_text(surface, "ORDER QUEUE", self.font_header, COLOR_TEXT_GOLD, (464, 848))
+            surface.blit(clip_icon, (436, 844))
+        self.draw_text(surface, "ORDER QUEUE", self.font_header, COLOR_TEXT_GOLD, (466, 846))
 
-        start_y = 878
+        start_y = 876
         for i in range(3):
-            y = start_y + i * 26
+            y = start_y + i * 28
             if i < len(state.order_queue):
                 item = state.order_queue[i]
                 self.draw_text(surface, f"{i+1}. {item['user']}", self.font_body, (100, 175, 255), (436, y))
-                self.draw_text(surface, "PENDING", self.font_badge, COLOR_TEXT_CYAN, (630, y + 2))
+                self.draw_text(surface, "PENDING", self.font_badge, COLOR_TEXT_CYAN, (618, y + 2))
             else:
                 self.draw_text(surface, f"{i+1}. ---", self.font_chat_text, (90, 85, 80), (436, y))
 
-        self.draw_text(surface, f"QUEUE SIZE: {len(state.order_queue)}", self.font_badge, (200, 160, 120), (436, 962))
+        self.draw_text(surface, f"QUEUE SIZE: {len(state.order_queue)}", self.font_badge, (200, 160, 120), (436, 964))
 
     def _render_card_chat(self, surface, state):
         """Card 3 (Bottom Left): Live chat messages with user-colored tags."""
         chat_icon = self.ui_icons.get("chat")
         if chat_icon:
-            surface.blit(chat_icon, (34, 1012))
-        self.draw_text(surface, "LIVE CHAT", self.font_header, COLOR_TEXT_CYAN, (62, 1014))
+            surface.blit(chat_icon, (34, 1010))
+        self.draw_text(surface, "LIVE CHAT", self.font_header, COLOR_TEXT_CYAN, (64, 1012))
 
         heart_icon = self.ui_icons.get("heart")
         if heart_icon:
-            surface.blit(pygame.transform.scale(heart_icon, (14, 14)), (375, 1016))
+            surface.blit(pygame.transform.scale(heart_icon, (16, 16)), (375, 1012))
 
-        start_y = 1044
-        line_spacing = 29
+        start_y = 1042
+        line_spacing = 30
         for i, msg in enumerate(state.recent_chats[-5:]):
             y = start_y + i * line_spacing
             u_str = f"{msg['user']}: "
@@ -607,28 +466,28 @@ class DinerRenderer:
         """Card 4 (Bottom Right): Leaderboard ranking with coins."""
         trophy_icon = self.ui_icons.get("trophy")
         if trophy_icon:
-            surface.blit(pygame.transform.scale(trophy_icon, (18, 18)), (436, 1014))
-        self.draw_text(surface, "TODAY'S TOP CHEFS", self.font_header, COLOR_TEXT_GOLD, (462, 1014))
+            surface.blit(pygame.transform.scale(trophy_icon, (20, 20)), (436, 1010))
+        self.draw_text(surface, "TODAY'S TOP CHEFS", self.font_header, COLOR_TEXT_GOLD, (464, 1012))
 
         coin_img = self.ui_icons.get("coin")
-        coin_scaled = pygame.transform.scale(coin_img, (16, 16)) if coin_img else None
+        coin_scaled = pygame.transform.scale(coin_img, (18, 18)) if coin_img else None
 
-        start_y = 1052
+        start_y = 1050
         row_spacing = 44
         rank_colors = [COLOR_TEXT_GOLD, (215, 220, 230), (220, 150, 100)]
         for i, item in enumerate(state.leaderboard[:3]):
             y = start_y + i * row_spacing
             rc = rank_colors[i] if i < len(rank_colors) else COLOR_TEXT_MAIN
             self.draw_text(surface, f"{i+1}.", self.font_header, rc, (436, y))
-            self.draw_text(surface, item["user"], self.font_body, COLOR_TEXT_MAIN, (460, y))
+            self.draw_text(surface, item["user"], self.font_body, COLOR_TEXT_MAIN, (464, y))
 
             if coin_scaled:
-                surface.blit(coin_scaled, (618, y + 1))
-            self.draw_text(surface, str(item["coins"]), self.font_badge, COLOR_TEXT_GOLD, (638, y + 2))
+                surface.blit(coin_scaled, (604, y + 2))
+            self.draw_text(surface, str(item["coins"]), self.font_badge, COLOR_TEXT_GOLD, (628, y + 3))
 
     def _render_chat_input(self, surface, input_state):
-        prompt_rect = (50, 1150, 620, 46)
-        pygame.draw.rect(surface, (15, 12, 10, 240), prompt_rect, border_radius=6)
-        pygame.draw.rect(surface, COLOR_PROGRESS_GLOW, prompt_rect, 2, border_radius=6)
+        prompt_rect = (36, 1190, 648, 52)
+        pygame.draw.rect(surface, (15, 12, 10, 245), prompt_rect, border_radius=8)
+        pygame.draw.rect(surface, COLOR_PROGRESS_GLOW, prompt_rect, 2, border_radius=8)
         txt = f"Type command: {input_state.get('text', '')}_"
-        self.draw_text(surface, txt, self.font_body, COLOR_TEXT_GOLD, (65, 1164))
+        self.draw_text(surface, txt, self.font_body, COLOR_TEXT_GOLD, (56, 1204))
