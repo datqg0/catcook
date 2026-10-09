@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Cozy Midnight Diner - Animation Preview</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 24px;
+      background: #0d131a;
+      color: #fff5eb;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+    h1 {
+      color: #ffcc4d;
+      margin-bottom: 6px;
+      font-size: 26px;
+    }
+    p.desc {
+      color: #b4aaa0;
+      margin-top: 0;
+      margin-bottom: 24px;
+      font-size: 15px;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+      margin-bottom: 36px;
+    }
+    .card {
+      background: #151a24;
+      border: 2px solid #b97837;
+      border-radius: 12px;
+      padding: 16px;
+      text-align: center;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.4);
+    }
+    .card h3 {
+      color: #ff913c;
+      margin: 0 0 8px 0;
+      font-size: 18px;
+    }
+    .card .sub {
+      color: #50d7ff;
+      font-size: 13px;
+      margin-bottom: 12px;
+      font-weight: bold;
+    }
+    .card img {
+      width: 100%;
+      max-width: 180px;
+      height: 220px;
+      object-fit: contain;
+      background: radial-gradient(circle, #252e3d 0%, #151a24 75%);
+      border-radius: 8px;
+      padding: 8px;
+    }
+    .badge {
+      display: inline-block;
+      margin-top: 10px;
+      padding: 4px 10px;
+      background: rgba(255, 204, 77, 0.15);
+      border: 1px solid #ffcc4d;
+      color: #ffcc4d;
+      border-radius: 6px;
+      font-size: 12px;
+    }
+    .scene-preview {
+      background: #151a24;
+      border: 2px solid #b97837;
+      border-radius: 12px;
+      padding: 20px;
+      text-align: center;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    .scene-preview img {
+      width: 100%;
+      border-radius: 8px;
+      border: 1px solid #334052;
+    }
+  </style>
+</head>
+<body>
+  <h1>🍳 Cozy Midnight Diner - Animation Showcase</h1>
+  <p class="desc">Xem trước các hoạt ảnh frame-by-frame của Mèo Đầu Bếp theo từng kỹ thuật nấu ăn.</p>
+
+  <div class="grid">
+    <div class="card">
+      <h3>1. Đứng Chờ (Idle)</h3>
+      <div class="sub">Khi chưa có order</div>
+      <img src="assets/animations/preview_idle.gif" alt="Idle Animation">
+      <div class="badge">Chớp mắt & Mỉm cười</div>
+    </div>
+
+    <div class="card">
+      <h3>2. Khuấy Nồi (Stir)</h3>
+      <div class="sub">Món hầm / Ramen, Curry</div>
+      <img src="assets/animations/preview_stir.gif" alt="Stir Animation">
+      <div class="badge">Khuấy muôi trong nồi</div>
+    </div>
+
+    <div class="card">
+      <h3>3. Lắc Chảo (Toss)</h3>
+      <div class="sub">Pancakes, Carbonara, Sizzling</div>
+      <img src="assets/animations/preview_toss.gif" alt="Toss Animation">
+      <div class="badge">Hất & Lắc chảo tung đồ ăn</div>
+    </div>
+
+    <div class="card">
+      <h3>4. Cắt Thái (Chop)</h3>
+      <div class="sub">Salmon Sushi, Rau củ</div>
+      <img src="assets/animations/preview_chop.gif" alt="Chop Animation">
+      <div class="badge">Thái dao nhịp nhàng</div>
+    </div>
+
+    <div class="card">
+      <h3>5. Ăn Mừng (Cheer)</h3>
+      <div class="sub">Phục vụ món / !yum / !khen</div>
+      <img src="assets/animations/preview_cheer.gif" alt="Cheer Animation">
+      <div class="badge">Giơ 2 tay reo vui \(=^o^=)/</div>
+    </div>
+  </div>
+
+  <div class="scene-preview">
+    <h3 style="color: #ffcc4d; margin-top: 0;">📸 Toàn Cảnh Trong Game (Verified In-Game Scene)</h3>
+    <p style="color: #b4aaa0; font-size: 14px;">Bếp ga tiền cảnh che thân dưới mèo, mèo đứng trên sàn phía sau quầy nấu ăn.</p>
+    <img src="assets/verified_final_diner_frame.png" alt="In-Game Scene">
+  </div>
+</body>
+</html>
