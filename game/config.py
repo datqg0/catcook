@@ -38,12 +38,12 @@ COLOR_BORDER_AMBER = (185, 120, 55)
 COLOR_PROGRESS_BAR = (245, 110, 25)
 COLOR_PROGRESS_GLOW = (255, 175, 60)
 
-# Full Menu: 16 Diverse Comfort Foods
+# Full Menu: 16 Diverse Comfort Foods (Cook times balanced for 30s -> 45s interactive stream distribution)
 MENU_ITEMS = {
     "ramen": {
         "name": "Tonkotsu Ramen",
         "icon": "ramen.png",
-        "cook_time": 12.0,
+        "cook_time": 44.0,
         "cook_type": "simmer",
         "theme_color": (255, 190, 60),
         "xp": 35,
@@ -58,7 +58,7 @@ MENU_ITEMS = {
     "pizza": {
         "name": "Pepperoni Pizza",
         "icon": "pizza.png",
-        "cook_time": 13.0,
+        "cook_time": 42.0,
         "cook_type": "bake",
         "theme_color": (255, 95, 45),
         "xp": 30,
@@ -73,7 +73,7 @@ MENU_ITEMS = {
     "burger": {
         "name": "Smash Burger",
         "icon": "burger.png",
-        "cook_time": 11.0,
+        "cook_time": 38.0,
         "cook_type": "sizzle",
         "theme_color": (255, 160, 50),
         "xp": 28,
@@ -88,7 +88,7 @@ MENU_ITEMS = {
     "sushi": {
         "name": "Salmon Sushi",
         "icon": "sushi.png",
-        "cook_time": 10.0,
+        "cook_time": 36.0,
         "cook_type": "slice",
         "theme_color": (255, 120, 90),
         "xp": 32,
@@ -103,7 +103,7 @@ MENU_ITEMS = {
     "pancakes": {
         "name": "Fluffy Pancakes",
         "icon": "pancakes.png",
-        "cook_time": 9.0,
+        "cook_time": 34.0,
         "cook_type": "pan_toss",
         "theme_color": (255, 210, 100),
         "xp": 25,
@@ -118,7 +118,7 @@ MENU_ITEMS = {
     "boba": {
         "name": "Boba Milk Tea",
         "icon": "boba.png",
-        "cook_time": 8.0,
+        "cook_time": 30.0,
         "cook_type": "drink_shake",
         "theme_color": (210, 160, 120),
         "xp": 22,
@@ -133,7 +133,7 @@ MENU_ITEMS = {
     "chicken": {
         "name": "Fried Chicken",
         "icon": "chicken.png",
-        "cook_time": 12.0,
+        "cook_time": 40.0,
         "cook_type": "deepfry",
         "theme_color": (255, 140, 30),
         "xp": 30,
@@ -148,7 +148,7 @@ MENU_ITEMS = {
     "steak": {
         "name": "Ribeye Steak",
         "icon": "steak.png",
-        "cook_time": 14.0,
+        "cook_time": 45.0,
         "cook_type": "sizzle",
         "theme_color": (230, 70, 70),
         "xp": 45,
@@ -163,7 +163,7 @@ MENU_ITEMS = {
     "tacos": {
         "name": "Birria Tacos",
         "icon": "tacos.png",
-        "cook_time": 11.0,
+        "cook_time": 38.0,
         "cook_type": "sizzle",
         "theme_color": (245, 115, 40),
         "xp": 32,
@@ -178,7 +178,7 @@ MENU_ITEMS = {
     "dumplings": {
         "name": "Dim Sum Dumplings",
         "icon": "dumplings.png",
-        "cook_time": 10.0,
+        "cook_time": 35.0,
         "cook_type": "steam_basket",
         "theme_color": (240, 220, 160),
         "xp": 28,
@@ -193,7 +193,7 @@ MENU_ITEMS = {
     "carbonara": {
         "name": "Creamy Carbonara",
         "icon": "carbonara.png",
-        "cook_time": 12.0,
+        "cook_time": 42.0,
         "cook_type": "pan_toss",
         "theme_color": (255, 205, 80),
         "xp": 32,
@@ -208,7 +208,7 @@ MENU_ITEMS = {
     "hotdog": {
         "name": "NYC Loaded Hot Dog",
         "icon": "hotdog.png",
-        "cook_time": 9.0,
+        "cook_time": 33.0,
         "cook_type": "sizzle",
         "theme_color": (255, 100, 50),
         "xp": 24,
@@ -223,7 +223,7 @@ MENU_ITEMS = {
     "donut": {
         "name": "Strawberry Donut",
         "icon": "donut.png",
-        "cook_time": 8.0,
+        "cook_time": 30.0,
         "cook_type": "slice",
         "theme_color": (255, 120, 170),
         "xp": 22,
@@ -238,7 +238,7 @@ MENU_ITEMS = {
     "waffles": {
         "name": "Belgian Waffles",
         "icon": "waffles.png",
-        "cook_time": 10.0,
+        "cook_time": 36.0,
         "cook_type": "bake",
         "theme_color": (240, 180, 80),
         "xp": 26,
@@ -253,7 +253,7 @@ MENU_ITEMS = {
     "curry": {
         "name": "Katsu Curry Bowl",
         "icon": "curry.png",
-        "cook_time": 13.0,
+        "cook_time": 44.0,
         "cook_type": "simmer",
         "theme_color": (215, 140, 45),
         "xp": 36,
@@ -268,7 +268,7 @@ MENU_ITEMS = {
     "latte": {
         "name": "Iced Caramel Latte",
         "icon": "latte.png",
-        "cook_time": 8.0,
+        "cook_time": 32.0,
         "cook_type": "drink_shake",
         "theme_color": (210, 150, 95),
         "xp": 22,

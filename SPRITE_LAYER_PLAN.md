@@ -49,18 +49,18 @@ graph TD
 
 ## 4. Bảng Ánh Xạ Animation Tối Ưu Theo Từng Món Ăn (Dish Animation Matrix)
 
-| Danh Mục Món | Các Món Ăn Cụ Thể | `cook_type` | Action Sprite | Tốc Độ (FPS) | Mô Tả Trực Quan |
-| :--- | :--- | :--- | :--- | :--- | :--- |
-| **Món Nước & Hầm** | Tonkotsu Ramen, Japanese Curry | `simmer` | `stir` | 4.0 | Mèo cầm muôi gỗ khuấy nồi nước dùng nghi ngút khói trên bếp ga |
-| **Món Áp Chảo & Lắc Chảo** | Pancakes, Creamy Carbonara, Fried Rice | `pan_toss` | `toss` | 4.5 | Mèo cầm chảo hất/lắc liên tục, đồ ăn nảy lên không trung đẹp mắt |
-| **Món Nướng & Searing** | Smash Burger, Ribeye Steak, Birria Tacos, Hotdog | `sizzle` | `toss` | 4.5 | Áp chảo xèo xèo, lật thịt nướng bốc khói mỡ vàng ươm |
-| **Món Dao & Cắt Thái** | Salmon Sushi | `slice` | `chop` | 4.5 | Mèo cầm dao thái sashimi điêu luyện nhịp nhàng trên thớt gỗ |
-| **Món Lò Nướng** | Pepperoni Pizza, Donut, Waffles | `bake` | `stir` | 4.0 | Mèo đứng canh lò & khay nướng chuẩn bị topping |
-| **Món Pha Chế** | Boba Milk Tea, Matcha Latte | `drink_shake` | `toss` | 4.5 | Mèo lắc bình shaker điệu nghệ sủi bọt đá mát lạnh |
-| **Món Chiên Ngập Dầu** | Fried Chicken | `deepfry` | `toss` | 4.5 | Nhấc vợt chiên giòn tan ngập dầu sủi tăm |
-| **Món Hấp Xửng Trúc** | Dim Sum Dumplings | `steam_basket` | `stir` | 4.0 | Mèo canh xửng tre nghi ngút khói hấp chín tới |
-| **Ăn Mừng Hoàn Thành** | *Tất cả 16 món khi nấu xong hoặc nhận !khen* | `serve` | `cheer` | 4.0 | Mèo giơ 2 chân `\(=^o^=)/`, mắt nhắm cong `^ ^`, má hồng ăn mừng |
-| **Chờ Order** | *Khi chưa có lệnh !cook* | `idle` | `idle` | 3.0 | Mèo đứng thẳng sau quầy, chớp mắt tự nhiên, đuôi vẫy nhẹ |
+| Danh Mục Món | Các Món Ăn Cụ Thể | `cook_type` | Action Sprite | Frames & Tốc Độ | Thời Gian Nấu | Mô Tả Trực Quan |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| **Món Pha Chế** | Boba Milk Tea, Latte | `drink_shake` | `bartender` | **8 frames @ 5.0 FPS (1.6s/cycle)** | **30s – 32s** | Mèo lắc bình shaker điệu nghệ sủi bọt đá mát lạnh, 8 frames mượt mà khóa anchor 0px jitter |
+| **Món Nhanh / Tráng Miệng** | Donut, Hotdog, Pancakes, Dumplings, Waffles | `bake`, `sizzle`, `pan_toss`, `steam_basket` | `stir`, `toss` | 4 frames @ 4.0 - 4.5 FPS | **30s – 36s** | Canh xửng hấp, lật pancake & nướng nhanh |
+| **Món Cắt Thái & Cuộn** | Salmon Sushi | `slice` | `chop` | 4 frames @ 4.5 FPS | **36s** | Mèo cầm dao thái sashimi điêu luyện nhịp nhàng trên thớt gỗ |
+| **Món Nướng & Searing** | Smash Burger, Birria Tacos, Fried Chicken | `sizzle`, `deepfry` | `toss` | 4 frames @ 4.5 FPS | **38s – 40s** | Áp chảo xèo xèo, chiên giòn, lật thịt bốc khói vàng ươm |
+| **Món Lò Nướng Phức Tạp** | Pepperoni Pizza | `bake` | `stir` | 4 frames @ 4.0 FPS | **42s** | Canh lò nướng phô mai tan chảy kéo sợi |
+| **Món Sốt Nóng** | Creamy Carbonara | `pan_toss` | `toss` | 4 frames @ 4.5 FPS | **42s** | Đảo chảo sốt kem trứng béo ngậy |
+| **Món Nước & Hầm Kỳ Công** | Tonkotsu Ramen, Japanese Curry | `simmer` | `stir` | **8 frames @ 4.0 FPS** | **44s** | Mèo cầm muôi gỗ khuấy nồi nước dùng hầm xương nghi ngút khói |
+| **Món Bít Tết Hảo Hạng** | Ribeye Steak | `sizzle` | `toss` | 4 frames @ 4.5 FPS | **45s** | Áp chảo bơ tỏi hương thảo kỳ công đạt chuẩn medium-rare |
+| **Ăn Mừng Hoàn Thành** | *Tất cả 16 món khi nấu xong hoặc nhận !khen* | `serve` | `cheer` | 4 frames @ 4.0 FPS | — | Mèo giơ 2 chân `\(=^o^=)/`, mắt nhắm cong `^ ^`, má hồng ăn mừng |
+| **Chờ Order** | *Khi chưa có lệnh !cook* | `idle` | `idle` | 4 frames @ 3.0 FPS | — | Mèo đứng thẳng sau quầy, chớp mắt tự nhiên, đuôi vẫy nhẹ |
 
 ---
 
@@ -79,8 +79,12 @@ graph TD
 - [x] **Mèo Khuấy Nồi (`stir/frame_0..7.png`):** Nâng cấp chu kỳ 8 frame siêu mượt, khóa cứng anchor cơ thể (triệt tiêu rung giật 14px), tẩy sạch 100% pixel lem viền; muôi gỗ khuấy tròn liên tục và tự nhiên.
 - [x] **Mèo Lắc Chảo (`toss/frame_0..3.png`):** Cầm chảo hất đồ ăn tung lên không trung.
 - [x] **Mèo Cắt Thái (`chop/frame_0..3.png`):** Dao thái nhịp nhàng trên thớt gỗ.
-- [x] **Mèo Bartender Pha Chế (`bartender/frame_0..3.png`):** Hoạt ảnh pha chế chuyên nghiệp dành riêng cho cà phê & đồ uống ("cafe với nước", Boba Milk Tea, Iced Caramel Latte). Calico cat 2 chân cầm bình lắc cocktail shaker bạc sáng bóng, lắc điệu nghệ qua lại, nháy mắt duyên dáng, tinh thể đá lạnh & bọt sữa bay bổng cùng hạt cà phê và trân châu.
-- [x] **Spritesheet Atlas:** Đã xuất đầy đủ 10 sheet riêng lẻ và master spritesheet kèm `chef_master_spritesheet.json` (44 frames).
+- [x] **Mèo Bartender Pha Chế Nâng Cấp 8 Frames Chậm Rãi & Polish (`bartender/frame_0..7.png`):** 
+  - Tái tạo chu kỳ 8 frames chất lượng cao (344×768 RGBA).
+  - Tốc độ nhịp nhàng: `fps = 5.0` (200ms/frame, 1.6s toàn bộ chu kỳ lặp), tạo phong thái barista điềm tĩnh, chuẩn mực quán cà phê lofi.
+  - **Khóa anchor tuyệt đối 0px Jitter:** Khóa chính xác tọa độ chóp mũi mèo tại `(222, 302)` xuyên suốt 8 frame, loại bỏ hoàn toàn hiện tượng lệch ngang hoặc rung giật cơ thể.
+  - Tách nền sạch 100%, đường viền đen anime sắc sảo, bình shaker bạc phản chiếu ánh sáng và bọt sữa/đá lạnh bung nở tự nhiên.
+- [x] **Spritesheet Atlas:** Đã xuất đầy đủ 10 sheet riêng lẻ và master spritesheet kèm `chef_master_spritesheet.json` (48 frames tổng cộng).
 
 ### Giai Đoạn 3: Cải Tiến Renderer `game/renderer.py` (HOÀN THÀNH ✅)
 - [x] Phân tầng Z-Index chuẩn xác:
@@ -93,14 +97,19 @@ graph TD
   7. `Layer 7`: Hạt hơi nước bốc lên từ nồi & đĩa món ăn, tim bay, sao lấp lánh.
   8. `Layer 8`: Dynamic HUD, Thanh XP, Live Visualizer, 4 UI Card và Command Bar.
 
-### Giai Đoạn 4: Kiểm Thử & Tinh Chỉnh QA (HOÀN THÀNH ✅)
+### Giai Đoạn 4: Tái Cân Bằng Thời Gian Chờ Món Ăn (HOÀN THÀNH ✅)
+- [x] **Phân phối thời gian nấu 30.0s – 45.0s theo độ kỳ công:**
+  - Nhóm đồ uống & món nhanh (30s – 34s): `boba` (30.0s), `donut` (30.0s), `latte` (32.0s), `hotdog` (33.0s), `pancakes` (34.0s).
+  - Nhóm món vừa (35s – 38s): `dumplings` (35.0s), `waffles` (36.0s), `sushi` (36.0s), `burger` (38.0s), `tacos` (38.0s).
+  - Nhóm món phức tạp (40s – 45s): `chicken` (40.0s), `pizza` (42.0s), `carbonara` (42.0s), `ramen` (44.0s), `curry` (44.0s), `steak` (45.0s).
+
+### Giai Đoạn 5: Kiểm Thử & Tinh Chỉnh QA (HOÀN THÀNH ✅)
 - [x] **Tối ưu hóa bố cục Header & Bảng Lệnh:** Xóa 2 ô DINER LEVEL và NOW PLAYING ở header, chuyển thanh lệnh (`!cook [món] | !yum | !menu | !khen`) lên vị trí này thành bảng điều khiển trung tâm nổi bật, loại bỏ thanh lệnh trùng lặp ở chân trang.
 - [x] **Tái tạo Artwork Nền Gốc (Không dùng hộp che / mask):** Tái tạo trực tiếp background AI nguyên bản cho `diner_bg_new.png`, tích hợp thanh lệnh gỗ khắc tự nhiên, triệt tiêu 100% hai ô Level/XP và Audio/LIVE cũ mà không cần vẽ khối che nhân tạo.
 - [x] **Nâng cấp kích thước Font Chữ toàn bộ UI:** Tăng kích thước font chữ trên toàn bộ giao diện (Tiêu đề lệnh 20 bold, Header card 17 bold, Nội dung 15 bold, Chat/Hàng chờ 14 bold, Tag món ăn 13 bold) giúp chữ to rõ, sắc nét, dễ đọc trên livestream.
 - [x] Chạy kiểm thử tự động `python -m unittest discover tests -v` đạt 9/9 tests PASS 100%.
 - [x] **Loại bỏ hoàn toàn rác đồ họa tiền cảnh & khay gỗ:**
   - Tẩy sạch 100% cánh tay áo và móng mèo cũ bị cắt cụt sót lại sau nồi súp bên trái.
-  - Loại bỏ hoàn toàn khối đa giác gỗ thô đè lên bát mì ramen và tượng Maneki-Neko bên phải. Thay thế bằng khay gỗ tự nhiên sạch sẽ (empty Japanese serving tray) từ artwork AI gốc `diner_bg_empty_tray`, sẵn sàng hiển thị bất kỳ món ăn nào (Pizza, Ramen, Sushi...) một cách sắc nét và chân thực.
-  - Căn chỉnh vị trí hoạt ảnh ăn mừng (`cheer` tại `pos = (200, 220)`) nối liền mượt mà sau gờ quầy bếp.
+  - Khay gỗ phục vụ tự nhiên sạch sẽ từ artwork AI gốc `diner_bg_empty_tray`.
 - [x] Chụp ảnh giả lập màn hình game thực tế:
-  - `assets/verified_pizza_cheer.png` & `assets/verified_final_diner_frame.png`: Khung cảnh hoàn chỉnh không còn bất kỳ chi tiết lỗi, ghost limbs hay vết chắp vá.
+  - `assets/verified_render_cooking_latte.png`: Mèo bartender pha cà phê latte với thanh thời gian chờ 32.0s, shaker bạc sắc nét.
