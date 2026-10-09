@@ -22,9 +22,9 @@ class CommandDispatcher:
 
         if cmd in ["!cook", "!order", "!nau"]:
             self.state.add_order(user, args)
-        elif cmd in ["!yum", "!cheer", "!love", "!khen"]:
+        elif cmd in ["!yum", "!cheer", "!love"]:
             self.state.cheer(user)
-        elif cmd in ["!tip", "!donate"]:
+        elif cmd in ["!tip", "!donate", "!khen"]:
             amount = 100
             if args:
                 try:

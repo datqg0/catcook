@@ -126,7 +126,7 @@ class DinerRenderer:
         self.chef_animations = {}
         self.chef_animations_scaled = {}
         scale = 0.82
-        for action in ["idle", "walk", "run", "jump", "attack", "toss", "stir", "chop", "cheer", "bartender", "bake"]:
+        for action in ["idle", "walk", "run", "jump", "attack", "toss", "stir", "chop", "cheer", "bartender", "bake", "serve"]:
             act_dir = os.path.join(anim_dir, action)
             self.chef_animations[action] = []
             self.chef_animations_scaled[action] = []
@@ -254,18 +254,24 @@ class DinerRenderer:
         - simmer / bake / steam_basket -> 'stir' (Khuấy nồi súp broth)
         - pan_toss / sizzle / deepfry -> 'toss' (Lắc chảo / lật đồ ăn)
         - slice / prep -> 'chop' (Cắt thái dao trên thớt)
-        - is_serving / cheer -> 'cheer' (Ăn mừng giơ 2 tay rạng rỡ)
+        - is_donated -> 'cheer' (Ăn mừng nhảy múa khi có donate/tip)
+        - is_serving -> 'serve' (Mời dùng bữa / Dōzo meshiagare khi nấu xong món)
         - idle -> 'idle' (Đứng chờ order, chớp mắt tự nhiên)
         """
-        is_serving = state.last_served_dish is not None and (self.anim_timer - getattr(state, "serve_timestamp", 0) < 2.8)
-        has_cheer = state.current_dish and state.current_dish.get("compliments", 0) > 0
+        current_time = getattr(state, "elapsed_total", self.anim_timer)
+        is_donated = (current_time - getattr(state, "last_donate_timestamp", -999.0)) < 3.5
+        is_serving = state.last_served_dish is not None and ((current_time - getattr(state, "serve_timestamp", -999.0)) < 3.2)
         is_cooking = state.current_dish is not None
         cook_type = state.current_dish.get("cook_type", "simmer") if state.current_dish else None
 
-        if is_serving or has_cheer:
+        if is_donated:
             action = "cheer"
             fps = 4.0
             pos = (200, 220)
+        elif is_serving:
+            action = "serve"
+            fps = 4.0
+            pos = (200, 205)
         elif is_cooking:
             if cook_type in ["drink_shake", "bartender", "brew", "shake"]:
                 action = "bartender"
@@ -274,7 +280,7 @@ class DinerRenderer:
             elif cook_type in ["bake", "oven", "baker", "pastry"]:
                 action = "bake"
                 fps = 4.0
-                pos = (200, 200)
+                pos = (195, 140)
             elif cook_type in ["pan_toss", "sizzle", "deepfry"]:
                 action = "toss"
                 fps = 4.5
@@ -296,7 +302,7 @@ class DinerRenderer:
         if scaled_frames:
             frame_idx = int(self.anim_timer * fps) % len(scaled_frames)
             surface.blit(scaled_frames[frame_idx], pos)
-        elif self.happy_overlay and (is_serving or has_cheer):
+        elif self.happy_overlay and (is_donated or is_serving):
             surface.blit(self.happy_overlay, (0, 0))
         elif self.blink_overlay and (self.anim_timer % 4.2) < 0.16:
             surface.blit(self.blink_overlay, (0, 0))

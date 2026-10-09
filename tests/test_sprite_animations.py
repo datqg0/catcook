@@ -38,9 +38,9 @@ class TestSpriteAnimations(unittest.TestCase):
         pygame.quit()
 
     def test_01_all_action_folders_and_frames(self):
-        """Verify all 11 actions have clean RGBA PNG frames (5 for stir, 8 for bartender, 4 for others including bake)."""
+        """Verify all 12 actions have clean RGBA PNG frames (5 for stir, 8 for bartender, 4 for others including bake and serve)."""
         anim_dir = os.path.join(PROJECT_ROOT, "assets", "animations")
-        actions = ["idle", "walk", "run", "jump", "attack", "toss", "stir", "chop", "cheer", "bartender", "bake"]
+        actions = ["idle", "walk", "run", "jump", "attack", "toss", "stir", "chop", "cheer", "bartender", "bake", "serve"]
 
         for action in actions:
             act_path = os.path.join(anim_dir, action)
@@ -59,7 +59,7 @@ class TestSpriteAnimations(unittest.TestCase):
     def test_02_sprite_sheets_and_atlas(self):
         """Verify individual sheets and master spritesheet + JSON atlas."""
         sheets_dir = os.path.join(PROJECT_ROOT, "assets", "animations", "sheets")
-        actions = ["idle", "walk", "run", "jump", "attack", "toss", "stir", "chop", "cheer", "bartender", "bake"]
+        actions = ["idle", "walk", "run", "jump", "attack", "toss", "stir", "chop", "cheer", "bartender", "bake", "serve"]
 
         for action in actions:
             sheet_path = os.path.join(sheets_dir, f"chef_{action}_sheet.png")
@@ -85,8 +85,8 @@ class TestSpriteAnimations(unittest.TestCase):
         canvas = pygame.Surface((CANVAS_WIDTH, CANVAS_HEIGHT))
         particles = ParticleManager()
 
-        # Check all 11 animations are loaded
-        for action in ["idle", "walk", "run", "jump", "attack", "toss", "stir", "chop", "cheer", "bartender", "bake"]:
+        # Check all 12 animations are loaded
+        for action in ["idle", "walk", "run", "jump", "attack", "toss", "stir", "chop", "cheer", "bartender", "bake", "serve"]:
             self.assertIn(action, renderer.chef_animations)
             expected_count = 5 if action == "stir" else (8 if action == "bartender" else 4)
             self.assertEqual(len(renderer.chef_animations[action]), expected_count, f"Action {action} must have {expected_count} frames")

@@ -59,7 +59,8 @@ graph TD
 | **Món Sốt Nóng** | Creamy Carbonara | `pan_toss` | `toss` | 4 frames @ 4.5 FPS | **42s** | Đảo chảo sốt kem trứng béo ngậy |
 | **Món Nước & Hầm Kỳ Công** | Tonkotsu Ramen, Japanese Curry | `simmer` | `stir` | **5 frames @ 5.0 FPS** | **44s** | Mèo cầm muôi gỗ khuấy nồi nước dùng hầm xương nghi ngút khói |
 | **Món Bít Tết Hảo Hạng** | Ribeye Steak | `sizzle` | `toss` | 4 frames @ 4.5 FPS | **45s** | Áp chảo bơ tỏi hương thảo kỳ công đạt chuẩn medium-rare |
-| **Ăn Mừng Hoàn Thành** | *Tất cả 16 món khi nấu xong hoặc nhận !khen* | `serve` | `cheer` | 4 frames @ 4.0 FPS | — | Mèo giơ 2 chân `\(=^o^=)/`, mắt nhắm cong `^ ^`, má hồng ăn mừng |
+| **Mời Dùng Bữa** | *Tất cả 16 món khi nấu xong (Dōzo meshiagare)* | `serve` | `serve` | **4 frames @ 4.0 FPS** | — | Cúi chào hiếu khách, mắt cười nhắm cong `^‿^`, má hồng phấn, lấp lánh chào mừng |
+| **Ăn Mừng Donate** | *Chỉ kích hoạt khi Viewer Donate / !tip / !donate* | `donate` | `cheer` | **4 frames @ 4.0 FPS** | — | Mèo giơ 2 chân `\(=^o^=)/`, mắt nhắm cong `^ ^`, nhảy múa ăn mừng rạng rỡ |
 | **Chờ Order** | *Khi chưa có lệnh !cook* | `idle` | `idle` | 4 frames @ 3.0 FPS | — | Mèo đứng thẳng sau quầy, chớp mắt tự nhiên, đuôi vẫy nhẹ |
 
 ---

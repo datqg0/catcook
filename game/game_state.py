@@ -37,6 +37,9 @@ class GameState:
 
         # Auto-idle chef mechanism
         self.idle_timer = 0.0
+        self.elapsed_total = 0.0
+        self.last_donate_timestamp = -999.0
+        self.serve_timestamp = -999.0
 
         # Hook for particle callbacks
         self.on_cheer_callback = None
@@ -147,6 +150,7 @@ class GameState:
         return True
 
     def tip(self, user, amount=100):
+        self.last_donate_timestamp = getattr(self, "elapsed_total", 0.0)
         self.add_exp(amount // 2)
         # Update user in leaderboard
         found = False
