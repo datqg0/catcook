@@ -1,0 +1,17 @@
+# ==============================================================================
+# Cozy Midnight Diner - 24/7 Interactive YouTube Stream
+# Requirements file
+# ==============================================================================
+
+# Core 2D Game & Rendering Engine
+pygame-ce>=2.5.0
+
+# HTTP requests for YouTube Live Chat API poller
+requests>=2.31.0
+
+# Image & Sprite processing utilities
+Pillow>=10.0.0
+numpy>=1.24.0
+
+# Testing (optional)
+pytest>=8.0.0

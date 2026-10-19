@@ -6,4 +6,7 @@ assets/test_*.png
 assets/inspect_*.png
 assets/tray_*.png
 assets/current_test_render.png
+assets/automated_test_pass.png
 assets/backgrounds/diner_bg_clean_master.png
+assets/backgrounds/test_*.png
+assets/animations/test_*.png
