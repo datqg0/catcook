@@ -9,10 +9,16 @@ set -euo pipefail
 
 # 1. Read Stream Key from config or environment
 CONFIG_FILE="$(dirname "$0")/../config/config.json"
-STREAM_KEY="${STREAM_KEY:-}"
+# Detect Python executable (.venv preferred)
+PYTHON_BIN="python3"
+if [ -f "$(dirname "$0")/../.venv/bin/python3" ]; then
+    PYTHON_BIN="$(dirname "$0")/../.venv/bin/python3"
+elif [ -f "$(dirname "$0")/../venv/bin/python3" ]; then
+    PYTHON_BIN="$(dirname "$0")/../venv/bin/python3"
+fi
 
 if [ -z "$STREAM_KEY" ] && [ -f "$CONFIG_FILE" ]; then
-    STREAM_KEY=$(python3 -c "import json; print(json.load(open('$CONFIG_FILE'))['stream'].get('stream_key', ''))")
+    STREAM_KEY=$("$PYTHON_BIN" -c "import json; print(json.load(open('$CONFIG_FILE'))['stream'].get('stream_key', ''))")
 fi
 
 if [ -z "$STREAM_KEY" ] || [ "$STREAM_KEY" = "YOUR_YOUTUBE_STREAM_KEY_HERE" ]; then
@@ -27,14 +33,15 @@ export DISPLAY=:99
 
 cleanup() {
     echo "[Stream] Stopping services..."
-    kill $XVFB_PID || true
+    [ -n "${GAME_PID:-}" ] && kill $GAME_PID 2>/dev/null || true
+    kill $XVFB_PID 2>/dev/null || true
 }
-trap cleanup EXIT
+trap cleanup EXIT INT TERM
 
 sleep 2
 
-echo "[Stream] Launching Cozy Midnight Diner on virtual display..."
-python3 "$(dirname "$0")/../main.py" &
+echo "[Stream] Launching Cozy Midnight Diner on virtual display using $PYTHON_BIN..."
+"$PYTHON_BIN" "$(dirname "$0")/../main.py" &
 GAME_PID=$!
 
 sleep 3
