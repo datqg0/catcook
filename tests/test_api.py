@@ -60,9 +60,23 @@ def test_donate_receiver_simulation():
     # Verify waffles was added to queue
     assert any("waffles" in item["key"] for item in state.order_queue)
 
+    # 3. Test SePay VietQR webhook payload (e.g. 50,000 VND -> 250 coins)
+    sepay_payload = {
+        "id": 99999,
+        "gateway": "MBBank",
+        "transferAmount": 50000,
+        "transferType": "in",
+        "content": "Hoang Nam ung ho !cook ramen",
+        "name": "Hoang Nam"
+    }
+    ok, msg = receiver.process_donation(sepay_payload)
+    assert ok is True
+    assert any("ramen" in item["key"] for item in state.order_queue)
+
     status = receiver.get_status()
-    assert status["total_count"] == 2
-    assert status["total_usd"] == 15.0
-    assert status["last_donation"]["user"] == "@VIPFan"
+    assert status["total_count"] == 3
+    assert status["last_donation"]["user"] == "@Hoang Nam"
+    assert status["last_donation"]["currency"] == "VND"
+    assert status["last_donation"]["coins"] == 250
 
     receiver.stop()

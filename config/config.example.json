@@ -20,6 +20,7 @@
     "webhook_port": 8088,
     "webhook_secret": "",
     "usd_to_coins": 100,
+    "vnd_to_coins": 0.005,
     "auto_cook_on_message": true
   },
   "game": {

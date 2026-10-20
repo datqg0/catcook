@@ -99,6 +99,7 @@ class DonateReceiver:
         self.enabled = True
         self.secret_token = ""
         self.usd_to_coins = 100  # Default: $1.00 USD = 100 game coins
+        self.vnd_to_coins = 0.005  # Default: 20,000 VND = 100 game coins (1,000 VND = 5 coins)
         self.auto_cook_on_message = True
         self.last_donation = None
         self.total_donations_count = 0
@@ -116,6 +117,7 @@ class DonateReceiver:
                 self.port = int(d_conf.get("webhook_port", 8088))
                 self.secret_token = d_conf.get("webhook_secret", "").strip()
                 self.usd_to_coins = int(d_conf.get("usd_to_coins", 100))
+                self.vnd_to_coins = float(d_conf.get("vnd_to_coins", 0.005))
                 self.auto_cook_on_message = d_conf.get("auto_cook_on_message", True)
         except Exception as e:
             print(f"[DonateReceiver] Error loading config: {e}")
@@ -156,36 +158,60 @@ class DonateReceiver:
         print("[DonateReceiver] Donate Webhook server stopped.")
 
     def process_donation(self, payload):
-        """Parses donation payload from Streamlabs, Ko-fi, or PayPal."""
-        # 1. Extract donor name
-        name = (
-            payload.get("from_name") or
-            payload.get("name") or
-            payload.get("donor") or
-            payload.get("user") or
-            payload.get("username") or
-            "Generous Guest"
-        ).strip()
+        """Parses donation payload from SePay/VietQR, Streamlabs, Ko-fi, or PayPal."""
+        # Check SePay outgoing transaction (ignore out, only process in)
+        if payload.get("transferType") == "out":
+            return True, "Ignored outgoing transfer"
+
+        # 1. Detect SePay / Casso banking format
+        is_sepay = "transferAmount" in payload
+        if is_sepay:
+            raw_amount = payload.get("transferAmount", 10000)
+            currency = "VND"
+            message = (payload.get("content") or payload.get("description") or "").strip()
+            name = (
+                payload.get("name") or
+                payload.get("donor") or
+                payload.get("user") or
+                payload.get("gateway") or
+                "VietQR Guest"
+            ).strip()
+        else:
+            # Standard Streamlabs / Ko-fi / Generic format
+            name = (
+                payload.get("from_name") or
+                payload.get("name") or
+                payload.get("donor") or
+                payload.get("user") or
+                payload.get("username") or
+                "Generous Guest"
+            ).strip()
+            raw_amount = payload.get("amount", 1.0)
+            currency = payload.get("currency", "USD").upper()
+            message = (payload.get("message") or payload.get("comment") or "").strip()
+
         formatted_user = name if name.startswith("@") else f"@{name}"
 
-        # 2. Extract amount and currency
-        raw_amount = payload.get("amount", 1.0)
-        currency = payload.get("currency", "USD").upper()
+        # 2. Parse numeric amount
         try:
             amount_val = float(raw_amount)
         except (ValueError, TypeError):
             amount_val = 1.0
 
-        # 3. Extract message
-        message = (payload.get("message") or payload.get("comment") or "").strip()
+        # 3. Currency conversion (VND vs USD/Other)
+        is_vnd = currency in ("VND", "VNĐ") or amount_val >= 1000
+        if is_vnd:
+            currency = "VND"
+            coins = int(amount_val * self.vnd_to_coins)
+            self.total_donated_usd += round(amount_val / 25000.0, 2)
+        else:
+            coins = int(amount_val * self.usd_to_coins)
+            self.total_donated_usd += amount_val
 
-        # 4. Convert to game coins
-        coins = int(amount_val * self.usd_to_coins)
         if coins < 10:
             coins = 10
 
         self.total_donations_count += 1
-        self.total_donated_usd += amount_val
         self.last_donation = {
             "user": formatted_user,
             "amount": amount_val,
