@@ -149,7 +149,7 @@ Cửa sổ game **Cozy Midnight Diner** sẽ xuất hiện với âm nhạc Lofi
    - Vào mục **Credentials** → Chọn **Create Credentials** → **API key**. Sao chép mã API key nhận được.
 
 2. **Cấu hình vào game:**
-   - Mở file [`config/config.json`](file:///c:/Users/dat/Downloads/catcook/config/config.json) hoặc điền trực tiếp trong Tab 4 của **Studio Controller**:
+   - Mở file [`config/config.json`](file:///c:/Users/dat/Downloads/catcook/config/config.json) (hệ thống sẽ tự động tạo từ `config/config.example.json` khi chạy game lần đầu, hoặc bạn có thể tự copy) hoặc điền trực tiếp trong Tab 4 của **Studio Controller**:
      ```json
      "youtube": {
        "api_key": "AIzaSyYourGoogleApiKeyHere...",

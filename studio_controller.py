@@ -41,24 +41,31 @@ COLOR_INPUT_BG = "#101620"
 ALL_MENU_ITEMS = [
     ("ramen", "Tonkotsu Ramen"),
     ("pizza", "Pepperoni Pizza"),
-    ("tacos", "Birria Tacos"),
+    ("burger", "Smash Burger"),
+    ("sushi", "Salmon Sushi"),
+    ("pancakes", "Fluffy Pancakes"),
     ("boba", "Boba Milk Tea"),
-    ("matcha", "Matcha Parfait"),
-    ("curry", "Japanese Katsu Curry"),
-    ("dumplings", "Steamy Xiao Long Bao"),
-    ("gyoza", "Crispy Pan-fried Gyoza"),
-    ("sushi", "Salmon Nigiri Sushi"),
-    ("udon", "Golden Tempura Udon"),
-    ("waffles", "Belgian Waffle Tower"),
-    ("taiyaki", "Honey Glazed Taiyaki"),
-    ("matcha_boba", "Matcha Boba Float"),
-    ("shoyu_ramen", "Shoyu Ramen Classic"),
-    ("pasta", "Creamy Carbonara"),
-    ("coffee", "Iced Caramel Latte")
+    ("chicken", "Korean Fried Chicken"),
+    ("steak", "Ribeye Steak"),
+    ("tacos", "Birria Tacos"),
+    ("dumplings", "Xiao Long Bao"),
+    ("carbonara", "Creamy Carbonara"),
+    ("hotdog", "NYC Loaded Hot Dog"),
+    ("donut", "Strawberry Donut"),
+    ("waffles", "Belgian Waffles"),
+    ("curry", "Katsu Curry Bowl"),
+    ("latte", "Iced Caramel Latte")
 ]
 
 
 def load_local_config():
+    example_path = os.path.join(BASE_DIR, "config", "config.example.json")
+    if not os.path.exists(CONFIG_PATH) and os.path.exists(example_path):
+        try:
+            import shutil
+            shutil.copy2(example_path, CONFIG_PATH)
+        except Exception:
+            pass
     if os.path.exists(CONFIG_PATH):
         try:
             with open(CONFIG_PATH, "r", encoding="utf-8") as f:

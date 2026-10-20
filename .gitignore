@@ -10,3 +10,19 @@ assets/automated_test_pass.png
 assets/backgrounds/diner_bg_clean_master.png
 assets/backgrounds/test_*.png
 assets/animations/test_*.png
+
+# Secrets & Environment (QUAN TRỌNG: không push lên Git!)
+config/config.json
+.env
+
+# Virtual Environment
+.venv/
+venv/
+
+# Logs
+logs/
+*.log
+
+# IDE
+.vscode/
+.idea/

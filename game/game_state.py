@@ -8,7 +8,7 @@ from game.config import MENU_ITEMS, COLOR_TEXT_GREEN, COLOR_TEXT_PINK, COLOR_TEX
 
 
 class GameState:
-    def __init__(self):
+    def __init__(self, idle_timeout_seconds=4.0):
         self.diner_level = 27
         self.exp = 1250
         self.max_exp = 2000
@@ -37,6 +37,7 @@ class GameState:
 
         # Auto-idle chef mechanism
         self.idle_timer = 0.0
+        self.idle_timeout = idle_timeout_seconds
         self.elapsed_total = 0.0
         self.last_donate_timestamp = -999.0
         self.serve_timestamp = -999.0
@@ -223,7 +224,7 @@ class GameState:
                 self.start_cooking(next_order["key"], next_order["user"])
             else:
                 self.idle_timer += dt
-                if self.idle_timer > 3.0:
+                if self.idle_timer > self.idle_timeout:
                     self.idle_timer = 0.0
                     walk_ins = ["@MochiCat", "@RainyWanderer", "@ChillGuest", "@NightOwl", "@Passerby"]
                     random_guest = random.choice(walk_ins)

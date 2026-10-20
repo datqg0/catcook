@@ -41,6 +41,20 @@ class DonateHandler(BaseHTTPRequestHandler):
             self.end_headers()
             return
 
+        # Verify webhook secret token if configured
+        if receiver.secret_token:
+            provided_secret = (
+                self.headers.get("X-Webhook-Secret", "") or
+                self.headers.get("Authorization", "").removeprefix("Bearer ").strip()
+            )
+            if provided_secret != receiver.secret_token:
+                print(f"[DonateReceiver] Rejected webhook: invalid secret token")
+                self.send_response(403)
+                self.send_header("Content-Type", "application/json")
+                self.end_headers()
+                self.wfile.write(b'{"error": "Invalid or missing webhook secret"}')
+                return
+
         content_type = self.headers.get("Content-Type", "")
         payload = {}
 

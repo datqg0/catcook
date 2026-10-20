@@ -27,6 +27,11 @@ from youtube.chat_poller import YouTubeChatPoller
 
 def load_config():
     config_file = os.path.join(os.path.dirname(__file__), "config", "config.json")
+    example_file = os.path.join(os.path.dirname(__file__), "config", "config.example.json")
+    if not os.path.exists(config_file) and os.path.exists(example_file):
+        import shutil
+        shutil.copy2(example_file, config_file)
+        print("[Config] Created config.json from config.example.json — please edit with your real keys.")
     if os.path.exists(config_file):
         try:
             with open(config_file, "r", encoding="utf-8") as f:
@@ -69,7 +74,9 @@ def main():
     clock = pygame.time.Clock()
 
     # Initialize Core Systems
-    state = GameState()
+    state = GameState(
+        idle_timeout_seconds=game_cfg.get("idle_timeout_seconds", 4.0)
+    )
     renderer = DinerRenderer()
     particles = ParticleManager(
         heart_img=renderer.ui_icons.get("heart"),
