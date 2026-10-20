@@ -17,6 +17,8 @@ elif [ -f "$(dirname "$0")/../venv/bin/python3" ]; then
     PYTHON_BIN="$(dirname "$0")/../venv/bin/python3"
 fi
 
+STREAM_KEY="${STREAM_KEY:-}"
+
 if [ -z "$STREAM_KEY" ] && [ -f "$CONFIG_FILE" ]; then
     STREAM_KEY=$("$PYTHON_BIN" -c "import json; print(json.load(open('$CONFIG_FILE'))['stream'].get('stream_key', ''))")
 fi
