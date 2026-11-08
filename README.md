@@ -16,6 +16,9 @@ pip install -r requirements.txt
 # Khởi chạy game chính:
 python main.py
 
+# Chạy xem trước cục bộ, không bật các tích hợp ngoài:
+python main.py --preview
+
 # Hoặc khởi chạy game kèm bàn điều khiển Studio Controller:
 python main.py --studio
 ```

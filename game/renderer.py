@@ -33,6 +33,11 @@ class DinerRenderer:
         self._load_assets()
         # Animation & visual timers
         self.anim_timer = 0.0
+        self.chef_action = None
+        self.chef_action_timer = 0.0
+        self.idle_blink_elapsed = 0.0
+        self.idle_blink_remaining = 0.0
+        self.idle_next_blink = random.uniform(3.8, 5.4)
         self.live_blink_timer = 0.0
         self.sweep_pos = 0.0
         self.lantern_glow = self._create_lantern_glow(95)
@@ -122,11 +127,23 @@ class DinerRenderer:
         else:
             self.neko_paw = None
 
+        # Small waving maneki-neko figurine, anchored on the back counter.
+        self.maneki_frames = []
+        maneki_dir = os.path.join(anim_dir, "maneki_v2")
+        if os.path.isdir(maneki_dir):
+            for i in range(8):
+                fpath = os.path.join(maneki_dir, f"frame_{i}.png")
+                if os.path.exists(fpath):
+                    img = pygame.image.load(fpath)
+                    if has_display:
+                        img = img.convert_alpha()
+                    self.maneki_frames.append(pygame.transform.smoothscale(img, (120, 135)))
+
         # 3. Action Sprite Sequences (preserved for full backward compatibility & unit tests)
         self.chef_animations = {}
         self.chef_animations_scaled = {}
-        scale = 0.82
-        for action in ["idle", "walk", "run", "jump", "attack", "toss", "stir", "chop", "cheer", "bartender", "bake", "serve"]:
+        for action in ["idle", "walk", "run", "jump", "attack", "toss", "stir", "chop", "cheer", "bartender", "bake", "serve", "bartender_v2", "bake_v2", "chop_v2"]:
+            scale = 0.86 if action in {"bartender_v2", "bake_v2", "chop_v2"} else 0.82
             act_dir = os.path.join(anim_dir, action)
             self.chef_animations[action] = []
             self.chef_animations_scaled[action] = []
@@ -193,7 +210,7 @@ class DinerRenderer:
         self._render_lucky_cat(surface)
 
         # 6. Chef Cat Character Animation (Layer 2: standing on floor behind counter)
-        self._render_chef_character(surface, state)
+        self._render_chef_character(surface, state, dt)
 
         # 6b. Foreground Counter & Stove (Layer 3 & 4: stove & dining counter in front)
         if hasattr(self, "fg_counter") and self.fg_counter:
@@ -242,18 +259,21 @@ class DinerRenderer:
             surface.blit(scaled, (lx - w // 2, ly - h // 2), special_flags=pygame.BLEND_ADD)
 
     def _render_lucky_cat(self, surface):
-        """Animates lucky waving cat paw if statue body is present."""
-        # Only render if explicitly configured with statue base
-        return
+        """Draw the small lucky-cat figurine waving on the back counter."""
+        if not self.maneki_frames:
+            return
+        frame_idx = int(self.anim_timer * 3.0) % len(self.maneki_frames)
+        surface.blit(self.maneki_frames[frame_idx], (512, 408))
 
-    def _render_chef_character(self, surface, state):
+    def _render_chef_character(self, surface, state, dt=0.0):
         """
         Renders the animated chef character (Layer 2) standing behind the counter.
         Action switches dynamically per dish cooking technique (cook_type):
-        - drink_shake / bartender / brew -> 'bartender' (Lắc bình shaker điệu nghệ phong cách bartender quán bar/cafe)
-        - simmer / bake / steam_basket -> 'stir' (Khuấy nồi súp broth)
+        - drink_shake / bartender / brew -> 'bartender_v2' (Lắc bình shaker điệu nghệ phong cách bartender quán bar/cafe)
+        - simmer / steam_basket -> 'stir' (Khuấy nồi súp broth)
+        - bake / oven / baker / pastry -> 'bake_v2' (Đưa pizza ra lò)
         - pan_toss / sizzle / deepfry -> 'toss' (Lắc chảo / lật đồ ăn)
-        - slice / prep -> 'chop' (Cắt thái dao trên thớt)
+        - slice / prep -> 'chop_v2' (Cắt thái dao trên thớt)
         - is_donated -> 'cheer' (Ăn mừng nhảy múa khi có donate/tip)
         - is_serving -> 'serve' (Mời dùng bữa / Dōzo meshiagare khi nấu xong món)
         - idle -> 'idle' (Đứng chờ order, chớp mắt tự nhiên)
@@ -274,21 +294,21 @@ class DinerRenderer:
             pos = (200, 205)
         elif is_cooking:
             if cook_type in ["drink_shake", "bartender", "brew", "shake"]:
-                action = "bartender"
-                fps = 5.2
+                action = "bartender_v2"
+                fps = 2.6
                 pos = (200, 200)
             elif cook_type in ["bake", "oven", "baker", "pastry"]:
-                action = "bake"
-                fps = 4.0
-                pos = (195, 140)
+                action = "bake_v2"
+                fps = 2.0
+                pos = (200, 200)
             elif cook_type in ["pan_toss", "sizzle", "deepfry"]:
                 action = "toss"
                 fps = 4.5
                 pos = (195, 200)
             elif cook_type in ["slice", "prep"]:
-                action = "chop"
-                fps = 4.5
-                pos = (200, 205)
+                action = "chop_v2"
+                fps = 3.0
+                pos = (200, 200)
             else:  # simmer, steam_basket, default
                 action = "stir"
                 fps = 5.0
@@ -298,10 +318,42 @@ class DinerRenderer:
             fps = 3.0
             pos = (200, 200)
 
+        # Start each action on its first authored frame. Using the global scene
+        # clock can enter a new sequence halfway through a gesture.
+        if action != self.chef_action:
+            self.chef_action = action
+            self.chef_action_timer = 0.0
+            if action == "idle":
+                self.idle_blink_elapsed = 0.0
+                self.idle_blink_remaining = 0.0
+                self.idle_next_blink = random.uniform(3.8, 5.4)
+        else:
+            self.chef_action_timer += dt
+
         scaled_frames = getattr(self, "chef_animations_scaled", {}).get(action) or self.chef_animations.get(action, [])
         if scaled_frames:
-            frame_idx = int(self.anim_timer * fps) % len(scaled_frames)
-            surface.blit(scaled_frames[frame_idx], pos)
+            if action == "idle":
+                self.idle_blink_elapsed += dt
+                self.idle_blink_remaining = max(0.0, self.idle_blink_remaining - dt)
+                if self.idle_blink_elapsed >= self.idle_next_blink:
+                    self.idle_blink_elapsed = 0.0
+                    self.idle_blink_remaining = 0.13
+                    self.idle_next_blink = random.uniform(3.8, 5.4)
+                frame_idx = 1 if self.idle_blink_remaining > 0.0 and len(scaled_frames) > 1 else 0
+                idle_breath = round(math.sin(self.anim_timer * 1.3) * 1.5)
+            else:
+                frame_idx = int(self.chef_action_timer * fps) % len(scaled_frames)
+                idle_breath = 0
+
+            frame = scaled_frames[frame_idx]
+            if action in {"bartender_v2", "bake_v2", "chop_v2"}:
+                draw_x = (CANVAS_WIDTH - frame.get_width()) // 2
+                # Lift the utensil/food line just above the foreground counter
+                # while keeping the chef's face aligned with the idle pose.
+                draw_y = 178
+            else:
+                draw_x, draw_y = pos
+            surface.blit(frame, (draw_x, draw_y + idle_breath))
         elif self.happy_overlay and (is_donated or is_serving):
             surface.blit(self.happy_overlay, (0, 0))
         elif self.blink_overlay and (self.anim_timer % 4.2) < 0.16:

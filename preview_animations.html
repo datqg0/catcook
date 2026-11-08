@@ -91,7 +91,7 @@
       <h3>1. Đứng Chờ (Idle)</h3>
       <div class="sub">Khi chưa có order</div>
       <img src="assets/animations/preview_idle.gif" alt="Idle Animation">
-      <div class="badge">Chớp mắt & Mỉm cười</div>
+      <div class="badge">Chớp mắt thưa hơn & nhịp thở nhẹ</div>
     </div>
 
     <div class="card">
@@ -111,8 +111,8 @@
     <div class="card">
       <h3>4. Cắt Thái (Chop)</h3>
       <div class="sub">Salmon Sushi, Rau củ</div>
-      <img src="assets/animations/preview_chop.gif" alt="Chop Animation">
-      <div class="badge">Thái dao nhịp nhàng</div>
+      <img src="assets/animations/preview_chop_v2.gif" alt="Chop Animation">
+      <div class="badge">Nhấc dao, chặt rau theo nhịp</div>
     </div>
 
     <div class="card">
@@ -125,15 +125,15 @@
     <div class="card" style="border-color: #50d7ff;">
       <h3>6. Bartender Pha Chế (Bartender)</h3>
       <div class="sub">Trà sữa Boba (30s) & Cà phê Latte (32s)</div>
-      <img src="assets/animations/preview_bartender.gif" alt="Bartender Animation">
-      <div class="badge" style="background: rgba(80, 215, 255, 0.2); border-color: #50d7ff; color: #50d7ff;">🍸 16 Frames Rung Lắc Sống Động (Tay Mèo & Cốc Nước Rung Rung, Vệt Sóng Tốc Độ, 0px Jitter)</div>
+      <img src="assets/animations/preview_bartender_v2.gif" alt="Bartender Animation">
+      <div class="badge" style="background: rgba(80, 215, 255, 0.2); border-color: #50d7ff; color: #50d7ff;">🍸 8 frame, neo chân cố định, vòng lặp khoảng 3,1 giây</div>
     </div>
 
     <div class="card" style="border-color: #ff913c;">
       <h3>7. Nướng Bánh Lò Đá (Bake)</h3>
       <div class="sub">Pizza, Donut, Waffles</div>
-      <img src="assets/animations/preview_bake.gif" alt="Bake Animation">
-      <div class="badge" style="background: rgba(255, 145, 60, 0.2); border-color: #ff913c; color: #ff913c;">🍕 Găng Tay Lò Nướng & Xẻng Bánh Nổi Hoàn Toàn Trên Quầy</div>
+      <img src="assets/animations/preview_bake_v2.gif" alt="Bake Animation">
+      <div class="badge" style="background: rgba(255, 145, 60, 0.2); border-color: #ff913c; color: #ff913c;">🍕 Găng tay đỏ đưa pizza ra quầy, giữ cùng baseline</div>
     </div>
 
     <div class="card" style="border-color: #e59866;">
@@ -142,18 +142,31 @@
       <img src="assets/animations/preview_serve.gif" alt="Serve Animation">
       <div class="badge" style="background: rgba(229, 152, 102, 0.2); border-color: #e59866; color: #ffbe88;">🍱 Cúi Chào Hiếu Khách, Mắt Cười Nhắm Cong ^‿^ & Má Hồng</div>
     </div>
+
+    <div class="card" style="border-color: #ffcc4d;">
+      <h3>9. Mèo May Mắn</h3>
+      <div class="sub">Vẫy tay trên quầy phía sau</div>
+      <img src="assets/animations/preview_maneki_v2.gif" alt="Waving Maneki Neko Animation">
+      <div class="badge">Tượng giữ nguyên vị trí, chỉ vẫy chân</div>
+    </div>
   </div>
 
   <div class="scene-preview" style="margin-bottom: 24px;">
-    <h3 style="color: #ffcc4d; margin-top: 0;">🍕 Toàn Cảnh Trong Game: Mèo Nướng Bánh Pizza & Waffles</h3>
-    <p style="color: #b4aaa0; font-size: 14px;">Mèo đầu bếp đeo găng tay lò nướng đỏ, cầm xẻng gỗ nướng bánh phô mai tan chảy bốc khói thơm lừng, mắt lấp lánh ánh sao.</p>
-    <img src="assets/verified_render_cooking_pizza.png" alt="In-Game Bake Pizza Scene">
+    <h3 style="color: #ffcc4d; margin-top: 0;">🍕 Hoạt Ảnh Nướng Bánh (Bake)</h3>
+    <p style="color: #b4aaa0; font-size: 14px;">Bốn pose mèo đầu bếp đeo găng, đưa pizza lên quầy và mời khách.</p>
+    <img src="assets/animations/preview_bake_v2.gif" alt="Bake Animation Preview">
   </div>
 
   <div class="scene-preview">
     <h3 style="color: #ffcc4d; margin-top: 0;">📸 Toàn Cảnh Trong Game: Pha Trà Sữa & Cà Phê (30s - 45s)</h3>
-    <p style="color: #b4aaa0; font-size: 14px;">Mèo đứng sau quầy bar lắc shaker điệu nghệ, hoạt ảnh 8 frames nhịp nhàng 5 FPS (1.6s/vòng lặp), hiệu ứng đá lạnh bọt tuyết bay quanh.</p>
-    <img src="assets/verified_render_cooking_latte.png" alt="In-Game Bartender Scene">
+    <p style="color: #b4aaa0; font-size: 14px;">Mèo đứng sau quầy bar lắc shaker qua tám pose đã căn baseline, 2.6 FPS (~3.1s/vòng lặp).</p>
+    <img src="assets/verified_render_boba_v2.png" alt="Updated In-Game Bartender Scene">
+  </div>
+
+  <div class="scene-preview" style="margin-top: 24px;">
+    <h3 style="color: #ffcc4d; margin-top: 0;">🍜 Món đã dọn lên quầy</h3>
+    <p style="color: #b4aaa0; font-size: 14px;">Icon món ăn mới dùng minh họa mềm và cùng tông ấm với cảnh quán.</p>
+    <img src="assets/verified_render_served_ramen_v2.png" alt="Updated Served Ramen Scene">
   </div>
 </body>
 </html>

@@ -59,8 +59,9 @@ def main():
     cfg = load_config()
     game_cfg = cfg.get("game", {})
     config_path = os.path.join(os.path.dirname(__file__), "config", "config.json")
+    preview_mode = "--preview" in sys.argv
 
-    # Initialize Audio System (Lofi music + SFX)
+    # Initialize Audio System (chill background music + SFX)
     audio = AudioManager(
         music_volume=game_cfg.get("music_volume", 0.55),
         sfx_volume=game_cfg.get("sfx_volume", 0.70)
@@ -95,7 +96,8 @@ def main():
 
     # Independent Studio Controller IPC Bridge
     studio_bridge = StudioBridge()
-    studio_bridge.start()
+    if not preview_mode:
+        studio_bridge.start()
 
     # Auto-launch Studio Controller if requested via CLI
     if "--studio" in sys.argv:
@@ -103,11 +105,15 @@ def main():
 
     # YouTube Chat Poller (if configured with API key)
     chat_poller = YouTubeChatPoller(dispatcher, config_path=config_path)
-    chat_poller.start()
+    if not preview_mode:
+        chat_poller.start()
 
     # Universal International Donate Webhook Receiver (Streamlabs / Ko-fi / PayPal)
     donate_receiver = DonateReceiver(state, dispatcher, config_path=config_path)
-    donate_receiver.start()
+    if not preview_mode:
+        donate_receiver.start()
+    else:
+        print("[Main] Preview mode: YouTube, Donate Webhook, and Studio Bridge are disabled.")
 
     # Wire Visual & Audio Event Hooks
     state.on_cheer_callback = lambda: (
